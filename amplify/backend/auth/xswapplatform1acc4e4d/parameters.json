@@ -1,6 +1,6 @@
 {
     "identityPoolName": "xswapplatform1acc4e4d_identitypool_1acc4e4d",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "xswapp1acc4e4d",
     "userPoolName": "xswapplatform1acc4e4d_userpool_1acc4e4d",
     "autoVerifiedAttributes": [
