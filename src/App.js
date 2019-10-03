@@ -55,7 +55,7 @@ return (
 //he simplest way to add authentication flows into your app is to use the withAuthenticator Higher Order Component.
 //withAuthenticator automatically detects the authentication state and updates the UI. If the user is signed in, 
 // the underlying component (typically your app’s main component) is displayed otherwise signin/signup controls are displayed.
-export default withAuthenticator(App, true);
+export default App;
 /*
 Now, your app has complete flows for user sign-in and registration. Since you have wrapped your App with withAuthenticator, 
 only signed in users can access your app. The routing for login pages and giving access to your App Component will 
