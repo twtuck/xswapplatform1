@@ -1,6 +1,7 @@
 import React from 'react';
 
-import logo from './logo.svg';
+import Header from './Header';
+import AppManager from './Components/AppManager';
 import './App.css';
 import Menu from './Menu'
 
@@ -35,19 +36,16 @@ function App() {
     // OPTIONAL, the service provider, by default is the AWS Pinpoint
     provider: 'AWSPinpoint'
 });
-  return (
-   
-    <div className="App">
-      <Menu/>
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        
-      </header>
-      
-     
-    </div>
-    
-  );
+  
+return (
+  <div>
+  <Header />
+  <Menu/>
+      <div className="container mt-5">
+          <AppManager></AppManager>
+      </div>
+  </div>
+);
   
 }
 
