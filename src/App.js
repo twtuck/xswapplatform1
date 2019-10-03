@@ -39,8 +39,7 @@ function App() {
   
 return (
   <div>
-  <Header />
-  <Menu/>
+  <Header/>
       <div className="container mt-5">
           <AppManager></AppManager>
       </div>

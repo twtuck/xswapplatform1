@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 class ControlPanel extends Component {
 
@@ -24,13 +26,13 @@ class ControlPanel extends Component {
                 <div className="input-group input-group-lg">
                     <span className="input-group-btn">
                         <button className="btn btn-primary" type="button" onClick={this.props.openAddAppModal}>
-                            <i className="fa fa-plus"></i>
+                            <FontAwesomeIcon icon={faPlus} />
                         </button>
                     </span>
                     <input type="text" className="form-control" placeholder="Search for app by title ..." value={this.state.title} onChange={this.onSearchTitleChanged} />
                     <span className="input-group-btn">
                         <button className="btn btn-primary" type="button" onClick={() => this.props.onFindApps(this.state.title)} >
-                            <i className="fa fa-search"></i>
+                            <FontAwesomeIcon icon={faSearch} />
                         </button>
                     </span>
                 </div>        
