@@ -1,14 +1,16 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import Pagination from 'react-bootstrap/Pagination';
+import React from 'react';
 
 const AppTable = (props) => {
     const apps = props.apps;
+    console.log(props.apps)
 
     const appRows = apps.map(app => {
 
         let classes = `small ${!!app.isNew ? 'table-success' : ''}`;
         
+    console.log(props)
         return (
             <tr key={app.id.toString()} className={classes}>
                 <td className="align-middle" style={{width: '80px'}}>
@@ -21,13 +23,12 @@ const AppTable = (props) => {
                         </a>
                     </div>                
                 </td>
-                <td className="align-middle">{app.title}</td>
+                <td className="align-middle">{app.name}</td>
                 <td className="align-middle">
                     <span className="d-inline-block text-truncate" style={{maxWidth: '200px'}}>
-                        {app.content}
+                        {app.description}
                     </span>                
                 </td>
-                <td className="align-middle">{`${new Date(app.updatedDate).toISOString().slice(0, 10)} ${new Date(app.updatedDate).toISOString().slice(11, 16)}`}</td>
             </tr>
         );
     });
@@ -40,7 +41,6 @@ const AppTable = (props) => {
                         <th></th>
                         <th className="align-middle text-center">Application name</th>
                         <th className="align-middle text-center">Application Description</th>
-                        <th className="align-middle text-center">Updated Date</th>
                     </tr>
                 </thead>
                 <tbody>

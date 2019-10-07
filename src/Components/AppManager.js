@@ -4,6 +4,8 @@ import AddForm from './AddForm';
 import EditForm from './EditForm';
 import AppTable from './AppTable';
 import ControlPanel from './ControlPanel';
+import axios from 'axios';
+import { withAuthenticator } from 'aws-amplify-react';
 
 class AppManager extends Component {
     constructor(props) {
@@ -36,21 +38,20 @@ class AppManager extends Component {
 
 
     listApps() {
-        // AppService
-        //     .listApps()
-        //     .then(apps => {
-        //         this.setState({apps});
-        //         return;
-        //     })
-        //     .catch(error => {
-        //         console.log(error);
-        //         return;
-        //     });
+        const url = 'https://my-json-server.typicode.com/michelle-phan/fakeAPIs/apps';
+        axios.get(url).then(response => {
+            this.setState({ apps: response.data })
+        })
+            .catch(error => {
+                console.log(error);
+                return;
+            });
     }
 
 
     handleOnDeleteApp(appId) {
 
+        console.log('handleOnDeleteApp ' + appId);
         if (appId < 1) {
             throw Error('Cannot remove app. Invalid app id specified');
         }
@@ -155,6 +156,7 @@ class AppManager extends Component {
 
     handleOpenEditAppModal(appId) {
 
+        console.log('handleOpenEditAppModal ' + appId);
         if (!appId || appId < 1) {
             throw Error('Cannot edit app. Invalid app id specified.');
         }
@@ -224,5 +226,19 @@ class AppManager extends Component {
         );
     }
 }
+const signUpConfig = {
+    header: 'My Customized Sign Up',
+    hideAllDefaults: true,
+    defaultCountryCode: '1',
+    signUpFields: [
+      {
+        label: 'My custom email label',
+        key: 'email',
+        required: true,
+        displayOrder: 1,
+        type: 'string'
+      }
+    ]
+  };
 
-export default AppManager;
+export default withAuthenticator(AppManager, true);

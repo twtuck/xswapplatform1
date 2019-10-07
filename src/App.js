@@ -1,19 +1,18 @@
 import React from 'react';
 
 import Header from './Header';
-import AppManager from './Components/AppManager';
+import { Navigator, Main } from './components';
 import './App.css';
-import Menu from './Menu'
 
 import Amplify from 'aws-amplify';
 import Analytics from '@aws-amplify/analytics';
 
 // Get the aws resources configuration parameters
 import awsconfig from './aws-exports';
-import { withAuthenticator } from 'aws-amplify-react';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 Amplify.configure(awsconfig);
-Analytics.configure(awsconfig)
+Analytics.configure(awsconfig);
 
 function App() {
  
@@ -38,15 +37,25 @@ function App() {
 });
   
 return (
-  <div>
-  <Header/>
-      <div className="container mt-5">
-          <AppManager></AppManager>
-      </div>
-  </div>
+  <Router>
+    <div>
+      <React.Fragment>
+        <Navigator />
+        <Main />
+      </React.Fragment>
+    </div>
+  </Router>
 );
   
 }
+
+//<Header/>
+//<div className="container mt-5">
+//    <Route exact path="/" component={Doc} />
+//    <Route path="/doc" component={Doc} />
+//    <Route path="/contact" component={Contact} />
+//    <Route path="/apps" component={AppManager} />
+//</div>
 
 //export default App;
 

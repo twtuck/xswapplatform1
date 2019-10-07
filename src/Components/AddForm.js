@@ -9,8 +9,8 @@ class AddForm extends Component {
         super(props);
 
         this.state = {
-            title: '',
-            content: '',
+            name: '',
+            description: '',
             tags: [],
             validationErrors: []
         };
@@ -23,20 +23,20 @@ class AddForm extends Component {
 
     
     onTitleChange(event) {
-        const title = event.target.value.trim();
+        const name = event.target.value.trim();
 
-        this.validateTitle(title);
+        this.validateTitle(name);
 
-        this.setState({ title: title });
+        this.setState({ name: name });
     }
 
 
     onContentChange(event) {
-        const content = event.target.value.trim();
+        const description = event.target.value.trim();
 
-        this.validateContent(content);
+        this.validateContent(description);
         
-        this.setState({ content: content });
+        this.setState({ description: description });
     }
 
 
@@ -53,19 +53,19 @@ class AddForm extends Component {
         event.preventDefault();
 
         if (this.state.validationErrors && this.state.validationErrors.length === 0) {
-            const { title, content } = this.state;
+            const { name, description } = this.state;
             
-            if (this.validateTitle(title) && this.validateContent(content)) {
+            if (this.validateTitle(name) && this.validateContent(description)) {
                 this.props.onSave(this.state);
             }
         }
     }
     
 
-    validateTitle(title) {
+    validateTitle(name) {
         const message = 'Title is required';
 
-        if (title === '') {
+        if (name === '') {
             this.addValidationError(message);
             return false;
         } else {
@@ -75,10 +75,10 @@ class AddForm extends Component {
     }
 
 
-    validateContent(content) {
+    validateContent(description) {
         const message = 'Content is required';
 
-        if (content === '') {
+        if (description === '') {
             this.addValidationError(message);
             return false;
         } else {
@@ -153,12 +153,12 @@ class AddForm extends Component {
                 {validationErrorSummary}
                 <form onSubmit={this.onSave} className="mt-2">
                     <div className="form-group">
-                        <label htmlFor="title">Application Name</label>
-                        <input type="text" className="form-control" name="title" autoFocus onChange={this.onTitleChange} />
+                        <label htmlFor="name">Application Name</label>
+                        <input type="text" className="form-control" name="name" autoFocus onChange={this.onTitleChange} />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="content">Application Description</label>
-                        <textarea className="form-control" name="content" rows="3" onChange={this.onContentChange}></textarea>
+                        <label htmlFor="description">Application Description</label>
+                        <textarea className="form-control" name="description" rows="3" onChange={this.onContentChange}></textarea>
                     </div>
                     <div className="form-group">
                         <label htmlFor="tags">Product</label>
