@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, BSpan } from 'bootstrap-4-react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
-import { SignOut } from 'aws-amplify-react';
+import { SignOut, SignIn } from 'aws-amplify-react';
 import { Hub, Auth } from 'aws-amplify';
-import { SignIn } from 'aws-amplify-react/dist/Auth';
 
 const HomeItems = props => (
   <React.Fragment>
@@ -102,7 +101,7 @@ export default class Navigator extends Component {
               </Switch>
             </HashRouter>
           </Navbar.Nav>
-          <Navbar.Text>Hi {user.username}</Navbar.Text>
+          { user && <Navbar.Text>Hi {user.username}</Navbar.Text> }
           <SignIn />
           <SignOut />
         </Navbar.Collapse>
