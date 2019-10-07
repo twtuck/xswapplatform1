@@ -37,12 +37,10 @@ function App() {
 });
   
 return (
-    <div>
       <React.Fragment>
         <Navigator />
         <Main />
       </React.Fragment>
-    </div>
 );
   
 }

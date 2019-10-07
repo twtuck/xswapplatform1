@@ -241,4 +241,4 @@ const signUpConfig = {
     ]
   };
 
-export default withAuthenticator(AppManager, true);
+export default withAuthenticator(AppManager, false);

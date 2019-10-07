@@ -32,11 +32,12 @@ export default class Main extends Component {
   onHubCapsule(capsule) {
     this.loadUser(); // Triggered every time user sign in / out
   }
+
   render() {
     const { user } = this.state;
     return (
       <Container as="main" role="main">
-        <div className="container mt-5">
+        <div className="starter-template">
           <HashRouter>
             <Switch>
                 <Route exact path="/" render={(props) => <Home user={user} />} />
