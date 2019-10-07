@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Header from './Header';
-import { Navigator, Main } from './components';
+import Navigator from './components/Navigator';
+import Main  from './components/Main';
 import './App.css';
 
 import Amplify from 'aws-amplify';
@@ -37,18 +37,17 @@ function App() {
 });
   
 return (
-  <Router>
     <div>
       <React.Fragment>
         <Navigator />
         <Main />
       </React.Fragment>
     </div>
-  </Router>
 );
   
 }
 
+//<Router>
 //<Header/>
 //<div className="container mt-5">
 //    <Route exact path="/" component={Doc} />
@@ -56,6 +55,7 @@ return (
 //    <Route path="/contact" component={Contact} />
 //    <Route path="/apps" component={AppManager} />
 //</div>
+//</Router>
 
 //export default App;
 
