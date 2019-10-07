@@ -3,6 +3,7 @@ import { Navbar, Nav, BSpan } from 'bootstrap-4-react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import { SignOut } from 'aws-amplify-react';
 import { Hub, Auth } from 'aws-amplify';
+import { SignIn } from 'aws-amplify-react/dist/Auth';
 
 const HomeItems = props => (
   <React.Fragment>
@@ -83,6 +84,7 @@ export default class Navigator extends Component {
   }
 
   render() {
+    const { user } = this.state;
     return (
       <Navbar expand="md" dark bg="dark" fixed="top">
         <Navbar.Brand href="/">xSwap</Navbar.Brand>
@@ -100,7 +102,8 @@ export default class Navigator extends Component {
               </Switch>
             </HashRouter>
           </Navbar.Nav>
-          <Navbar.Text>Greetings</Navbar.Text>
+          <Navbar.Text>Hi {user.username}</Navbar.Text>
+          <SignIn />
           <SignOut />
         </Navbar.Collapse>
       </Navbar>
