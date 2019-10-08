@@ -37,4 +37,9 @@ body {
   margin-top: 4rem !important;
 }
 
+.btn_primary {
+  background-color: #f90;
+  border-color: #f90;
+}
+
 
