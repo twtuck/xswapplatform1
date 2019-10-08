@@ -39,7 +39,7 @@ const AppTable = (props) => {
                 <thead>
                     <tr>
                         <th></th>
-                        <th className="align-middle text-center">Application name</th>
+                        <th className="align-middle text-center">Application Name</th>
                         <th className="align-middle text-center">Application Description</th>
                     </tr>
                 </thead>
@@ -47,37 +47,6 @@ const AppTable = (props) => {
                     {appRows}
                 </tbody>
             </table>
-            <div className="row">
-                <div className="col-sm-6">
-                    <div
-                        className="dataTables_info"
-                        id="dataTables-example_info"
-                        role="status"
-                        aria-live="polite"
-                    >
-                        Showing 1 to 10 of 57 entries
-                    </div>
-                </div>
-                <div className="col-sm-6 " >
-                    <Pagination className="justify-content-end" size="sm">
-                        <Pagination.First />
-                        <Pagination.Prev />
-                        <Pagination.Item>{1}</Pagination.Item>
-                        <Pagination.Ellipsis />
-
-                        <Pagination.Item>{10}</Pagination.Item>
-                        <Pagination.Item>{11}</Pagination.Item>
-                        <Pagination.Item active>{12}</Pagination.Item>
-                        <Pagination.Item>{13}</Pagination.Item>
-                        <Pagination.Item>{14}</Pagination.Item>
-
-                        <Pagination.Ellipsis />
-                        <Pagination.Item>{20}</Pagination.Item>
-                        <Pagination.Next />
-                        <Pagination.Last />
-                    </Pagination>
-                </div>
-            </div>
         </div>
     );
 };
