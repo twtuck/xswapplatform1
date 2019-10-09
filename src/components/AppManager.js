@@ -4,8 +4,9 @@ import AddForm from './AddForm';
 import EditForm from './EditForm';
 import AppTable from './AppTable';
 import ControlPanel from './ControlPanel';
-import axios from 'axios';
+//import axios from 'axios';
 import { withAuthenticator } from 'aws-amplify-react';
+const AppService = require('../services/app-service');
 
 class AppManager extends Component {
     constructor(props) {
@@ -39,8 +40,8 @@ class AppManager extends Component {
 
     listApps() {
         const url = 'https://my-json-server.typicode.com/michelle-phan/fakeAPIs/apps';
-        axios.get(url).then(response => {
-            this.setState({ apps: response.data })
+        AppService.listApps().then(response => {
+            this.setState({ apps: response })
         })
             .catch(error => {
                 console.log(error);
