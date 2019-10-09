@@ -40,11 +40,11 @@ export default class Main extends Component {
         <div className="starter-template">
           <HashRouter>
             <Switch>
-                <Route exact path="/" render={(props) => <Home user={user} />} />
                 <Route exact path="/doc" component={Doc} />
                 <Route exact path="/contact" component={Contact} />
                 <Route exact path="/apps" component={AppManager} />
                 <Route exact path="/login" render={(props) => <Login user={user} />} />
+                <Route path="/" render={(props) => <Home user={user} />} />
             </Switch>
           </HashRouter>
         </div>

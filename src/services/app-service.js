@@ -1,12 +1,12 @@
 
-const { axios } = require("axios");
-//import axios from 'axios';
+//const { axios } = require("axios");
+import axios from 'axios';
 
 const baseApiUrl = 'https://my-json-server.typicode.com/michelle-phan/fakeAPIs/';
 
 
 // add app
-const addApp = (id, name, description = []) => {
+export const addApp = (id, name, description = []) => {
 
     return new Promise((resolve, reject) => {
         axios
@@ -28,7 +28,7 @@ const addApp = (id, name, description = []) => {
 
 
 // find apps
-const findApp = (id) => {
+export const findApp = (id) => {
     
     return new Promise((resolve, reject) => {
         axios
@@ -46,7 +46,7 @@ const findApp = (id) => {
 };
 
 
-const findAppsByName = (name) => {
+export const findAppsByName = (name) => {
 
     return new Promise((resolve, reject) => {
         axios
@@ -63,7 +63,7 @@ const findAppsByName = (name) => {
 
 };
 
-const listApps = () => {
+export const listApps = () => {
 
     return new Promise((resolve, reject) => {
         axios
@@ -82,7 +82,7 @@ const listApps = () => {
 
 
 // remove app
-const removeApp = (id) => {
+export const removeApp = (id) => {
 
     return new Promise((resolve, reject) => {
         axios
@@ -101,7 +101,7 @@ const removeApp = (id) => {
 
 
 // update app
-const updateApp = (app) => {
+export const updateApp = (app) => {
     return new Promise((resolve, reject) => {
         axios
             .put(`${baseApiUrl}/apps`, {app})
@@ -117,14 +117,12 @@ const updateApp = (app) => {
     
 };
 
-
-//export default findApp;
 // exports
-module.exports = {
-    'addApp': addApp,
-    'findApp': findApp,
-    'findAppsByName': findAppsByName,
-    'listApps': listApps,
-    'removeApp': removeApp,
-    'updateApp': updateApp
-};
+// module.exports = {
+//     'addApp': addApp,
+//     'findApp': findApp,
+//     'findAppsByName': findAppsByName,
+//     'listApps': listApps,
+//     'removeApp': removeApp,
+//     'updateApp': updateApp
+// };

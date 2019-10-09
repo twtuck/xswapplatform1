@@ -93,11 +93,11 @@ export default class Navigator extends Component {
           <Navbar.Nav mr="auto">
             <HashRouter>
               <Switch>
-                <Route exact path="/" component={HomeItems} />
                 <Route exact path="/doc" component={HomeItems} />
                 <Route exact path="/contact" component={HomeItems} />
                 <Route exact path="/apps" component={AppItems} />
                 <Route exact path="/login" component={LoginItems} />
+                <Route path="/" component={HomeItems} />
               </Switch>
             </HashRouter>
           </Navbar.Nav>
