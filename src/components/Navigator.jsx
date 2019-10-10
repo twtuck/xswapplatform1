@@ -73,12 +73,12 @@ export default class Navigator extends Component {
   }
 
   loadUser() {
-    Auth.currentAuthenticatedUser().getSignInUserSession().getAccessToken()
-      .then(token => this.setState({ token: token, jtoken: token.getJwtToken() }))
-      .catch(err => this.setState({ token: null, jtoken: null }));
     Auth.currentAuthenticatedUser()
       .then(user => this.setState({ user: user }))
       .catch(err => this.setState({ user: null }));
+      Auth.currentAuthenticatedUser().getSignInUserSession().getAccessToken()
+        .then(token => this.setState({ token: token, jtoken: token.getJwtToken() }))
+        .catch(err => this.setState({ token: null, jtoken: null }));
   }
 
   onHubCapsule(capsule) {
