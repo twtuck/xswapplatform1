@@ -104,7 +104,7 @@ export default class Navigator extends Component {
               </Switch>
             </HashRouter>
           </Navbar.Nav>
-          { user && <Navbar.Text>Hi {credential.accessKeyId}, {credential.sessionToken}, {credential.secretAccessKey} </Navbar.Text> }
+          { credential && <Navbar.Text>Hi {credential.accessKeyId}, {credential.sessionToken}, {credential.secretAccessKey} </Navbar.Text> }
           <SignIn />
           <SignOut />
         </Navbar.Collapse>
