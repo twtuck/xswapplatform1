@@ -9,13 +9,6 @@
             "UnauthRoleName": "xswapplatform-dev-20190928193743-unauthRole",
             "StackName": "xswapplatform-dev-20190928193743",
             "StackId": "arn:aws:cloudformation:ap-southeast-1:368593173631:stack/xswapplatform-dev-20190928193743/62c45d60-e1e4-11e9-879a-0a58c7c408be"
-        },
-        "categories": {
-            "auth": {
-                "xswapplatform1acc4e4d": {
-                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"2419748438139920\",\"client_secret\":\"c602fb9330f8bcc8dd866eaa729f217d\"}]"
-                }
-            }
         }
     }
 }

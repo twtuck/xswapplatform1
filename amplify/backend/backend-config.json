@@ -5,13 +5,7 @@
 			"providerPlugin": "awscloudformation"
 		}
 	},
-	"auth": {
-		"xswapplatform1acc4e4d": {
-			"service": "Cognito",
-			"providerPlugin": "awscloudformation",
-			"dependsOn": []
-		}
-	},
+	"auth": {},
 	"analytics": {
 		"xswapplatform": {
 			"service": "Pinpoint",

@@ -4,14 +4,41 @@ import Navigator from './components/Navigator';
 import Main  from './components/Main';
 import './App.css';
 
-import Amplify from 'aws-amplify';
+import Amplify, { Auth } from 'aws-amplify';
 import Analytics from '@aws-amplify/analytics';
 
 // Get the aws resources configuration parameters
 import awsconfig from './aws-exports';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-Amplify.configure(awsconfig);
+Amplify.configure({
+  Auth: {
+    // REQUIRED - Amazon Cognito Region
+    region: "ap-southeast-1",
+
+    // OPTIONAL - Amazon Cognito User Pool ID
+    userPoolId: "ap-southeast-1_emXWwA88z",
+
+    // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
+    userPoolWebClientId: "p766s8a5pbj5qmfri8v60p8p6"
+  }
+});
+
+const oauth = {
+  domain: "xswap.auth.ap-southeast-1.amazoncognito.com",
+  scope: ["email", "profile", "openid"],
+  redirectSignIn:
+    "https://master.d2zqadgdd5qoem.amplifyapp.com/#/",
+  redirectSignOut:
+    "https://master.d2zqadgdd5qoem.amplifyapp.com/#/", // xwaplatform-20190930160053-hostingbucket
+  responseType: "code" // or 'token', note that REFRESH token will only be generated when the responseType is code
+};
+
+Auth.configure({
+  oauth
+});
+
+// Amplify.configure(awsconfig);
 Analytics.configure(awsconfig);
 
 function App() {
