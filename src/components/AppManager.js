@@ -111,17 +111,17 @@ class AppManager extends Component {
 
         const { title, content, tags } = app;
 
-        if (!title || title.length === 0) {
-            throw Error('Title is required');
-        }
+        // if (!title || title.length === 0) {
+        //     throw Error('Title is required');
+        // }
 
-        if (!content || content.length === 0) {
-            throw Error('Content is required');
-        }
+        // if (!content || content.length === 0) {
+        //     throw Error('Content is required');
+        // }
 
-        if (!Array.isArray(tags)) {
-            throw Error('Tags must be an array');
-        }
+        // if (!Array.isArray(tags)) {
+        //     throw Error('Tags must be an array');
+        // }
 
         // AppService
         //     .addApp(title, content, tags)
@@ -137,6 +137,20 @@ class AppManager extends Component {
         //     .catch(error => {
         //         console.log(error);
         //     });
+        AppService
+            .addApp(title, content, tags)
+            .then(newApp => {             
+                AppService
+                    .listApps()
+                    .then(apps => {
+                        apps.forEach(n => n.id === newApp.id ? n.isNew = 'true' : n.isNew = undefined);                
+                        this.setState({apps});
+                    })
+                    .catch(error => console.log(error));
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 
 

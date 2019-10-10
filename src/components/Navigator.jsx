@@ -65,7 +65,7 @@ export default class Navigator extends Component {
 
     Hub.listen('auth', this, 'navigator'); // Add this component as listener of auth event.
 
-    this.state = { user: null }
+    this.state = { user: null, token: null, jtoken: null }
   }
 
   componentDidMount() {
@@ -73,6 +73,9 @@ export default class Navigator extends Component {
   }
 
   loadUser() {
+    Auth.currentAuthenticatedUser().getSignInUserSession().getAccessToken()
+      .then(token => this.setState({ token: token, jtoken: token.getJwtToken() }))
+      .catch(err => this.setState({ token: null, jtoken: null }));
     Auth.currentAuthenticatedUser()
       .then(user => this.setState({ user: user }))
       .catch(err => this.setState({ user: null }));
@@ -83,7 +86,7 @@ export default class Navigator extends Component {
   }
 
   render() {
-    const { user } = this.state;
+    const { user, token, jtoken } = this.state;
     return (
       <Navbar expand="md" dark bg="dark" fixed="top">
         <Navbar.Brand href="/">xSwap</Navbar.Brand>
@@ -101,7 +104,7 @@ export default class Navigator extends Component {
               </Switch>
             </HashRouter>
           </Navbar.Nav>
-          { user && <Navbar.Text>Hi {user.username}</Navbar.Text> }
+          { user && <Navbar.Text>Hi {token} , {jtoken} </Navbar.Text> }
           <SignIn />
           <SignOut />
         </Navbar.Collapse>
