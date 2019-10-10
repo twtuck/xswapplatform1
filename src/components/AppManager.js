@@ -57,7 +57,7 @@ class AppManager extends Component {
             throw Error('Cannot remove app. Invalid app id specified');
         }
         
-        //const confirmation = confirm('Are you sure you wish to remove app?');
+        const confirmation = window.confirm('Are you sure you wish to remove app?');
 
         // if (confirmation) {
             // AppService
@@ -243,3 +243,4 @@ const signUpConfig = {
   };
 
 export default withAuthenticator(AppManager, false);
+//export default AppManager;
