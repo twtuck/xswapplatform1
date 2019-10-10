@@ -65,7 +65,7 @@ export default class Navigator extends Component {
 
     Hub.listen('auth', this, 'navigator'); // Add this component as listener of auth event.
 
-    this.state = { user: null, credential: null }
+    this.state = { credential: null }
   }
 
   componentDidMount() {
@@ -73,9 +73,9 @@ export default class Navigator extends Component {
   }
 
   loadUser() {
-    Auth.currentAuthenticatedUser()
-      .then(user => this.setState({ user: user }))
-      .catch(err => this.setState({ user: null }));
+    // Auth.currentAuthenticatedUser()
+    //   .then(user => this.setState({ user: user }))
+    //   .catch(err => this.setState({ user: null }));
       Auth.currentUserCredentials()
         .then(credential => this.setState({ credential: credential }))
         .catch(err => this.setState({ credential: null }));
@@ -86,7 +86,7 @@ export default class Navigator extends Component {
   }
 
   render() {
-    const { user, credential } = this.state;
+    const { credential } = this.state;
     return (
       <Navbar expand="md" dark bg="dark" fixed="top">
         <Navbar.Brand href="/">xSwap</Navbar.Brand>
