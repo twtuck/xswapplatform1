@@ -28,9 +28,9 @@ const oauth = {
   domain: "xswap.auth.ap-southeast-1.amazoncognito.com",
   scope: ["email", "profile", "openid"],
   redirectSignIn:
-    "https://master.d2zqadgdd5qoem.amplifyapp.com/#/",
+    "https://master.d2zqadgdd5qoem.amplifyapp.com/",
   redirectSignOut:
-    "https://master.d2zqadgdd5qoem.amplifyapp.com/#/", // xwaplatform-20190930160053-hostingbucket
+    "https://master.d2zqadgdd5qoem.amplifyapp.com/", // xwaplatform-20190930160053-hostingbucket
   responseType: "code" // or 'token', note that REFRESH token will only be generated when the responseType is code
 };
 
