@@ -67,7 +67,7 @@ export default class Navigator extends Component {
 
     this.tmp = null;
 
-    this.state = { user: null }
+    this.state = { user: null, credential: null }
   }
 
   componentDidMount() {
@@ -78,9 +78,9 @@ export default class Navigator extends Component {
     Auth.currentAuthenticatedUser()
       .then(user => this.setState({ user: user }))
       .catch(err => this.setState({ user: null }));
-      // Auth.currentSession()
-      //   .then(credential => this.setState({ credential: credential }))
-      //   .catch(err => this.setState({ credential: null }));
+      Auth.currentSession()
+        .then(credential => this.setState({ credential: credential }))
+        .catch(err => this.setState({ credential: null }));
   }
 
   onHubCapsule(capsule) {
@@ -88,7 +88,7 @@ export default class Navigator extends Component {
   }
 
   render() {
-    const { user } = this.state;
+    const { user, credential} = this.state;
     return (
       <div>
       <Navbar expand="md" dark bg="dark" fixed="top">
@@ -109,7 +109,7 @@ export default class Navigator extends Component {
           </Navbar.Nav>
         </Navbar.Collapse>
       </Navbar>
-      { user && user.getSession() && <Navbar.Text>Hi {user.getSession().getIdToken().getJwtToken()} </Navbar.Text> }
+      { user && credential && <Navbar.Text>Hi {credential.getIdToken().getJwtToken()} </Navbar.Text> }
     </div>
     )
   }
