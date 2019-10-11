@@ -65,6 +65,8 @@ export default class Navigator extends Component {
 
     Hub.listen('auth', this, 'navigator'); // Add this component as listener of auth event.
 
+    this.tmp = null;
+
     this.state = { credential: null }
   }
 
@@ -77,7 +79,7 @@ export default class Navigator extends Component {
     //   .then(user => this.setState({ user: user }))
     //   .catch(err => this.setState({ user: null }));
       Auth.currentUserCredentials()
-        .then(credential => this.setState({ credential: credential }))
+        .then(credential => this.tmp = credential)
         .catch(err => this.setState({ credential: null }));
   }
 
