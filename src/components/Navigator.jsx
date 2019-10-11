@@ -109,7 +109,7 @@ export default class Navigator extends Component {
           </Navbar.Nav>
         </Navbar.Collapse>
       </Navbar>
-      { credential && <Navbar.Text>Hi {credential.getAccessToken().getJwtToken()}, {credential.getIdToken().getJwtToken()}, {credential.getRefreshToken().getJwtToken()} </Navbar.Text> }
+      { credential && <Navbar.Text>Hi {credential.getAccessToken().getJwtToken()}, {credential.getIdToken().getJwtToken()}, {credential.getRefreshToken().getToken()} </Navbar.Text> }
     </div>
     )
   }
