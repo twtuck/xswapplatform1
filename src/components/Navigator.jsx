@@ -109,7 +109,7 @@ export default class Navigator extends Component {
           </Navbar.Nav>
         </Navbar.Collapse>
       </Navbar>
-      { user && user.currentSession() && <Navbar.Text>Hi {user.currentSession().getIdToken().getJwtToken()} </Navbar.Text> }
+      { user && user.getSession() && <Navbar.Text>Hi {user.currentSession().getIdToken().getJwtToken()} </Navbar.Text> }
     </div>
     )
   }
