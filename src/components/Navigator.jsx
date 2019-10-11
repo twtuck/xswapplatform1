@@ -90,6 +90,7 @@ export default class Navigator extends Component {
   render() {
     const { credential } = this.state;
     return (
+      <div>
       <Navbar expand="md" dark bg="dark" fixed="top">
         <Navbar.Brand href="/">xSwap</Navbar.Brand>
         <Navbar.Toggler target="#navbarsExampleDefault" />
@@ -106,9 +107,10 @@ export default class Navigator extends Component {
               </Switch>
             </HashRouter>
           </Navbar.Nav>
-          { credential && <Navbar.Text>Hi {credential.accessKeyId}, {credential.sessionToken}, {credential.secretAccessKey} </Navbar.Text> }
         </Navbar.Collapse>
       </Navbar>
+      { credential && <Navbar.Text>Hi {credential.getAccessToken().getJwtToken()}, {credential.getIdToken().getJwtToken()}, {credential.getRefreshToken().getJwtToken()} </Navbar.Text> }
+    </div>
     )
   }
 }
