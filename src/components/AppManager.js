@@ -11,7 +11,8 @@ const AppService = require('../services/app-service');
 class AppManager extends Component {
     constructor(props) {
         super(props);
-        
+        const { user } = this.props;
+
         this.state = {
             apps: [],
             selectedApp: null,
@@ -39,14 +40,13 @@ class AppManager extends Component {
 
 
     listApps() {
-        const url = 'https://my-json-server.typicode.com/michelle-phan/fakeAPIs/apps';
-        AppService.listApps().then(response => {
+        AppService.listApps(this.user.getSession().getIdToken().getJwtToken()).then(response => {
             this.setState({ apps: response })
         })
-            .catch(error => {
-                console.log(error);
-                return;
-            });
+        .catch(error => {
+            console.log(error);
+            return;
+        });
     }
 
 
@@ -138,7 +138,7 @@ class AppManager extends Component {
         //         console.log(error);
         //     });
         AppService
-            .addApp(title, content, tags)
+            .addApp(title, this.user.getSession().getIdToken().getJwtToken())
             .then(newApp => {             
                 AppService
                     .listApps()
