@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, BSpan } from 'bootstrap-4-react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
-import { SignOut, SignIn } from 'aws-amplify-react';
+import { OAuthButton } from 'aws-amplify-react';
 import { Hub, Auth } from 'aws-amplify';
 
 const HomeItems = props => (
@@ -78,8 +78,8 @@ export default class Navigator extends Component {
     // Auth.currentAuthenticatedUser()
     //   .then(user => this.setState({ user: user }))
     //   .catch(err => this.setState({ user: null }));
-      Auth.currentUserCredentials()
-        .then(credential => this.tmp = credential)
+      Auth.currentSession()
+        .then(credential => this.setState({ credential: credential }))
         .catch(err => this.setState({ credential: null }));
   }
 
@@ -107,8 +107,6 @@ export default class Navigator extends Component {
             </HashRouter>
           </Navbar.Nav>
           { credential && <Navbar.Text>Hi {credential.accessKeyId}, {credential.sessionToken}, {credential.secretAccessKey} </Navbar.Text> }
-          <SignIn />
-          <SignOut />
         </Navbar.Collapse>
       </Navbar>
     )
