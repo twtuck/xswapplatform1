@@ -27,6 +27,9 @@ export default class Main extends Component {
     Auth.currentAuthenticatedUser()
       .then(user => this.setState({ user: user }))
       .catch(err => this.setState({ user: null }));
+    Auth.currentSession()
+      .then(credential => this.setState({ credential: credential }))
+      .catch(err => this.setState({ credential: null }));
   }
 
   onHubCapsule(capsule) {
@@ -34,7 +37,7 @@ export default class Main extends Component {
   }
 
   render() {
-    const { user } = this.state;
+    const { user, credential } = this.state;
     return (
       <Container as="main" role="main">
         <div className="starter-template">
@@ -42,7 +45,7 @@ export default class Main extends Component {
             <Switch>
                 <Route exact path="/doc" component={Doc} />
                 <Route exact path="/contact" component={Contact} />
-                <Route exact path="/apps" render={(props) => <AppManager user={user} />} />
+                <Route exact path="/apps" render={(props) => <AppManager user={user} credential={credential}/>} />
                 <Route exact path="/login" render={(props) => <Login user={user} />} />
                 <Route path="/" render={(props) => <Home user={user} />} />
             </Switch>

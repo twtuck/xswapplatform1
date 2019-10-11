@@ -11,7 +11,6 @@ const AppService = require('../services/app-service');
 class AppManager extends Component {
     constructor(props) {
         super(props);
-        const { user } = this.props;
 
         this.state = {
             apps: [],
@@ -40,7 +39,8 @@ class AppManager extends Component {
 
 
     listApps() {
-        AppService.listApps(this.user.getSession().getIdToken().getJwtToken()).then(response => {
+        const { credential } = this.props;
+        AppService.listApps(credential.getIdToken().getJwtToken()).then(response => {
             this.setState({ apps: response })
         })
         .catch(error => {
@@ -111,6 +111,8 @@ class AppManager extends Component {
 
         const { title, content, tags } = app;
 
+        const { credential } = this.props;
+
         // if (!title || title.length === 0) {
         //     throw Error('Title is required');
         // }
@@ -138,7 +140,7 @@ class AppManager extends Component {
         //         console.log(error);
         //     });
         AppService
-            .addApp(title, this.user.getSession().getIdToken().getJwtToken())
+            .addApp(title, credential.getIdToken().getJwtToken())
             .then(newApp => {             
                 AppService
                     .listApps()
