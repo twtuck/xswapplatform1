@@ -56,7 +56,7 @@ class AddForm extends Component {
             const { name, description } = this.state;
             
             if (this.validateTitle(name) && this.validateContent(description)) {
-                this.props.onSave(this.state);
+                this.props.onSaveApp(this.state);
             }
         }
     }
