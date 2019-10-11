@@ -12,7 +12,7 @@ export const addApp = (id, token = []) => {
     return new Promise((resolve, reject) => {
         axios
             .post(`${baseApiUrl1}/apps`, 
-            { headers: { Authorization: 'Bearer ${token}', 'Access-Control-Allow-Credentials': true } },
+            { headers: { Authorization: `Bearer ${token}`, 'Access-Control-Allow-Credentials': true } },
             { body: {
                 appName: "NewApp5",
                 appInfo: {
