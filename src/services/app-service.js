@@ -14,7 +14,7 @@ export const addApp = (app, token) => {
         const { title, content } = app;
 
         axios
-            .post(`${baseApiUrl1}/apps`, 
+            .post(`${baseApiUrl1}/provisions`, 
             { headers: { Authorization: `Bearer ${token}`, 'Access-Control-Allow-Credentials': true } },
             { body: {
                 appName: title,

@@ -3,6 +3,7 @@ import { Navbar, Nav, BSpan } from 'bootstrap-4-react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import { OAuthButton } from 'aws-amplify-react';
 import { Hub, Auth } from 'aws-amplify';
+import { SignOut } from 'aws-amplify-react/dist/Auth';
 
 const HomeItems = props => (
   <React.Fragment>
@@ -108,8 +109,9 @@ export default class Navigator extends Component {
             </HashRouter>
           </Navbar.Nav>
         </Navbar.Collapse>
+        <SignOut/>
       </Navbar>
-      { user && credential && <Navbar.Text>Hi {credential.getIdToken().getJwtToken()} </Navbar.Text> }
+      { user && <Navbar.Text>Hi {user.username} </Navbar.Text> }
     </div>
     )
   }
