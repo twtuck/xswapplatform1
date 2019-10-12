@@ -44,7 +44,7 @@ class AddForm extends Component {
         const tags = event.target.value.trim();
 
         if (this.validateTags(tags)) {            
-            this.setState({ tags: tags.split(',')});
+            this.setState({ tags: tags});
         }        
     }
 

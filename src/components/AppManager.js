@@ -108,9 +108,7 @@ class AppManager extends Component {
     handleOnAddApp(app) {
 
         this.setState({ isAddAppModalOpen: false });
-
-        const { title, content, tags } = app;
-
+        
         const { credential } = this.props;
 
         // if (!title || title.length === 0) {
@@ -139,8 +137,9 @@ class AppManager extends Component {
         //     .catch(error => {
         //         console.log(error);
         //     });
+
         AppService
-            .addApp(title, credential.getIdToken().getJwtToken())
+            .addApp(app, credential.getIdToken().getJwtToken())
             .then(newApp => {             
                 AppService
                     .listApps()

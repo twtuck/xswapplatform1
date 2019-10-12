@@ -7,17 +7,20 @@ const baseApiUrl1 = 'https://h1rqtotbdj.execute-api.ap-southeast-1.amazonaws.com
 
 
 // add app
-export const addApp = (id, token = []) => {
+export const addApp = (app, token) => {
 
     return new Promise((resolve, reject) => {
+
+        const { title, content } = app;
+
         axios
             .post(`${baseApiUrl1}/apps`, 
             { headers: { Authorization: `Bearer ${token}`, 'Access-Control-Allow-Credentials': true } },
             { body: {
-                appName: "NewApp5",
+                appName: title,
                 appInfo: {
-                    "description": "this is a new reward points exchange app",
-                    "company": "ABC Company"
+                    description: content,
+                    company: "ABC Company"
                 },
                 callbackUrl: "https://enjdkyfy0odvk.x.pipedream.net",
                 logoutUrl: "https://enjdkyfy0odvk.x.pipedream.net",
