@@ -82,7 +82,8 @@ export default class Navigator extends Component {
     Auth.currentSession()
       .then(session => this.setState({ session: session }))
       .catch(err => this.setState({ session: null }));
-    Auth.userAttributes()
+    const { user } = this.state;
+    Auth.userAttributes(user)
       .then(attributes => this.setState({ attributes: attributes }))
       .catch(err => this.setState({ attributes: [] }));
   }
