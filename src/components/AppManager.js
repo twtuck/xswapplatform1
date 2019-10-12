@@ -39,8 +39,8 @@ class AppManager extends Component {
 
 
     listApps() {
-        const { credential } = this.props;
-        AppService.listApps(credential.getIdToken().getJwtToken()).then(response => {
+        const { session } = this.props;
+        AppService.listApps(session.getIdToken().getJwtToken()).then(response => {
             this.setState({ apps: response })
         })
         .catch(error => {
@@ -108,8 +108,8 @@ class AppManager extends Component {
     handleOnAddApp(app) {
 
         this.setState({ isAddAppModalOpen: false });
-        
-        const { credential } = this.props;
+
+        const { session } = this.props;
 
         // if (!title || title.length === 0) {
         //     throw Error('Title is required');
@@ -139,7 +139,7 @@ class AppManager extends Component {
         //     });
 
         AppService
-            .addApp(app, credential.getIdToken().getJwtToken())
+            .addApp(app, session.getIdToken().getJwtToken())
             .then(newApp => {             
                 AppService
                     .listApps()
