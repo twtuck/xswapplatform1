@@ -68,7 +68,7 @@ export default class Navigator extends Component {
 
     this.tmp = null;
 
-    this.state = { user: null, credential: null }
+    this.state = { user: null, session: null, attributes: [] }
   }
 
   componentDidMount() {
@@ -79,9 +79,12 @@ export default class Navigator extends Component {
     Auth.currentAuthenticatedUser()
       .then(user => this.setState({ user: user }))
       .catch(err => this.setState({ user: null }));
-      Auth.currentSession()
-        .then(credential => this.setState({ credential: credential }))
-        .catch(err => this.setState({ credential: null }));
+    Auth.currentSession()
+      .then(session => this.setState({ session: session }))
+      .catch(err => this.setState({ session: null }));
+    Auth.userAttributes()
+      .then(attributes => this.setState({ attributes: attributes }))
+      .catch(err => this.setState({ attributes: [] }));
   }
 
   onHubCapsule(capsule) {
@@ -89,7 +92,7 @@ export default class Navigator extends Component {
   }
 
   render() {
-    const { user, credential} = this.state;
+    const { user, attributes} = this.state;
     return (
       <div>
       <Navbar expand="md" dark bg="dark" fixed="top">
