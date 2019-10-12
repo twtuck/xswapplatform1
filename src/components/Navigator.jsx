@@ -77,17 +77,13 @@ export default class Navigator extends Component {
 
   loadUser() {
     Auth.currentAuthenticatedUser()
-      .then(user => this.setState({ user: user }))
+      .then(user => Auth.userAttributes(user)
+        .then(attributes => this.setState({ user: user, attributes: attributes }))
+        .catch(err => this.setState({ attributes: [] })))
       .catch(err => this.setState({ user: null }));
     Auth.currentSession()
       .then(session => this.setState({ session: session }))
       .catch(err => this.setState({ session: null }));
-    const { user } = this.state;
-    if (user) {
-    Auth.userAttributes(user)
-      .then(attributes => this.setState({ attributes: attributes }))
-      .catch(err => this.setState({ attributes: [] }));
-    }
   }
 
   onHubCapsule(capsule) {
