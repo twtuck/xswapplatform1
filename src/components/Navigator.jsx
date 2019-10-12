@@ -83,9 +83,11 @@ export default class Navigator extends Component {
       .then(session => this.setState({ session: session }))
       .catch(err => this.setState({ session: null }));
     const { user } = this.state;
+    if (user) {
     Auth.userAttributes(user)
       .then(attributes => this.setState({ attributes: attributes }))
       .catch(err => this.setState({ attributes: [] }));
+    }
   }
 
   onHubCapsule(capsule) {
