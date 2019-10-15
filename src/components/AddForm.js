@@ -15,26 +15,26 @@ class AddForm extends Component {
             validationErrors: []
         };
 
-        this.onTitleChange = this.onTitleChange.bind(this);
-        this.onContentChange = this.onContentChange.bind(this);
+        this.onNameChange = this.onNameChange.bind(this);
+        this.onDescriptionChange = this.onDescriptionChange.bind(this);
         this.onTagsChange = this.onTagsChange.bind(this);
         this.onSave = this.onSave.bind(this);
     }
 
     
-    onTitleChange(event) {
+    onNameChange(event) {
         const name = event.target.value.trim();
 
-        this.validateTitle(name);
+        this.validateName(name);
 
         this.setState({ name: name });
     }
 
 
-    onContentChange(event) {
+    onDescriptionChange(event) {
         const description = event.target.value.trim();
 
-        this.validateContent(description);
+        this.validateDescription(description);
         
         this.setState({ description: description });
     }
@@ -55,15 +55,15 @@ class AddForm extends Component {
         if (this.state.validationErrors && this.state.validationErrors.length === 0) {
             const { name, description } = this.state;
             
-            if (this.validateTitle(name) && this.validateContent(description)) {
+            if (this.validateName(name) && this.validateDescription(description)) {
                 this.props.onSaveApp(this.state);
             }
         }
     }
     
 
-    validateTitle(name) {
-        const message = 'Title is required';
+    validateName(name) {
+        const message = 'Name is required';
 
         if (name === '') {
             this.addValidationError(message);
@@ -75,8 +75,8 @@ class AddForm extends Component {
     }
 
 
-    validateContent(description) {
-        const message = 'Content is required';
+    validateDescription(description) {
+        const message = 'Description is required';
 
         if (description === '') {
             this.addValidationError(message);
@@ -154,11 +154,11 @@ class AddForm extends Component {
                 <form onSubmit={this.onSave} className="mt-2">
                     <div className="form-group">
                         <label htmlFor="name">Application Name</label>
-                        <input type="text" className="form-control" name="name" autoFocus onChange={this.onTitleChange} />
+                        <input type="text" className="form-control" name="name" autoFocus onChange={this.onNameChange} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="description">Application Description</label>
-                        <textarea className="form-control" name="description" rows="3" onChange={this.onContentChange}></textarea>
+                        <textarea className="form-control" name="description" rows="3" onChange={this.onDescriptionChange}></textarea>
                     </div>
                     <div className="form-group">
                         <label htmlFor="tags">Product</label>

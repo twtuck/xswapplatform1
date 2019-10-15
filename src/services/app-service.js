@@ -3,7 +3,7 @@
 import axios from 'axios';
 
 const baseApiUrl = 'https://my-json-server.typicode.com/michelle-phan/fakeAPIs/';
-const baseApiUrl1 = 'https://h1rqtotbdj.execute-api.ap-southeast-1.amazonaws.com/dev';
+const baseApiUrl1 = 'https://m876ampgkh.execute-api.ap-southeast-1.amazonaws.com/dev';
 
 
 // add app
@@ -11,15 +11,15 @@ export const addApp = (app, token) => {
 
     return new Promise((resolve, reject) => {
 
-        const { title, content } = app;
+        const { name, description } = app;
 
         axios
             .post(`${baseApiUrl1}/provisions`, 
             { headers: { Authorization: `Bearer ${token}`} },
-            { body: {
-                appName: title,
+            { data: {
+                appName: name,
                 appInfo: {
-                    description: content,
+                    description: description,
                     company: "ABC Company"
                 },
                 callbackUrl: "https://enjdkyfy0odvk.x.pipedream.net",

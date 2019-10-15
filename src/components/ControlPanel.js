@@ -9,15 +9,15 @@ class ControlPanel extends Component {
         super(props);
 
         this.state = {
-            title: ''
+            name: ''
         };
 
-        this.onSearchTitleChanged = this.onSearchTitleChanged.bind(this);
+        this.onSearchNameChanged = this.onSearchNameChanged.bind(this);
     }
 
-    onSearchTitleChanged(event) {
-        const title = event.target.value;
-        this.setState({title});
+    onSearchNameChanged(event) {
+        const name = event.target.value;
+        this.setState({name});
     }
 
     render () {
@@ -29,9 +29,9 @@ class ControlPanel extends Component {
                             <FontAwesomeIcon icon={faPlus} />
                         </button>
                     </span>
-                    <input type="text" className="form-control" placeholder="Search for app by title ..." value={this.state.title} onChange={this.onSearchTitleChanged} />
+                    <input type="text" className="form-control" placeholder="Search for app by name ..." value={this.state.name} onChange={this.onSearchNameChanged} />
                     <span className="input-group-btn">
-                        <button className="btn btn-primary" type="button" onClick={() => this.props.onFindApps(this.state.title)} >
+                        <button className="btn btn-primary" type="button" onClick={() => this.props.onFindApps(this.state.name)} >
                             <FontAwesomeIcon icon={faSearch} />
                         </button>
                     </span>

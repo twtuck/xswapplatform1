@@ -82,15 +82,15 @@ class AppManager extends Component {
     }
 
 
-    handleOnFindApps(title) {
+    handleOnFindApps(name) {
         
-        if (!title || title === '') {
+        if (!name || name === '') {
             this.listApps();
             return;
         }
         
         // AppService
-        //     .findAppsByTitle(title)
+        //     .findAppsByName(name)
         //     .then(apps => {
         //         if (!apps) {
         //             apps = [];
@@ -111,12 +111,12 @@ class AppManager extends Component {
 
         const { session } = this.props;
 
-        // if (!title || title.length === 0) {
-        //     throw Error('Title is required');
+        // if (!name || name.length === 0) {
+        //     throw Error('Name is required');
         // }
 
-        // if (!content || content.length === 0) {
-        //     throw Error('Content is required');
+        // if (!description || description.length === 0) {
+        //     throw Error('Description is required');
         // }
 
         // if (!Array.isArray(tags)) {
@@ -124,7 +124,7 @@ class AppManager extends Component {
         // }
 
         // AppService
-        //     .addApp(title, content, tags)
+        //     .addApp(name, description, tags)
         //     .then(newApp => {             
         //         AppService
         //             .listApps()
@@ -194,14 +194,14 @@ class AppManager extends Component {
     handleOnEditApp(app) {
         this.setState({ isEditAppModalOpen: false });
         
-        const { title, content, tags } = app;
+        const { name, description, tags } = app;
         
-        if (!title || title.length === 0) {
-            throw Error('Title is required');
+        if (!name || name.length === 0) {
+            throw Error('Name is required');
         }
         
-        if (!content || content.length === 0) {
-            throw Error('Content is required');
+        if (!description || description.length === 0) {
+            throw Error('Description is required');
         }
         
         if (!Array.isArray(tags)) {
