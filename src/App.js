@@ -25,7 +25,7 @@ Amplify.configure({
 });
 
 const oauth = {
-  domain: "xswap.auth.ap-southeast-1.amazoncognito.com",
+  domain: "xswap-dev-368593173631.auth.ap-southeast-1.amazoncognito.com",
   scope: ["email", "profile", "openid"],
   redirectSignIn:
     "https://master.d2zqadgdd5qoem.amplifyapp.com/",
