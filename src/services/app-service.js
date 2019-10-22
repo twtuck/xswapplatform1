@@ -84,7 +84,7 @@ export const listApps = (token) => {
         axios
             .get(`${baseApiUrl1}/provisions`, { headers: { Authorization: `Bearer ${token}`} })
             .then((result) => {
-                resolve(result.data);
+                resolve(result.data.Items);
                 return;
             })
             .catch(error => {
