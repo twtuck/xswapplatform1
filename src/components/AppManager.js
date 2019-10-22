@@ -126,6 +126,7 @@ class AppManager extends Component {
                 AppService
                     .listApps(token)
                     .then(apps => {
+                        console.log('newApp.appId: ' + newApp.appId);
                         apps.forEach(n => n.appId === newApp.appId ? n.isNew = 'true' : n.isNew = undefined);                
                         this.setState({apps});
                     })
