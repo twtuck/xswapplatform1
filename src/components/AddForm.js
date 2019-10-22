@@ -10,102 +10,76 @@ class AddForm extends Component {
 
         this.state = {
             name: '',
+            company: '',
+            facebookClientId: '',
+            facebookClientSecret: '',
             description: '',
-            tags: [],
             validationErrors: []
         };
 
         this.onNameChange = this.onNameChange.bind(this);
         this.onDescriptionChange = this.onDescriptionChange.bind(this);
-        this.onTagsChange = this.onTagsChange.bind(this);
+        this.onCompanyChange = this.onCompanyChange.bind(this);
+        this.onFBIdChange = this.onFBIdChange.bind(this);
+        this.onFBSecretChange = this.onFBSecretChange.bind(this);
         this.onSave = this.onSave.bind(this);
     }
 
-    
     onNameChange(event) {
         const name = event.target.value.trim();
-
-        this.validateName(name);
-
+        this.validateText(name, 'Name');
         this.setState({ name: name });
     }
 
-
     onDescriptionChange(event) {
         const description = event.target.value.trim();
-
-        this.validateDescription(description);
-        
+        this.validateText(description, 'Description');
         this.setState({ description: description });
     }
 
-
-    onTagsChange(event) {
-        const tags = event.target.value.trim();
-
-        if (this.validateTags(tags)) {            
-            this.setState({ tags: tags});
-        }        
+    onCompanyChange(event) {
+        const company = event.target.value.trim();
+        this.validateText(company, 'Company');
+        this.setState({ company: company });
     }
 
-    
+    onFBIdChange(event) {
+        const facebookClientId = event.target.value.trim();
+        this.validateText(facebookClientId, 'Facebook Client Id');
+        this.setState({ facebookClientId: facebookClientId });
+    }
+
+    onFBSecretChange(event) {
+        const facebookClientSecret = event.target.value.trim();
+        this.validateText(facebookClientSecret, 'Facebook Client Secret');
+        this.setState({ facebookClientSecret: facebookClientSecret });
+    }
+
     onSave(event) {
         event.preventDefault();
 
         if (this.state.validationErrors && this.state.validationErrors.length === 0) {
-            const { name, description } = this.state;
+            const { name, company, facebookClientId, facebookClientSecret } = this.state;
             
-            if (this.validateName(name) && this.validateDescription(description)) {
+            if (this.validateText(name, 'Name') && this.validateText(company, 'Company')
+                    && this.validateText(facebookClientId, 'Facebook Client Id')
+                    && this.validateText(facebookClientSecret, 'Facebook Client Secret')) {
                 this.props.onSaveApp(this.state);
             }
         }
     }
-    
 
-    validateName(name) {
-        const message = 'Name is required';
-
-        if (name === '') {
+    validateText(text, type) {
+        const message = type + ' is required';
+        if (text === '') {
             this.addValidationError(message);
             return false;
         } else {
+            console.log(type + ':' + text);
             this.removeValidationError(message);
             return true;
         }
     }
-
-
-    validateDescription(description) {
-        const message = 'Description is required';
-
-        if (description === '') {
-            this.addValidationError(message);
-            return false;
-        } else {
-            this.removeValidationError(message);
-            return true;
-        }
-    }
-
-
-    validateTags(tags) {
-        const message = 'Tags must be a comma separated list';
-        
-        if (tags !== '') {
-            var regex = new RegExp(/^([\w]+[\s]*[,]?[\s]*)+$/);
-
-            if (!regex.test(tags)) {                
-                this.addValidationError(message);
-                return false;
-            } else {
-                this.removeValidationError(message);
-                return true;
-            }
-        } else {
-            this.removeValidationError(message);
-        }
-    }
-
     
     addValidationError(message) {        
         this.setState((previousState) => {
@@ -117,7 +91,6 @@ class AddForm extends Component {
         });      
     }
 
-    
     removeValidationError(message) {
         this.setState((previousState) => {
             const validationErrors = previousState
@@ -152,17 +125,29 @@ class AddForm extends Component {
                 </div>
                 {validationErrorSummary}
                 <form onSubmit={this.onSave} className="mt-2">
-                    <div className="form-group">
-                        <label htmlFor="name">Application Name</label>
-                        <input type="text" className="form-control" name="name" autoFocus onChange={this.onNameChange} />
+                    <div className="form-group row">
+                        <div className="col-6">
+                            <label htmlFor="name">Application Name</label>
+                            <input type="text" className="form-control" name="name" autoFocus onChange={this.onNameChange} />
+                        </div>
+                        <div className="col-6">
+                            <label htmlFor="facebookClientId">Facebook Client Id</label>
+                            <input type="text" className="form-control" name="facebookClientId" onChange={this.onFBIdChange} />
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <div className="col-6">
+                            <label htmlFor="company">Company</label>
+                            <input type="text" className="form-control" name="company" onChange={this.onCompanyChange} />
+                        </div>
+                        <div className="col-6">
+                            <label htmlFor="facebookClientSecret">Facebook Client Secret</label>
+                            <input type="text" className="form-control" name="facebookClientSecret" onChange={this.onFBSecretChange} />
+                        </div>
                     </div>
                     <div className="form-group">
                         <label htmlFor="description">Application Description</label>
                         <textarea className="form-control" name="description" rows="3" onChange={this.onDescriptionChange}></textarea>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="tags">Product</label>
-                        <input type="text" className="form-control" name="tags" onChange={this.onTagsChange} />
                     </div>
                     <div className="form-group row">
                         <div className="col-sm-4 col-md-3 col-xl-2 ml-auto">

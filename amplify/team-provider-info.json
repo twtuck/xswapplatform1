@@ -1,14 +1,14 @@
 {
     "dev": {
         "awscloudformation": {
-            "AuthRoleName": "xswapplatform-dev-20190928193743-authRole",
-            "UnauthRoleArn": "arn:aws:iam::368593173631:role/xswapplatform-dev-20190928193743-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::368593173631:role/xswapplatform-dev-20190928193743-authRole",
+            "AuthRoleName": "xswapplatform1-dev-20191022201345-authRole",
+            "UnauthRoleArn": "arn:aws:iam::368593173631:role/xswapplatform1-dev-20191022201345-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::368593173631:role/xswapplatform1-dev-20191022201345-authRole",
             "Region": "ap-southeast-1",
-            "DeploymentBucketName": "xswapplatform-dev-20190928193743-deployment",
-            "UnauthRoleName": "xswapplatform-dev-20190928193743-unauthRole",
-            "StackName": "xswapplatform-dev-20190928193743",
-            "StackId": "arn:aws:cloudformation:ap-southeast-1:368593173631:stack/xswapplatform-dev-20190928193743/62c45d60-e1e4-11e9-879a-0a58c7c408be"
+            "DeploymentBucketName": "xswapplatform1-dev-20191022201345-deployment",
+            "UnauthRoleName": "xswapplatform1-dev-20191022201345-unauthRole",
+            "StackName": "xswapplatform1-dev-20191022201345",
+            "StackId": "arn:aws:cloudformation:ap-southeast-1:368593173631:stack/xswapplatform1-dev-20191022201345/6521f650-f4c5-11e9-926d-02e842d24598"
         }
     }
 }

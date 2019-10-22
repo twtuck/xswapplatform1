@@ -11,7 +11,7 @@ export const addApp = (app, token) => {
 
     return new Promise((resolve, reject) => {
 
-        const { name, description } = app;
+        const { name, description, company, facebookClientId, facebookClientSecret } = app;
 
         axios
             .post(`${baseApiUrl1}/provisions`, null,
@@ -20,13 +20,13 @@ export const addApp = (app, token) => {
                 appName: name,
                 appInfo: {
                     description: description,
-                    company: "ABC Company"
+                    company: company //"ABC Company"
                 },
                 callbackUrl: "https://enjdkyfy0odvk.x.pipedream.net",
                 logoutUrl: "https://enjdkyfy0odvk.x.pipedream.net",
                 facebookClient: {
-                    client_id: "466080827334160",
-                    client_secret: "a475c57454a898495a0187b11a3096fd"
+                    client_id: facebookClientId, //"466080827334160",
+                    client_secret: facebookClientSecret //"a475c57454a898495a0187b11a3096fd"
     }
             } })
             .then((result) => {
@@ -78,21 +78,22 @@ export const findAppsByName = (name) => {
 
 };
 
-export const listApps = () => {
+export const listApps = (token) => {
 
     return new Promise((resolve, reject) => {
         axios
-            .get(`${baseApiUrl}/apps`)
-            .then(response => {
-                resolve(response.data);
+            .get(`${baseApiUrl1}/provisions`, { headers: { Authorization: `Bearer ${token}`} })
+            .then((result) => {
+                resolve(result.data);
                 return;
             })
             .catch(error => {
+                console.log(error);
                 reject(error.message);
                 return;
             });
-    });
 
+    });
 };
 
 
