@@ -7,12 +7,12 @@ import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 const AppTable = (props) => {
     const apps = props.apps;
     console.log(props.apps)
-
+    if (apps) {
     const appRows = apps.map(app => {
 
+        console.log(app);
         let classes = `small ${!!app.isNew ? 'table-success' : ''}`;
         
-    console.log(props)
         return (
             <tr key={app.appId.toString()} className={classes}>
                 <td className="align-middle" style={{width: '80px'}}>
@@ -55,6 +55,7 @@ const AppTable = (props) => {
             </table>
         </div>
     );
+    }
 };
 
 AppTable.propTypes = {
