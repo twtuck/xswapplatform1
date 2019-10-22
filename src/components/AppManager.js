@@ -119,32 +119,14 @@ class AppManager extends Component {
         //     throw Error('Description is required');
         // }
 
-        // if (!Array.isArray(tags)) {
-        //     throw Error('Tags must be an array');
-        // }
-
-        // AppService
-        //     .addApp(name, description, tags)
-        //     .then(newApp => {             
-        //         AppService
-        //             .listApps()
-        //             .then(apps => {
-        //                 apps.forEach(n => n.id === newApp.id ? n.isNew = 'true' : n.isNew = undefined);                
-        //                 this.setState({apps});
-        //             })
-        //             .catch(error => console.log(error));
-        //     })
-        //     .catch(error => {
-        //         console.log(error);
-        //     });
-
+        var token = session.getIdToken().getJwtToken();
         AppService
-            .addApp(app, session.getIdToken().getJwtToken())
+            .addApp(app, token)
             .then(newApp => {             
                 AppService
-                    .listApps()
+                    .listApps(token)
                     .then(apps => {
-                        apps.forEach(n => n.id === newApp.id ? n.isNew = 'true' : n.isNew = undefined);                
+                        apps.forEach(n => n.appId === newApp.appId ? n.isNew = 'true' : n.isNew = undefined);                
                         this.setState({apps});
                     })
                     .catch(error => console.log(error));
