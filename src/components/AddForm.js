@@ -75,7 +75,6 @@ class AddForm extends Component {
             this.addValidationError(message);
             return false;
         } else {
-            console.log(type + ':' + text);
             this.removeValidationError(message);
             return true;
         }

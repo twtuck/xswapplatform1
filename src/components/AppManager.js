@@ -126,8 +126,8 @@ class AppManager extends Component {
                 AppService
                     .listApps(token)
                     .then(apps => {
-                        console.log('newApp.appId: ' + newApp.appId);
-                        apps.forEach(n => n.appId === newApp.appId ? n.isNew = 'true' : n.isNew = undefined);                
+                        console.log('newApp.appId: ' + newApp.appName);
+                        apps.forEach(n => n.appName === newApp.appName ? n.isNew = 'true' : n.isNew = undefined);                
                         this.setState({apps});
                     })
                     .catch(error => console.log(error));
@@ -211,7 +211,7 @@ class AppManager extends Component {
     render() {
         return (
             <div>                                
-                <Modal isOpen={this.state.isAddAppModalOpen} onRequestClose={this.handleOnCloseAddAppModal}>
+                <Modal isOpen={this.state.isAddAppModalOpen} onRequestClose={this.handleOnCloseAddAppModal} style={customStyles}>
                     <AddForm onSaveApp={this.handleOnAddApp} onCloseModal={this.handleOnCloseAddAppModal} />
                 </Modal>
                 <Modal isOpen={this.state.isEditAppModalOpen} onRequestClose={this.handleOnCloseEditAppModal}>
@@ -225,6 +225,11 @@ class AppManager extends Component {
         );
     }
 }
+const customStyles = {
+    content : {
+      top: '3em'
+    }
+};
 const signUpConfig = {
     header: 'My Customized Sign Up',
     hideAllDefaults: true,
