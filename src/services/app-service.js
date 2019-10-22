@@ -20,13 +20,13 @@ export const addApp = (app, token) => {
                 appName: name,
                 appInfo: {
                     description: description,
-                    company: company //"ABC Company"
+                    company: "ABC Company"
                 },
                 callbackUrl: "https://enjdkyfy0odvk.x.pipedream.net",
                 logoutUrl: "https://enjdkyfy0odvk.x.pipedream.net",
                 facebookClient: {
-                    client_id: facebookClientId, //"466080827334160",
-                    client_secret: facebookClientSecret //"a475c57454a898495a0187b11a3096fd"
+                    client_id: "466080827334160",
+                    client_secret: "a475c57454a898495a0187b11a3096fd"
     }
             } })
             .then((result) => {
