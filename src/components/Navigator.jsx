@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, BSpan } from 'bootstrap-4-react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
-import { OAuthButton } from 'aws-amplify-react';
 import { Hub, Auth } from 'aws-amplify';
-import { SignOut } from 'aws-amplify-react/dist/Auth';
+import { SignOut } from 'aws-amplify-react';
 
 const HomeItems = props => (
   <React.Fragment>

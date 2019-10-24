@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Nav, NavDropdown, Navbar } from 'react-bootstrap';
-import { SignIn } from 'aws-amplify-react/dist/Auth';
 import { SignInButton } from 'aws-amplify-react/dist/AmplifyUI';
 
 class Header extends Component {constructor(props) {
