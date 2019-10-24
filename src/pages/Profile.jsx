@@ -12,7 +12,11 @@ class Profile extends Component {
     };
   }
 
-  listApps() {
+  componentDidMount() {
+    this.getUserProfile();
+  }
+
+  getUserProfile() {
     const { session } = this.props;
     UserService.getUserProfile(session.getIdToken().getJwtToken()).then(response => {
         this.setState({ userProfile: response })
