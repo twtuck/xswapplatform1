@@ -8,7 +8,7 @@ export const getUserProfile = (token) => {
 
     return new Promise((resolve, reject) => {
         axios
-            .get(`${baseApiUrl}/uerprofile`, { headers: { Authorization: `Bearer ${token}`} })
+            .get(`${baseApiUrl}/userprofile`, { headers: { Authorization: `Bearer ${token}`} })
             .then((result) => {
                 resolve(result.data);
                 console.log(result.data);
