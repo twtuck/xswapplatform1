@@ -2,7 +2,7 @@
 //const { axios } = require("axios");
 import axios from 'axios';
 
-const baseApiUrl = 'https://m876ampgkh.execute-api.ap-southeast-1.amazonaws.com/dev';
+const baseApiUrl = 'https://m876ampgkh.execute-api.ap-southeast-1.amazonaws.com/dev/provisions';
 
 
 // add app
@@ -13,13 +13,13 @@ export const addApp = (app, token) => {
         const { name, description, company, facebookClientId, facebookClientSecret } = app;
 
         axios
-            .post(`${baseApiUrl}/provisions`, null,
+            .post(`${baseApiUrl}`, null,
             { headers: { Authorization: `Bearer ${token}`} ,
               data: {
                 appName: name,
                 appInfo: {
                     description: description,
-                    company: company //"ABC Company"
+                    company: company
                 },
                 callbackUrl: "https://enjdkyfy0odvk.x.pipedream.net",
                 logoutUrl: "https://enjdkyfy0odvk.x.pipedream.net",
@@ -45,7 +45,7 @@ export const findApp = (id) => {
     
     return new Promise((resolve, reject) => {
         axios
-            .get(`${baseApiUrl}/apps/${id}`)
+            .get(`${baseApiUrl}/${id}`)
             .then(response => {
                 resolve(response.data);
                 return;
@@ -78,7 +78,7 @@ export const listApps = (token) => {
 
     return new Promise((resolve, reject) => {
         axios
-            .get(`${baseApiUrl}/provisions`, { headers: { Authorization: `Bearer ${token}`} })
+            .get(`${baseApiUrl}`, { headers: { Authorization: `Bearer ${token}`} })
             .then((result) => {
                 resolve(result.data.Items);
                 return;
@@ -97,7 +97,7 @@ export const removeApp = (id) => {
 
     return new Promise((resolve, reject) => {
         axios
-            .delete(`${baseApiUrl}/apps/${id}`)
+            .delete(`${baseApiUrl}/${id}`)
             .then(() => {
                 resolve();
                 return;

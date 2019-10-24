@@ -113,11 +113,11 @@ export default class Navigator extends Component {
             </HashRouter>
           </Navbar.Nav>
         </Navbar.Collapse>
-        { user && <Navbar.Text>Hi 
-            <Nav.ItemLink href="/profile">
-              {user.username}
-            </Nav.ItemLink> 
-          </Navbar.Text> }
+        { user &&
+          <Nav.ItemLink href="#/profile">
+            {user.username}
+          </Nav.ItemLink> 
+        }
         <SignOut/>
       </Navbar>
     </div>
