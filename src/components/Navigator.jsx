@@ -16,9 +16,10 @@ const HomeItems = props => (
     <Nav.ItemLink href="#/apps">
       Application
     </Nav.ItemLink>
-    <Nav.ItemLink href="#/login">
+    {!props.user && <Nav.ItemLink href="#/login">
       Login
-    </Nav.ItemLink>
+      <BSpan srOnly>(current)</BSpan>
+    </Nav.ItemLink>}
   </React.Fragment>
 )
 
@@ -34,9 +35,10 @@ const AppItems = props => (
       Application
       <BSpan srOnly>(current)</BSpan>
     </Nav.ItemLink>
-    <Nav.ItemLink href="#/login">
+    {!props.user && <Nav.ItemLink href="#/login">
       Login
-    </Nav.ItemLink>
+      <BSpan srOnly>(current)</BSpan>
+    </Nav.ItemLink>}
   </React.Fragment>
 )
 
@@ -51,10 +53,10 @@ const LoginItems = props => (
     <Nav.ItemLink href="#/apps">
       Application
     </Nav.ItemLink>
-    <Nav.ItemLink href="#/login" active>
+    {!props.user && <Nav.ItemLink href="#/login" active>
       Login
       <BSpan srOnly>(current)</BSpan>
-    </Nav.ItemLink>
+    </Nav.ItemLink>}
   </React.Fragment>
 )
 
@@ -102,16 +104,21 @@ export default class Navigator extends Component {
           <Navbar.Nav mr="auto">
             <HashRouter>
               <Switch>
-                <Route exact path="/doc" component={HomeItems} />
-                <Route exact path="/contact" component={HomeItems} />
-                <Route exact path="/apps" component={AppItems} />
-                <Route exact path="/login" component={LoginItems} />
-                <Route path="/" component={HomeItems} />
+                <Route exact path="/doc" component={() => <HomeItems user={user} />} />
+                <Route exact path="/contact" component={() => <HomeItems user={user} />} />
+                <Route exact path="/apps" component={() => <AppItems user={user} />} />
+                <Route exact path="/profile" component={() => <HomeItems user={user} />} />
+                <Route exact path="/login" component={() => <LoginItems user={user} />} />
+                <Route path="/" component={() => <HomeItems user={user} />} />
               </Switch>
             </HashRouter>
           </Navbar.Nav>
         </Navbar.Collapse>
-        { user && <Navbar.Text>Hi {user.username} </Navbar.Text> }
+        { user && <Navbar.Text>Hi 
+            <Nav.ItemLink href="/profile">
+              {user.username}
+            </Nav.ItemLink> 
+          </Navbar.Text> }
         <SignOut/>
       </Navbar>
     </div>

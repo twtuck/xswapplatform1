@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 
 import { Authenticator } from 'aws-amplify-react';
 import { Lead, BSpan } from 'bootstrap-4-react';
+import { withAuthenticator } from 'aws-amplify-react';
 
-export default class Login extends Component {
+class Login extends Component {
   render() {
     const { user } = this.props;
 
@@ -15,3 +16,4 @@ export default class Login extends Component {
     )
   }
 }
+export default withAuthenticator(Login, false);

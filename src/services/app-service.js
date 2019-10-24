@@ -37,7 +37,6 @@ export const addApp = (app, token) => {
             });
 
     });
-
 };
 
 
@@ -56,7 +55,6 @@ export const findApp = (id) => {
                 return;
             });
     });
-    
 };
 
 
@@ -74,7 +72,6 @@ export const findAppsByName = (name) => {
                 return;
             });
     });
-
 };
 
 export const listApps = (token) => {
@@ -91,7 +88,6 @@ export const listApps = (token) => {
                 reject(error.message);
                 return;
             });
-
     });
 };
 
@@ -111,7 +107,6 @@ export const removeApp = (id) => {
                 return;
             });
     });
-
 };
 
 
@@ -129,15 +124,4 @@ export const updateApp = (app) => {
                 return;
             });
     });
-    
 };
-
-// exports
-// module.exports = {
-//     'addApp': addApp,
-//     'findApp': findApp,
-//     'findAppsByName': findAppsByName,
-//     'listApps': listApps,
-//     'removeApp': removeApp,
-//     'updateApp': updateApp
-// };

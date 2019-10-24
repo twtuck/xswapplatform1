@@ -227,7 +227,7 @@ class AppManager extends Component {
 }
 const customStyles = {
     content : {
-      top: '3em'
+      top: '80px'
     }
 };
 const signUpConfig = {
