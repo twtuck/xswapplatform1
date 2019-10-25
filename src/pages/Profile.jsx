@@ -45,7 +45,7 @@ class Profile extends Component {
           if (this.validateName(name)) {
             const { session } = this.props;
             var token = session.getIdToken().getJwtToken();
-            UserService.updateUserProfile(app, token)
+            UserService.updateUserProfile(userProfile, token)
                 .then(userProfile => {
                   console.log('userProfile: ' + userProfile);           
                   //this.setState({userProfile});
