@@ -10,7 +10,7 @@ export const getUserProfile = (token) => {
         axios
             .get(`${baseApiUrl}/userprofile`, { headers: { Authorization: `Bearer ${token}`} })
             .then((result) => {
-                resolve(result.data.Items);
+                resolve(result.data.Item);
                 console.log(result.data.Item);
                 console.log(result.data);
                 return;
