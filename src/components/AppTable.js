@@ -17,11 +17,11 @@ const AppTable = (props) => {
             <tr key={app.appId.toString()} className={classes}>
                 <td className="align-middle" style={{width: '80px'}}>
                     <div className="d-flex flex-row">
-                        <a data-toggle="tooltip" data-placement="top" title="Edit App" className="p-2" onClick={() => props.onOpenEditAppModal(app.appId)}>
+                        <a data-toggle="tooltip" data-placement="top" title="Edit App" className="p-2" onClick={() => props.onOpenEditAppModal(app.appName)}>
                             <i className="fa fa-pencil fa-lg text-primary"></i>
                             <FontAwesomeIcon icon={faPencilAlt} />
                         </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Delete App" className="p-2" onClick={() => props.onDeleteApp(app.appId)}>
+                        <a data-toggle="tooltip" data-placement="top" title="Delete App" className="p-2" onClick={() => props.onDeleteApp(app.appName)}>
                             <i className="fa fa-trash fa-lg text-danger"></i>
                             <FontAwesomeIcon icon={faTrash} />
                         </a>

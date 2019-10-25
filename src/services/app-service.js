@@ -60,12 +60,10 @@ export const listApps = (token) => {
             .get(`${baseApiUrl}`, { headers: { Authorization: `Bearer ${token}`} })
             .then((result) => {
                 resolve(result.data.Items);
-                return;
             })
             .catch(error => {
                 console.log(error);
                 reject(error.message);
-                return;
             });
     });
 };
@@ -74,16 +72,15 @@ export const listApps = (token) => {
 // remove app
 export const removeApp = (id) => {
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => { 
         axios
-            .delete(`${baseApiUrl}/${id}`)
-            .then(() => {
-                resolve();
-                return;
+            .delete(`${baseApiUrl}/${name}`, { headers: { Authorization: `Bearer ${token}`} })
+            .then((result) => {
+                resolve(result.data);
             })
             .catch(error => {
+                console.log(error);
                 reject(error.message);
-                return;
             });
     });
 };
@@ -91,16 +88,16 @@ export const removeApp = (id) => {
 
 // update app
 export const updateApp = (app) => {
-    return new Promise((resolve, reject) => {
+    
+    return new Promise((resolve, reject) => { 
         axios
-            .put(`${baseApiUrl}/apps`, {app})
-            .then(() => {
-                resolve();
-                return;
+            .get(`${baseApiUrl}/${name}`, { headers: { Authorization: `Bearer ${token}`} })
+            .then((result) => {
+                resolve(result.data);
             })
             .catch(error => {
+                console.log(error);
                 reject(error.message);
-                return;
             });
     });
 };

@@ -50,35 +50,35 @@ class AppManager extends Component {
     }
 
 
-    handleOnDeleteApp(appId) {
+    handleOnDeleteApp(appName) {
 
-        console.log('handleOnDeleteApp ' + appId);
-        if (appId < 1) {
+        console.log('handleOnDeleteApp ' + appName);
+        if (appName < 1) {
             throw Error('Cannot remove app. Invalid app id specified');
         }
         
         const confirmation = window.confirm('Are you sure you wish to remove app?');
 
-        // if (confirmation) {
-            // AppService
-            //     .removeApp(appId)
-            //     .then(() => {
-            //         AppService
-            //             .listApps()
-            //             .then(apps => {
-            //                 this.setState({apps});
-            //                 return;
-            //             })
-            //             .catch(error => {
-            //                 console.log(error);
-            //                 return;
-            //             });
-            //     })
-            //     .catch(error => {
-            //         console.log(error);
-            //         return;
-            //     });
-        // }
+        if (confirmation) {
+            AppService
+                .removeApp(appName, session.getIdToken().getJwtToken())
+                .then(() => {
+                    AppService
+                        .listApps()
+                        .then(apps => {
+                            this.setState({apps});
+                            return;
+                        })
+                        .catch(error => {
+                            console.log(error);
+                            return;
+                        });
+                })
+                .catch(error => {
+                    console.log(error);
+                    return;
+                });
+        }
     }
 
 
@@ -126,7 +126,7 @@ class AppManager extends Component {
                 AppService
                     .listApps(token)
                     .then(apps => {
-                        console.log('newApp.appId: ' + newApp.appName);
+                        console.log('newApp.appName: ' + newApp.appName);
                         apps.forEach(n => n.appName === newApp.appName ? n.isNew = 'true' : n.isNew = undefined);                
                         this.setState({apps});
                     })
@@ -153,15 +153,15 @@ class AppManager extends Component {
     }
 
 
-    handleOpenEditAppModal(appId) {
+    handleOpenEditAppModal(appName) {
 
-        console.log('handleOpenEditAppModal ' + appId);
-        if (!appId || appId < 1) {
+        console.log('handleOpenEditAppModal ' + appName);
+        if (!appName || appName < 1) {
             throw Error('Cannot edit app. Invalid app id specified.');
         }
 
         // AppService
-        //     .findApp(appId)
+        //     .findApp(appName)
         //     .then(app => {
         //         this.setState({selectedApp: app});
         //         this.setState({isEditAppModalOpen: true});

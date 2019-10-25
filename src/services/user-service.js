@@ -13,12 +13,10 @@ export const getUserProfile = (token) => {
                 resolve(result.data.Item);
                 console.log(result.data.Item);
                 console.log(result.data);
-                return;
             })
             .catch(error => {
                 console.log(error);
                 reject(error.message);
-                return;
             });
     });
 };
@@ -53,12 +51,10 @@ export const getUsers = (token) => {
                 resolve(result.data.Items);
                 console.log(result.data.Items);
                 console.log(result.data);
-                return;
             })
             .catch(error => {
                 console.log(error);
                 reject(error.message);
-                return;
             });
     });
 };
