@@ -77,19 +77,51 @@ class Profile extends Component {
           };
       });      
   }
+    
+  addValidationError(message) {        
+      this.setState((previousState) => {
+          const validationErrors = [...previousState.validationErrors];
+          validationErrors.push({message});
+          return {
+              validationErrors: validationErrors
+          };
+      });      
+  }
+
+  removeValidationError(message) {
+      this.setState((previousState) => {
+          const validationErrors = previousState
+              .validationErrors
+              .filter(error => error.message !== message);
+          
+          return {
+              validationErrors: validationErrors
+          };
+      });      
+  }
 
   render() {
     const { user } = this.props;
     const { userProfile } = this.state;
     let userName;
-    let userProfileComponent;
     if (userProfile) {
       userName = userProfile.userName;
     } else {
       userName = '';
     }
+
+    const validationErrorSummary = this.state.validationErrors.map(error => 
+        <div key={uuidv1()} className="alert alert-danger alert-dismissible fade show">
+            {error.message}
+            <button type="button" className="close" data-dismiss="alert">
+                <span>&times;</span>
+            </button>
+        </div>
+    );
+
     return (
       <React.Fragment>
+        {validationErrorSummary}
         <form onSubmit={this.onSave} className="mt-2">
           <div className="form-group row">
             <label htmlFor="name">Username</label>
