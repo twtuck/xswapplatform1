@@ -12,6 +12,7 @@ export const getUserProfile = (token) => {
             .then((result) => {
                 resolve(result.data.Items);
                 console.log(result.data.Items);
+                console.log(result.data);
                 return;
             })
             .catch(error => {
