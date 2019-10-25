@@ -82,18 +82,12 @@ class Profile extends Component {
     const { user } = this.props;
     const { userProfile } = this.state;
 
-    let userProfileComponent;
-    if (user) {
-      userProfileComponent = <Lead>Username: { userProfile && <BSpan font="italic">{userProfile.userName}</BSpan> }</Lead>;
-    } else {
-      userProfileComponent = <h1>Cannot see user profile</h1>;
-    }
     return (
       <React.Fragment>
         <form onSubmit={this.onSave} className="mt-2">
           <div className="form-group row">
             <label htmlFor="name">Username</label>
-            <input type="text" className="form-control" name="name" autoFocus onChange={this.onNameChange} />
+            <input type="text" className="form-control" name="name" autoFocus onChange={this.onNameChange} value={userProfile.userName}/>
           </div>
           <div className="form-group row">
             <div className="col-sm-4 col-md-3 col-xl-2 ml-auto">
