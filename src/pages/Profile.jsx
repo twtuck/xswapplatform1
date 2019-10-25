@@ -8,7 +8,8 @@ class Profile extends Component {
     super(props);
 
     this.state = {
-      userProfile: null
+      userProfile: null,
+      validationErrors: []
     };
 
     this.onNameChange = this.onNameChange.bind(this);
