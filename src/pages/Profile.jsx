@@ -40,7 +40,7 @@ class Profile extends Component {
   onSave(event) {
       event.preventDefault();
       if (this.state.validationErrors && this.state.validationErrors.length === 0) {
-          const { name } = this.state;
+          const { userProfile, name } = this.state;
           
           if (this.validateName(name)) {
             const { session } = this.props;
