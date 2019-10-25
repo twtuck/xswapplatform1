@@ -25,6 +25,7 @@ class Profile extends Component {
 
     UserService.getUserProfile(session.getIdToken().getJwtToken()).then(response => {
         this.setState({ userProfile: response })
+        this.setState({ name: response.userName });
     })
     .catch(error => {
         console.log(error);
@@ -102,14 +103,6 @@ class Profile extends Component {
   }
 
   render() {
-    const { user } = this.props;
-    const { userProfile } = this.state;
-    let userName;
-    if (userProfile) {
-      userName = userProfile.userName;
-    } else {
-      userName = '';
-    }
 
     const validationErrorSummary = this.state.validationErrors.map(error => 
         <div key={uuidv1()} className="alert alert-danger alert-dismissible fade show">
@@ -126,7 +119,7 @@ class Profile extends Component {
         <form onSubmit={this.onSave} className="mt-2">
           <div className="form-group row">
             <label htmlFor="name">Username</label>
-            <input type="text" className="form-control" name="name" autoFocus onChange={this.onNameChange} value={userName}/>
+            <input type="text" className="form-control" name="name" autoFocus onChange={this.onNameChange} value={this.state.name}/>
           </div>
           <div className="form-group row">
             <div className="col-sm-4 col-md-3 col-xl-2 ml-auto">
