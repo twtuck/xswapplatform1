@@ -9,9 +9,7 @@ const baseApiUrl = 'https://m876ampgkh.execute-api.ap-southeast-1.amazonaws.com/
 export const addApp = (app, token) => {
 
     return new Promise((resolve, reject) => {
-
         const { name, description, company, facebookClientId, facebookClientSecret } = app;
-
         axios
             .post(`${baseApiUrl}`, null,
             { headers: { Authorization: `Bearer ${token}`} ,
@@ -26,7 +24,7 @@ export const addApp = (app, token) => {
                 facebookClient: {
                     client_id: facebookClientId, //"466080827334160",
                     client_secret: facebookClientSecret //"a475c57454a898495a0187b11a3096fd"
-    }
+                }
             } })
             .then((result) => {
                 resolve(result.data);
@@ -35,41 +33,22 @@ export const addApp = (app, token) => {
                 console.log(error);
                 reject(error.message);
             });
-
     });
 };
 
 
 // find apps
-export const findApp = (id) => {
+export const findApp = (name, token) => {
     
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => { 
         axios
-            .get(`${baseApiUrl}/${id}`)
-            .then(response => {
-                resolve(response.data);
-                return;
+            .get(`${baseApiUrl}/${name}`, { headers: { Authorization: `Bearer ${token}`} })
+            .then((result) => {
+                resolve(result.data);
             })
             .catch(error => {
+                console.log(error);
                 reject(error.message);
-                return;
-            });
-    });
-};
-
-
-export const findAppsByName = (name) => {
-
-    return new Promise((resolve, reject) => {
-        axios
-            .get(`${baseApiUrl}/apps?name=${name}`)
-            .then(response => {
-                resolve(response.data);
-                return;
-            })
-            .catch(error => {
-                reject(error.message);
-                return;
             });
     });
 };

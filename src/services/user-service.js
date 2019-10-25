@@ -22,6 +22,27 @@ export const getUserProfile = (token) => {
             });
     });
 };
+export const updateUserProfile = (userProfile, token) => {
+    const { name, userUid } = userProfile;
+
+    return new Promise((resolve, reject) => {
+        axios
+            .put(`${baseApiUrl}/userprofile`, null, 
+            {   headers: { Authorization: `Bearer ${token}`},
+                data: {
+                    userName: name,
+                    userUid: userUid
+                }
+            })
+            .then((result) => {
+                resolve(result.data);
+            })
+            .catch(error => {
+                console.log(error);
+                reject(error.message);
+            });
+    });
+};
 
 export const getUsers = (token) => {
 
