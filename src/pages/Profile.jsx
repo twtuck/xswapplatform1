@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Lead, BSpan } from 'bootstrap-4-react';
 import { withAuthenticator } from 'aws-amplify-react';
+import uuidv1 from 'uuid/v1';
 const UserService = require('../services/user-service');
 
 class Profile extends Component {
