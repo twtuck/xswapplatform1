@@ -30,10 +30,10 @@ class Profile extends Component {
   render() {
     const { user } = this.props;
     const { userProfile } = this.state;
-    
+
     let userProfileComponent;
     if (user) {
-      userProfileComponent = <Lead>Username: <BSpan font="italic">{userProfile.userName}</BSpan>.</Lead>;
+      userProfileComponent = <Lead>Username: { userProfile && <BSpan font="italic">{userProfile.userName}</BSpan> }</Lead>;
     } else {
       userProfileComponent = <h1>Cannot see user profile</h1>;
     }
