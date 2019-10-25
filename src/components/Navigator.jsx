@@ -92,7 +92,7 @@ export default class Navigator extends Component {
   }
 
   render() {
-    const { user, attributes} = this.state;
+    const { user} = this.state;
     return (
       <div>
       <Navbar expand="md" dark bg="dark" fixed="top">

@@ -18,6 +18,7 @@ class Profile extends Component {
 
   getUserProfile() {
     const { session } = this.props;
+
     UserService.getUserProfile(session.getIdToken().getJwtToken()).then(response => {
         this.setState({ userProfile: response })
     })
@@ -28,15 +29,17 @@ class Profile extends Component {
 }
   render() {
     const { user } = this.props;
-    let userProfile;
+    const { userProfile } = this.state;
+    
+    let userProfileComponent;
     if (user) {
-      userProfile = <Lead>Username: <BSpan font="italic">{userProfile}</BSpan>.</Lead>;
+      userProfileComponent = <Lead>Username: <BSpan font="italic">{userProfile.userName}</BSpan>.</Lead>;
     } else {
-      userProfile = <h1>Cannot see user profile</h1>;
+      userProfileComponent = <h1>Cannot see user profile</h1>;
     }
     return (
       <React.Fragment>
-        {userProfile}
+        {userProfileComponent}
       </React.Fragment>
     )
   }
