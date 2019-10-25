@@ -81,13 +81,19 @@ class Profile extends Component {
   render() {
     const { user } = this.props;
     const { userProfile } = this.state;
-
+    let userName;
+    let userProfileComponent;
+    if (userProfile) {
+      userName = userProfile.userName;
+    } else {
+      userName = '';
+    }
     return (
       <React.Fragment>
         <form onSubmit={this.onSave} className="mt-2">
           <div className="form-group row">
             <label htmlFor="name">Username</label>
-            <input type="text" className="form-control" name="name" autoFocus onChange={this.onNameChange} value={userProfile.userName}/>
+            <input type="text" className="form-control" name="name" autoFocus onChange={this.onNameChange} value={userName}/>
           </div>
           <div className="form-group row">
             <div className="col-sm-4 col-md-3 col-xl-2 ml-auto">
