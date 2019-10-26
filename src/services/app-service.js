@@ -70,7 +70,7 @@ export const listApps = (token) => {
 
 
 // remove app
-export const removeApp = (id) => {
+export const removeApp = (name, token) => {
 
     return new Promise((resolve, reject) => { 
         axios
@@ -87,7 +87,7 @@ export const removeApp = (id) => {
 
 
 // update app
-export const updateApp = (app) => {
+export const updateApp = (name, token) => {
     
     return new Promise((resolve, reject) => { 
         axios

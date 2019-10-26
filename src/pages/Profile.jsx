@@ -79,16 +79,6 @@ class Profile extends Component {
           };
       });      
   }
-    
-  addValidationError(message) {        
-      this.setState((previousState) => {
-          const validationErrors = [...previousState.validationErrors];
-          validationErrors.push({message});
-          return {
-              validationErrors: validationErrors
-          };
-      });      
-  }
 
   removeValidationError(message) {
       this.setState((previousState) => {
