@@ -76,9 +76,9 @@ const oauth = {
     "xswap/apps",
     "aws.cognito.signin.user.admin"
   ],
-  redirectSignIn: "https://d29hbvi1p8qvtm.cloudfront.net/",
+  redirectSignIn: "https://master.d2zqadgdd5qoem.amplifyapp.com/",
   // "https://master.d2zqadgdd5qoem.amplifyapp.com/",
-  redirectSignOut: "https://d29hbvi1p8qvtm.cloudfront.net/",
+  redirectSignOut: "https://master.d2zqadgdd5qoem.amplifyapp.com/",
   // "https://master.d2zqadgdd5qoem.amplifyapp.com/", // xwaplatform-20190930160053-hostingbucket
   responseType: "code" // or 'token', note that REFRESH token will only be generated when the responseType is code
 };
