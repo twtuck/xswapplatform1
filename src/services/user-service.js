@@ -2,7 +2,7 @@
 //const { axios } = require("axios");
 import axios from 'axios';
 
-const baseApiUrl = 'https://m876ampgkh.execute-api.ap-southeast-1.amazonaws.com/dev/platform';
+const baseApiUrl = 'https://a6a3klo627.execute-api.ap-southeast-1.amazonaws.com/dev/platform';
 
 export const getUserProfile = (token) => {
 

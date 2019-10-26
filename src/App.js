@@ -11,26 +11,75 @@ import Analytics from '@aws-amplify/analytics';
 import awsconfig from './aws-exports';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
+// Amplify.configure({
+//   Auth: {
+//     // REQUIRED - Amazon Cognito Region
+//     region: "ap-southeast-1",
+
+//     // OPTIONAL - Amazon Cognito User Pool ID
+//     userPoolId: "ap-southeast-1_d59shP2vd",
+
+//     // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
+//     userPoolWebClientId: "17u15dksii7tv45bflfh0f0oag"
+//   }
+// });
+
+// const oauth = {
+//   domain: "xswap-dev-368593173631.auth.ap-southeast-1.amazoncognito.com",
+//   scope: ["email", "profile", "openid"],
+//   redirectSignIn:
+//     "https://master.d2zqadgdd5qoem.amplifyapp.com/",
+//   redirectSignOut:
+//     "https://master.d2zqadgdd5qoem.amplifyapp.com/", // xwaplatform-20190930160053-hostingbucket
+//   responseType: "code" // or 'token', note that REFRESH token will only be generated when the responseType is code
+// };
+
+// Auth.configure({
+//   oauth
+// });
+
 Amplify.configure({
   Auth: {
     // REQUIRED - Amazon Cognito Region
     region: "ap-southeast-1",
 
     // OPTIONAL - Amazon Cognito User Pool ID
-    userPoolId: "ap-southeast-1_d59shP2vd",
+    userPoolId: "ap-southeast-1_P0oT3WiUj",
 
     // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
-    userPoolWebClientId: "17u15dksii7tv45bflfh0f0oag"
+    userPoolWebClientId: "22nm9t7fgdl11nr0tq7ctdpeg9",
+
+    authenticationFlowType: "CUSTOM_AUTH"
+
+    // for platform analytics only, not working yet
+    // identityPoolId: "ap-southeast-1:f86a39f1-8045-48f0-b112-d2294eb9597b"
+  },
+  API: {
+    endpoints: [
+      {
+        name: "MyAPIGatewayAPI",
+        endpoint:
+          "https://a6a3klo627.execute-api.ap-southeast-1.amazonaws.com/dev"
+      }
+    ]
   }
 });
 
 const oauth = {
-  domain: "xswap-dev-368593173631.auth.ap-southeast-1.amazoncognito.com",
-  scope: ["email", "profile", "openid"],
-  redirectSignIn:
-    "https://master.d2zqadgdd5qoem.amplifyapp.com/",
-  redirectSignOut:
-    "https://master.d2zqadgdd5qoem.amplifyapp.com/", // xwaplatform-20190930160053-hostingbucket
+  domain: "xswap-dev-311616970002.auth.ap-southeast-1.amazoncognito.com",
+  scope: [
+    "email",
+    "profile",
+    "openid",
+    "xswap/profile",
+    "xswap/users",
+    "xswap/apps",
+    "aws.cognito.signin.user.admin"
+  ],
+  redirectSignIn: "https://d29hbvi1p8qvtm.cloudfront.net/",
+  // "https://master.d2zqadgdd5qoem.amplifyapp.com/",
+  redirectSignOut: "https://d29hbvi1p8qvtm.cloudfront.net/",
+  // "https://master.d2zqadgdd5qoem.amplifyapp.com/", // xwaplatform-20190930160053-hostingbucket
   responseType: "code" // or 'token', note that REFRESH token will only be generated when the responseType is code
 };
 
@@ -39,7 +88,7 @@ Auth.configure({
 });
 
 // Amplify.configure(awsconfig);
-Analytics.configure(awsconfig);
+// Analytics.configure(awsconfig);
 
 function App() {
  
@@ -52,15 +101,6 @@ function App() {
     attributes: {
         attr: 'attr'
     },
-    // when using function
-    // attributes: () => {
-    //    const attr = somewhere();
-    //    return {
-    //        myAttr: attr
-    //    }
-    // },
-    // OPTIONAL, the service provider, by default is the AWS Pinpoint
-    provider: 'AWSPinpoint'
 });
   
 return (

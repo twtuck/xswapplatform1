@@ -12,9 +12,9 @@ const HomeItems = props => (
     <Nav.ItemLink href="#/contact">
       Contact Us
     </Nav.ItemLink>
-    <Nav.ItemLink href="#/apps">
+    {props.user && <Nav.ItemLink href="#/apps">
       Application
-    </Nav.ItemLink>
+    </Nav.ItemLink>}
     {!props.user && <Nav.ItemLink href="#/login">
       Login
       <BSpan srOnly>(current)</BSpan>
@@ -30,10 +30,9 @@ const AppItems = props => (
     <Nav.ItemLink href="#/contact">
       Contact Us
     </Nav.ItemLink>
-    <Nav.ItemLink href="#/apps" active>
+    {props.user && <Nav.ItemLink href="#/apps" active>
       Application
-      <BSpan srOnly>(current)</BSpan>
-    </Nav.ItemLink>
+    </Nav.ItemLink>}
     {!props.user && <Nav.ItemLink href="#/login">
       Login
       <BSpan srOnly>(current)</BSpan>
@@ -49,9 +48,9 @@ const LoginItems = props => (
     <Nav.ItemLink href="#/contact">
       Contact Us
     </Nav.ItemLink>
-    <Nav.ItemLink href="#/apps">
+    {props.user && <Nav.ItemLink href="#/apps">
       Application
-    </Nav.ItemLink>
+    </Nav.ItemLink>}
     {!props.user && <Nav.ItemLink href="#/login" active>
       Login
       <BSpan srOnly>(current)</BSpan>

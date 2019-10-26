@@ -19,6 +19,7 @@
     "cli": "^1.0.1",
     "pagination": "github:react-bootstrap/Pagination",
     "prop-types": "^15.7.2",
+    "qrcode.react": "^0.9.3",
     "react": "^16.10.0",
     "react-bootstrap": "^1.0.0-beta.12",
     "react-dom": "^16.10.0",
