@@ -40,7 +40,7 @@ class AppManager extends Component {
 
     listApps() {
         const { session } = this.props;
-        AppService.listApps(session.getIdToken().getJwtToken()).then(response => {
+        AppService.listApps(session.getAccessToken().getJwtToken()).then(response => {
             this.setState({ apps: response })
         })
         .catch(error => {
@@ -61,7 +61,7 @@ class AppManager extends Component {
         if (confirmation) {
             const { session } = this.props;
             AppService
-                .removeApp(appName, session.getIdToken().getJwtToken())
+                .removeApp(appName, session.getAccessToken().getJwtToken())
                 .then(() => {
                     AppService
                         .listApps()
@@ -119,7 +119,7 @@ class AppManager extends Component {
         //     throw Error('Description is required');
         // }
 
-        var token = session.getIdToken().getJwtToken();
+        var token = session.getAccessToken().getJwtToken();
         AppService
             .addApp(app, token)
             .then(newApp => {             

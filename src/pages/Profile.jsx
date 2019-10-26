@@ -23,7 +23,7 @@ class Profile extends Component {
   getUserProfile() {
     const { session } = this.props;
 
-    UserService.getUserProfile(session.getIdToken().getJwtToken()).then(response => {
+    UserService.getUserProfile(session.getAccessToken().getJwtToken()).then(response => {
         this.setState({ userProfile: response })
         this.setState({ name: response.userName });
     })
@@ -46,7 +46,7 @@ class Profile extends Component {
           
           if (this.validateName(name)) {
             const { session } = this.props;
-            var token = session.getIdToken().getJwtToken();
+            var token = session.getAccessToken().getJwtToken();
             UserService.updateUserProfile(userProfile, token)
                 .then(userProfile => {
                   console.log('userProfile: ' + userProfile);           
