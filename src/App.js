@@ -49,7 +49,7 @@ Amplify.configure({
     // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
     userPoolWebClientId: "22nm9t7fgdl11nr0tq7ctdpeg9",
 
-    authenticationFlowType: "CUSTOM_AUTH"
+    //authenticationFlowType: "CUSTOM_AUTH"
 
     // for platform analytics only, not working yet
     // identityPoolId: "ap-southeast-1:f86a39f1-8045-48f0-b112-d2294eb9597b"
