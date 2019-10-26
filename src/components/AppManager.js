@@ -60,11 +60,12 @@ class AppManager extends Component {
 
         if (confirmation) {
             const { session } = this.props;
+            let token = session.getAccessToken().getJwtToken();
             AppService
-                .removeApp(appName, session.getAccessToken().getJwtToken())
+                .removeApp(appName, token)
                 .then(() => {
                     AppService
-                        .listApps()
+                        .listApps(token)
                         .then(apps => {
                             this.setState({apps});
                             return;

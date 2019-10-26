@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Navbar, Nav, BSpan } from 'bootstrap-4-react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import { Hub, Auth } from 'aws-amplify';
-import { SignOut } from 'aws-amplify-react';
+import { SignOut, SignInButton, OAuthButton, FederatedButtons, AmplifyTheme } from 'aws-amplify-react';
 
 const HomeItems = props => (
   <React.Fragment>
@@ -92,6 +92,33 @@ export default class Navigator extends Component {
 
   render() {
     const { user} = this.state;
+    const theme = {
+      signInButton: {
+        display: 'inline-block',
+        marginBottom: 0,
+        fontSize: '12px',
+        fontWeight: 400,
+        lineHeight: 1.42857143,
+        textAlign: 'center',
+        whiteSpace: 'nowrap',
+        verticalAlign: 'middle',
+        touchAction: 'manipulation',
+        cursor: 'pointer',
+        color: '#fff',
+        backgroundColor: '#f90',
+        borderColor: '#ccc',
+        textTransform: 'uppercase',
+        padding: '0 0 6px 0',
+        letterSpacing: '1.1px',
+        border: 'none',
+        width: 153,
+        height: 45,
+        borderRadius: 0
+      },
+    }
+    // const Button = React.createElement(
+    //     SignInButton, 
+    //     { onClick: function () { return Auth.federatedSignIn({ provider: "facebook" })}, variant: 'oAuthSignInButton' });
     return (
       <div>
       <Navbar expand="md" dark bg="dark" fixed="top">
@@ -112,7 +139,7 @@ export default class Navigator extends Component {
             </HashRouter>
           </Navbar.Nav>
         </Navbar.Collapse>
-          
+        <OAuthButton theme={theme}/>
         { user &&
           <Navbar.Nav mr="auto">
             <Nav.ItemLink href="#/profile">
