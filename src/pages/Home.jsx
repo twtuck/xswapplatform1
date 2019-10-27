@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Lead, BSpan } from 'bootstrap-4-react';
+import SetupTotp from "../components/SetupTotp";
 
 export default class Home extends Component {
   render() {

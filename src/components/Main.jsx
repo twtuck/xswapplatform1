@@ -48,7 +48,7 @@ export default class Main extends Component {
                 <Route exact path="/contact" component={Contact} />
                 <Route exact path="/apps" render={(props) => <AppManager user={user} session={session}/>} />
                 <Route exact path="/profile" component={() => <Profile user={user} session={session}/>} />
-                <Route exact path="/login" render={(props) => <Login user={user} />} />
+                <Route exact path="/login" render={(props) => <Login/>} />
                 <Route path="/" render={(props) => <Home user={user} />} />
             </Switch>
           </HashRouter>

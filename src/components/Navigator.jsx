@@ -1,64 +1,52 @@
 import React, { Component } from 'react';
-import { Navbar, Nav, BSpan } from 'bootstrap-4-react';
+import { Navbar, Nav, Button } from 'react-bootstrap';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import { Hub, Auth } from 'aws-amplify';
-import { SignOut, SignInButton, OAuthButton, FederatedButtons, AmplifyTheme } from 'aws-amplify-react';
+import { SignOut, withOAuth, OAuthButton, FederatedButtons, AmplifyTheme } from 'aws-amplify-react';
 
 const HomeItems = props => (
   <React.Fragment>
-    <Nav.ItemLink href="#/doc">
+    <Nav.Link href="#/doc">
       API Documentation
-    </Nav.ItemLink>
-    <Nav.ItemLink href="#/contact">
+    </Nav.Link>
+    <Nav.Link href="#/contact">
       Contact Us
-    </Nav.ItemLink>
-    {props.user && <Nav.ItemLink href="#/apps">
+    </Nav.Link>
+    {props.user && <Nav.Link href="#/apps">
       Application
-    </Nav.ItemLink>}
-    {!props.user && <Nav.ItemLink href="#/login">
-      Login
-      <BSpan srOnly>(current)</BSpan>
-    </Nav.ItemLink>}
+    </Nav.Link>}
   </React.Fragment>
 )
 
 const AppItems = props => (
   <React.Fragment>
-    <Nav.ItemLink href="#/doc">
+    <Nav.Link href="#/doc">
       API Documentation
-    </Nav.ItemLink>
-    <Nav.ItemLink href="#/contact">
+    </Nav.Link>
+    <Nav.Link href="#/contact">
       Contact Us
-    </Nav.ItemLink>
-    {props.user && <Nav.ItemLink href="#/apps" active>
+    </Nav.Link>
+    {props.user && <Nav.Link href="#/apps">
       Application
-    </Nav.ItemLink>}
-    {!props.user && <Nav.ItemLink href="#/login">
-      Login
-      <BSpan srOnly>(current)</BSpan>
-    </Nav.ItemLink>}
+    </Nav.Link>}
   </React.Fragment>
 )
 
 const LoginItems = props => (
   <React.Fragment>
-    <Nav.ItemLink href="#/doc">
+    <Nav.Link href="#/doc">
       API Documentation
-    </Nav.ItemLink>
-    <Nav.ItemLink href="#/contact">
+    </Nav.Link>
+    <Nav.Link href="#/contact">
       Contact Us
-    </Nav.ItemLink>
-    {props.user && <Nav.ItemLink href="#/apps">
+    </Nav.Link>
+    {props.user && <Nav.Link href="#/apps">
       Application
-    </Nav.ItemLink>}
-    {!props.user && <Nav.ItemLink href="#/login" active>
-      Login
-      <BSpan srOnly>(current)</BSpan>
-    </Nav.ItemLink>}
+    </Nav.Link>}
   </React.Fragment>
 )
 
-export default class Navigator extends Component {
+class Navigator extends Component {
   constructor(props) {
     super(props);
 
@@ -121,35 +109,35 @@ export default class Navigator extends Component {
     //     { onClick: function () { return Auth.federatedSignIn({ provider: "facebook" })}, variant: 'oAuthSignInButton' });
     return (
       <div>
-      <Navbar expand="md" dark bg="dark" fixed="top">
-        <Navbar.Brand href="/">xSwap</Navbar.Brand>
-        <Navbar.Toggler target="#navbarsExampleDefault" />
-
-        <Navbar.Collapse id="navbarsExampleDefault">
-          <Navbar.Nav mr="auto">
-            <HashRouter>
-              <Switch>
-                <Route exact path="/doc" component={() => <HomeItems user={user} />} />
-                <Route exact path="/contact" component={() => <HomeItems user={user} />} />
-                <Route exact path="/apps" component={() => <AppItems user={user} />} />
-                <Route exact path="/profile" component={() => <HomeItems user={user} />} />
-                <Route exact path="/login" component={() => <LoginItems user={user} />} />
-                <Route path="/" component={() => <HomeItems user={user} />} />
-              </Switch>
-            </HashRouter>
-          </Navbar.Nav>
-        </Navbar.Collapse>
-        <OAuthButton theme={theme}/>
-        { user &&
-          <Navbar.Nav mr="auto">
-            <Nav.ItemLink href="#/profile">
-              {user.username}
-            </Nav.ItemLink>
-          </Navbar.Nav>
-        }
-        <SignOut/>
-      </Navbar>
-    </div>
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+          <Navbar.Brand href="/">xSwap</Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="mr-auto">
+              <HashRouter>
+                <Switch>
+                  <Route exact path="/doc" component={() => <HomeItems user={user} />} />
+                  <Route exact path="/contact" component={() => <HomeItems user={user} />} />
+                  <Route exact path="/apps" component={() => <AppItems user={user} />} />
+                  <Route exact path="/profile" component={() => <HomeItems user={user} />} />
+                  <Route exact path="/login" component={() => <LoginItems/>} />
+                  <Route path="/" component={() => <HomeItems user={user} />} />
+                </Switch>
+              </HashRouter>
+            </Nav>
+            <Nav>
+              { !user &&
+                <Button variant="dark" onClick={this.props.OAuthSignIn}>Login</Button> }
+              { user &&
+                <Nav.Link href="#/profile">
+                  {user.username}
+                </Nav.Link> }
+              <SignOut/>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+      </div>
     )
   }
 }
+export default withOAuth(Navigator);
