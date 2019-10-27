@@ -5,12 +5,16 @@ import EditForm from './EditForm';
 import AppTable from './AppTable';
 import ControlPanel from './ControlPanel';
 //import axios from 'axios';
-import { withAuthenticator } from 'aws-amplify-react';
+import { withOAuth } from 'aws-amplify-react';
 const AppService = require('../services/app-service');
 
 class AppManager extends Component {
     constructor(props) {
         super(props);
+        const {session, signIn} = this.props;
+        if (!session) {
+            signIn();
+        }
 
         this.state = {
             apps: [],
@@ -231,20 +235,6 @@ const customStyles = {
       top: '80px'
     }
 };
-const signUpConfig = {
-    header: 'My Customized Sign Up',
-    hideAllDefaults: true,
-    defaultCountryCode: '1',
-    signUpFields: [
-      {
-        label: 'My custom email label',
-        key: 'email',
-        required: true,
-        displayOrder: 1,
-        type: 'string'
-      }
-    ]
-  };
 
-export default withAuthenticator(AppManager, false);
+export default withOAuth(AppManager);
 //export default AppManager;

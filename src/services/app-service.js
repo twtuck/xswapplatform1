@@ -1,8 +1,9 @@
 
-//const { axios } = require("axios");
 import axios from 'axios';
+import { API } from 'aws-amplify';
 
-const baseApiUrl = 'https://a6a3klo627.execute-api.ap-southeast-1.amazonaws.com/dev/provisions';
+const baseApiUrl = 'provisions/';
+const APIName = 'MyAPIGatewayAPI';
 
 
 // add app
@@ -10,8 +11,8 @@ export const addApp = (app, token) => {
 
     return new Promise((resolve, reject) => {
         const { name, description, company, facebookClientId, facebookClientSecret } = app;
-        axios
-            .post(`${baseApiUrl}`, null,
+        API
+            .post(`${APIName}`, `${baseApiUrl}`,
             { headers: { Authorization: `Bearer ${token}`} ,
               data: {
                 appName: name,
@@ -41,8 +42,8 @@ export const addApp = (app, token) => {
 export const findApp = (name, token) => {
     
     return new Promise((resolve, reject) => { 
-        axios
-            .get(`${baseApiUrl}/${name}`, { headers: { Authorization: `Bearer ${token}`} })
+        API
+            .get(`${APIName}`, `${baseApiUrl}/${name}`, { headers: { Authorization: `Bearer ${token}`} })
             .then((result) => {
                 resolve(result.data);
             })
@@ -56,8 +57,8 @@ export const findApp = (name, token) => {
 export const listApps = (token) => {
 
     return new Promise((resolve, reject) => {
-        axios
-            .get(`${baseApiUrl}`, { headers: { Authorization: `Bearer ${token}`} })
+        API
+            .get(`${APIName}`, `${baseApiUrl}`, { headers: { Authorization: `Bearer ${token}`} })
             .then((result) => {
                 resolve(result.data.Items);
             })
@@ -73,8 +74,8 @@ export const listApps = (token) => {
 export const removeApp = (name, token) => {
 
     return new Promise((resolve, reject) => { 
-        axios
-            .delete(`${baseApiUrl}/${name}`, { headers: { Authorization: `Bearer ${token}`} })
+        API
+            .delete(`${APIName}`, `${baseApiUrl}/${name}`, { headers: { Authorization: `Bearer ${token}`} })
             .then((result) => {
                 resolve(result.data);
             })
@@ -90,8 +91,8 @@ export const removeApp = (name, token) => {
 export const updateApp = (name, token) => {
     
     return new Promise((resolve, reject) => { 
-        axios
-            .get(`${baseApiUrl}/${name}`, { headers: { Authorization: `Bearer ${token}`} })
+        API
+            .get(`${APIName}`, `${baseApiUrl}/${name}`, { headers: { Authorization: `Bearer ${token}`} })
             .then((result) => {
                 resolve(result.data);
             })

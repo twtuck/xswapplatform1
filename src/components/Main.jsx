@@ -8,8 +8,9 @@ import Doc from './Doc';
 import Contact from './Contact';
 import AppManager from './AppManager';
 import { Hub, Auth } from 'aws-amplify';
+import { withOAuth } from 'aws-amplify-react';
 
-export default class Main extends Component {
+class Main extends Component {
   constructor(props) {
     super(props);
 
@@ -46,7 +47,7 @@ export default class Main extends Component {
             <Switch>
                 <Route exact path="/doc" component={Doc} />
                 <Route exact path="/contact" component={Contact} />
-                <Route exact path="/apps" render={(props) => <AppManager user={user} session={session}/>} />
+                <Route exact path="/apps" render={(props) => <AppManager signIn={this.props.OAuthSignIn} session={session}/>} />
                 <Route exact path="/profile" component={() => <Profile user={user} session={session}/>} />
                 <Route exact path="/login" render={(props) => <Login/>} />
                 <Route path="/" render={(props) => <Home user={user} />} />
@@ -57,3 +58,4 @@ export default class Main extends Component {
     )
   }
 }
+export default withOAuth(Main);

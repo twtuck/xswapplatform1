@@ -44,10 +44,10 @@ Amplify.configure({
     region: "ap-southeast-1",
 
     // OPTIONAL - Amazon Cognito User Pool ID
-    userPoolId: "ap-southeast-1_P0oT3WiUj",
+    userPoolId: "ap-southeast-1_BBBh145d7",
 
     // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
-    userPoolWebClientId: "22nm9t7fgdl11nr0tq7ctdpeg9",
+    userPoolWebClientId: "19e8c683jvtiaupe6hveb5fqhe",
 
     //authenticationFlowType: "CUSTOM_AUTH"
 
@@ -59,14 +59,14 @@ Amplify.configure({
       {
         name: "MyAPIGatewayAPI",
         endpoint:
-          "https://a6a3klo627.execute-api.ap-southeast-1.amazonaws.com/dev"
+          "https://6sevm9m5t1.execute-api.ap-southeast-1.amazonaws.com/dev"
       }
     ]
   }
 });
 
 const oauth = {
-  domain: "xswap-dev-311616970002.auth.ap-southeast-1.amazoncognito.com",
+  domain: "xswap-dev-368593173631.auth.ap-southeast-1.amazoncognito.com",
   scope: [
     "email",
     "profile",

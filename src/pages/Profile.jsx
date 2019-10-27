@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withAuthenticator } from 'aws-amplify-react';
 import uuidv1 from 'uuid/v1';
 const UserService = require('../services/user-service');
+import SetupTotp from "../components/SetupTotp";
 
 class Profile extends Component {
   constructor(props) {
@@ -119,6 +120,7 @@ class Profile extends Component {
             </div>
           </div>
         </form>
+        <SetupTotp />
       </React.Fragment>
     )
   }
