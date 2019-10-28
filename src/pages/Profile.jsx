@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { withAuthenticator } from 'aws-amplify-react';
 import uuidv1 from 'uuid/v1';
-const UserService = require('../services/user-service');
 import SetupTotp from "../components/SetupTotp";
+const UserService = require('../services/user-service');
 
 class Profile extends Component {
   constructor(props) {
