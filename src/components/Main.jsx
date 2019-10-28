@@ -48,7 +48,7 @@ class Main extends Component {
                 <Route exact path="/doc" component={Doc} />
                 <Route exact path="/contact" component={Contact} />
                 <Route exact path="/apps" render={(props) => <AppManager signIn={this.props.OAuthSignIn} session={session}/>} />
-                <Route exact path="/profile" component={() => <Profile user={user} session={session}/>} />
+                <Route exact path="/profile" component={() => <Profile signIn={this.props.OAuthSignIn} user={user} session={session}/>} />
                 <Route exact path="/login" render={(props) => <Login/>} />
                 <Route path="/" render={(props) => <Home user={user} />} />
             </Switch>

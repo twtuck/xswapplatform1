@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withAuthenticator } from 'aws-amplify-react';
+import { withOAuth } from 'aws-amplify-react';
 import uuidv1 from 'uuid/v1';
 import SetupTotp from "../components/SetupTotp";
 import { Button } from 'react-bootstrap';
@@ -8,8 +8,11 @@ const UserService = require('../services/user-service');
 class Profile extends Component {
   constructor(props) {
     super(props);
-    const { user } = this.props;
+    const { user, session, signIn } = this.props;
 
+    if (!session) {
+        signIn();
+    }
     this.state = {
       userProfile: null,
       validationErrors: [],
@@ -113,7 +116,7 @@ class Profile extends Component {
       console.log('identities[providerName]: ', identities['providerName']);
       isFederatedUser = identities['providerName'];
       if (!isFederatedUser) {
-        console.log('identities contains providerName: ', identities.contains('providerName'));
+        console.log('identities contains providerName: ', identities.includes('providerName'));
         isFederatedUser = identities.includes('providerName');
       }
     }
@@ -137,4 +140,4 @@ class Profile extends Component {
     )
   }
 }
-export default withAuthenticator(Profile, false);
+export default Profile;
