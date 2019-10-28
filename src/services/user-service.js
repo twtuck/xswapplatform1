@@ -10,9 +10,8 @@ export const getUserProfile = (token) => {
         API
             .get(`${APIName}`, `${baseApiUrl}/userprofile`, { headers: { Authorization: `Bearer ${token}`} })
             .then((result) => {
-                resolve(result.data.Item);
-                console.log(result.data.Item);
-                console.log(result.data);
+                resolve(result.Item);
+                console.log(result);
             })
             .catch(error => {
                 console.log(error);
@@ -34,7 +33,7 @@ export const updateUserProfile = (userProfile, token) => {
                 }
             })
             .then((result) => {
-                resolve(result.data);
+                resolve(result);
             })
             .catch(error => {
                 console.log(error);
@@ -49,9 +48,8 @@ export const getUsers = (token) => {
         API
             .get(`${APIName}`, `${baseApiUrl}/users`, { headers: { Authorization: `Bearer ${token}`} })
             .then((result) => {
-                resolve(result.data.Items);
-                console.log(result.data.Items);
-                console.log(result.data);
+                resolve(result.Items);
+                console.log(result);
             })
             .catch(error => {
                 console.log(error);

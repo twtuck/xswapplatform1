@@ -26,7 +26,7 @@ export const addApp = (app, token) => {
                 }
             } })
             .then((result) => {
-                resolve(result.data);
+                resolve(result);
             })
             .catch(error => {
                 console.log(error);
@@ -42,7 +42,7 @@ export const findApp = (name, token) => {
         API
             .get(`${APIName}`, `${baseApiUrl}/${name}`, { headers: { Authorization: `Bearer ${token}`} })
             .then((result) => {
-                resolve(result.data);
+                resolve(result);
             })
             .catch(error => {
                 console.log(error);
@@ -57,7 +57,7 @@ export const listApps = (token) => {
         API
             .get(`${APIName}`, `${baseApiUrl}`, { headers: { Authorization: `Bearer ${token}`} })
             .then((result) => {
-                resolve(result.data.Items);
+                resolve(result.Items);
             })
             .catch(error => {
                 console.log(error);
@@ -73,7 +73,7 @@ export const removeApp = (name, token) => {
         API
             .delete(`${APIName}`, `${baseApiUrl}/${name}`, { headers: { Authorization: `Bearer ${token}`} })
             .then((result) => {
-                resolve(result.data);
+                resolve(result);
             })
             .catch(error => {
                 console.log(error);
@@ -89,7 +89,7 @@ export const updateApp = (name, token) => {
         API
             .get(`${APIName}`, `${baseApiUrl}/${name}`, { headers: { Authorization: `Bearer ${token}`} })
             .then((result) => {
-                resolve(result.data);
+                resolve(result);
             })
             .catch(error => {
                 console.log(error);
