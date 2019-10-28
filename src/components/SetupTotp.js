@@ -7,6 +7,7 @@ export default class SetupTotp extends Component {
     constructor(props) {
         super(props);
         this.state = { user: null, qrCode: null };
+        this.onTOTPChange = this.onTOTPChange.bind(this);
     }
 
     componentDidMount() {
@@ -41,6 +42,11 @@ export default class SetupTotp extends Component {
         })
     }
 
+    onTOTPChange(event) {
+        const challengeAnswer = event.target.value.trim();
+        this.setState({ challengeAnswer: challengeAnswer });
+    }
+
     render() {
         const { qrCode } = this.state;
         return ( 
@@ -59,7 +65,7 @@ export default class SetupTotp extends Component {
                     <label htmlFor="name">TOTP Code</label>
                   </div>
                   <div className="form-group">
-                    <input type="text" name="totpCode" autoFocus size="14"/>
+                    <input type="text" placeholder='TOTP Code' name="totpCode" onChange={this.onTOTPChange} size="14"/>
                   </div>
                   <div className="form-group">
                     <Button variant="primary" onClick={() => this.setPreferredMFA('TOTP')}>Confirm TOTP</Button>
