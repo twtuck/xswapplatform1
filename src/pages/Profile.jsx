@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withAuthenticator } from 'aws-amplify-react';
 import uuidv1 from 'uuid/v1';
 import SetupTotp from "../components/SetupTotp";
+import { Button } from 'react-bootstrap';
 const UserService = require('../services/user-service');
 
 class Profile extends Component {
@@ -114,9 +115,7 @@ class Profile extends Component {
           </div>
           <div className="form-group row">
             <div className="col-sm-4 col-md-3 col-xl-2 ml-auto">
-              <button type="submit" className="btn btn-success btn-lg btn-block">
-                <i className="fa fa-save mr-2"></i>Save
-              </button>
+              <Button type="submit" variant="primary">Save</Button>
             </div>
           </div>
         </form>

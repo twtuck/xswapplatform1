@@ -1,10 +1,8 @@
 
-import axios from 'axios';
 import { API } from 'aws-amplify';
 
 const baseApiUrl = 'provisions/';
 const APIName = 'MyAPIGatewayAPI';
-
 
 // add app
 export const addApp = (app, token) => {
@@ -37,7 +35,6 @@ export const addApp = (app, token) => {
     });
 };
 
-
 // find apps
 export const findApp = (name, token) => {
     
@@ -69,7 +66,6 @@ export const listApps = (token) => {
     });
 };
 
-
 // remove app
 export const removeApp = (name, token) => {
 
@@ -85,7 +81,6 @@ export const removeApp = (name, token) => {
             });
     });
 };
-
 
 // update app
 export const updateApp = (name, token) => {

@@ -1,14 +1,14 @@
 
-//const { axios } = require("axios");
-import axios from 'axios';
+import { API } from 'aws-amplify';
 
-const baseApiUrl = 'https://a6a3klo627.execute-api.ap-southeast-1.amazonaws.com/dev/platform';
+const baseApiUrl = 'platform';
+const APIName = 'MyAPIGatewayAPI';
 
 export const getUserProfile = (token) => {
 
     return new Promise((resolve, reject) => {
-        axios
-            .get(`${baseApiUrl}/userprofile`, { headers: { Authorization: `Bearer ${token}`} })
+        API
+            .get(`${APIName}`, `${baseApiUrl}/userprofile`, { headers: { Authorization: `Bearer ${token}`} })
             .then((result) => {
                 resolve(result.data.Item);
                 console.log(result.data.Item);
@@ -20,12 +20,13 @@ export const getUserProfile = (token) => {
             });
     });
 };
+
 export const updateUserProfile = (userProfile, token) => {
     const { name, userUid } = userProfile;
 
     return new Promise((resolve, reject) => {
-        axios
-            .put(`${baseApiUrl}/userprofile`, null, 
+        API
+            .put(`${APIName}`, `${baseApiUrl}/userprofile`, 
             {   headers: { Authorization: `Bearer ${token}`},
                 data: {
                     userName: name,
@@ -45,8 +46,8 @@ export const updateUserProfile = (userProfile, token) => {
 export const getUsers = (token) => {
 
     return new Promise((resolve, reject) => {
-        axios
-            .get(`${baseApiUrl}/users`, { headers: { Authorization: `Bearer ${token}`} })
+        API
+            .get(`${APIName}`, `${baseApiUrl}/users`, { headers: { Authorization: `Bearer ${token}`} })
             .then((result) => {
                 resolve(result.data.Items);
                 console.log(result.data.Items);

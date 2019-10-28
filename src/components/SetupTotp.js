@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Auth } from "aws-amplify";
 import QRCode from 'qrcode.react';
+import { Button } from 'react-bootstrap';
 
 export default class SetupTotp extends Component {
     constructor(props) {
@@ -43,35 +44,30 @@ export default class SetupTotp extends Component {
     render() {
         const { qrCode } = this.state;
         return ( 
-        <div>
-          <button
-            onClick={this.addTTOP}
-            style={{ border: '1px solid #ddd', width: 125 }}
-          >
-          <p>Add TOTP</p>
-          </button>
+        <div className="totp">
+          <div className="form-group row">
+            <Button variant="primary" onClick={this.addTTOP}>Add TOTP</Button>
+          </div>
           {
             (qrCode && qrCode !== '') && (
-              <div>
-                <QRCode value={qrCode} />
+              <div className="form-group row">
+                <div className="col-6">
+                  <QRCode value={qrCode} size={300} />
+                </div>
+                <div className="col-6">
+                  <div>
+                    <label htmlFor="name">TOTP Code</label>
+                  </div>
+                  <div className="form-group">
+                    <input type="text" name="totpCode" autoFocus size="14"/>
+                  </div>
+                  <div className="form-group">
+                    <Button variant="primary" onClick={() => this.setPreferredMFA('TOTP')}>Confirm TOTP</Button>
+                  </div>
+                </div>
               </div>
             )
           }
-          <br />
-          <button
-            onClick={() => this.setPreferredMFA('TOTP')}
-            style={{ border: '1px solid #ddd', width: 125 }}
-          >
-            <p>Prefer TOTP</p>
-          </button>
-          <br />
-          <input
-            placeholder='TOTP Code'
-            onChange={e => this.setState({
-              challengeAnswer: e.target.value
-            })}
-            style={{ border: '1px solid #ddd', height: 35 }}
-          />
         </div>);
     }
 }

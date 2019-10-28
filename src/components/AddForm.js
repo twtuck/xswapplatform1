@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uuidv1 from 'uuid/v1';
+import { Button } from 'react-bootstrap';
 
 
 class AddForm extends Component {
@@ -150,16 +151,10 @@ class AddForm extends Component {
                     </div>
                     <div className="form-group row">
                         <div className="col-sm-4 col-md-3 col-xl-2 ml-auto">
-                            <button type="submit" className="btn btn-success btn-lg btn-block">
-                                <i className="fa fa-save mr-2"></i>Save
-                            </button>
+                            <Button type="submit" variant="primary">Save</Button>
                         </div>
                         <div className="col-sm-4 col-md-3 col-xl-2">
-                            <button className="btn btn-danger btn-lg btn-block mt-2 mt-sm-0"
-                                onClick={this.props.onCloseModal}
-                                type="button">
-                                <i className="fa fa-remove mr-2"></i>Cancel
-                            </button>
+                            <Button type="button" variant="primary" onClick={this.props.onCloseModal}>Cancel</Button>
                         </div>
                     </div>
                 </form>
