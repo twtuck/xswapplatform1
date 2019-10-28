@@ -108,8 +108,14 @@ class Profile extends Component {
     const { user } = this.state;
     let identities = user.attributes.identities;
     let isFederatedUser;
+    console.log('identities: ', identities);
     if (identities) {
+      console.log('identities[providerName]: ', identities['providerName']);
       isFederatedUser = identities['providerName'];
+      if (!isFederatedUser) {
+        console.log('identities contains providerName: ', identities.contains('providerName'));
+        isFederatedUser = identities.contains('providerName');
+      }
     }
 
     return (
