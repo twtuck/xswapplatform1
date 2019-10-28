@@ -8,10 +8,12 @@ const UserService = require('../services/user-service');
 class Profile extends Component {
   constructor(props) {
     super(props);
+    const { user } = this.props;
 
     this.state = {
       userProfile: null,
-      validationErrors: []
+      validationErrors: [],
+      user: user
     };
 
     this.onNameChange = this.onNameChange.bind(this);
@@ -26,8 +28,7 @@ class Profile extends Component {
     const { session } = this.props;
 
     UserService.getUserProfile(session.getAccessToken().getJwtToken()).then(response => {
-        this.setState({ userProfile: response })
-        this.setState({ name: response.userName });
+        this.setState({ userProfile: response, name: response.userName });
     })
     .catch(error => {
         console.log(error);
@@ -104,6 +105,12 @@ class Profile extends Component {
             </button>
         </div>
     );
+    const { user } = this.state;
+    let identities = user.attributes.identities;
+    let isFacebook;
+    if (identities) {
+      isFacebook = identities['providerName'] == 'Facebook';
+    }
 
     return (
       <React.Fragment>
@@ -119,7 +126,7 @@ class Profile extends Component {
             </div>
           </div>
         </form>
-        <SetupTotp />
+    { isFacebook && <SetupTotp /> }
       </React.Fragment>
     )
   }
