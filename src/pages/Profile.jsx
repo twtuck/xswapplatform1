@@ -114,7 +114,7 @@ class Profile extends Component {
       isFederatedUser = identities['providerName'];
       if (!isFederatedUser) {
         console.log('identities contains providerName: ', identities.contains('providerName'));
-        isFederatedUser = identities.contains('providerName');
+        isFederatedUser = identities.includes('providerName');
       }
     }
 
@@ -132,7 +132,7 @@ class Profile extends Component {
             </div>
           </div>
         </form>
-    { isFederatedUser && <SetupTotp /> }
+    { !isFederatedUser && <SetupTotp /> }
       </React.Fragment>
     )
   }
