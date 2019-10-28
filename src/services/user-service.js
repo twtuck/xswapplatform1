@@ -28,7 +28,7 @@ export const updateUserProfile = (userProfile, token) => {
         API
             .put(`${APIName}`, `${baseApiUrl}/userprofile`, 
             {   headers: { Authorization: `Bearer ${token}`},
-                data: {
+                body: {
                     userName: name,
                     userUid: userUid
                 }

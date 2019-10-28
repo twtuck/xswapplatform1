@@ -12,7 +12,7 @@ export const addApp = (app, token) => {
         API
             .post(`${APIName}`, `${baseApiUrl}`,
             { headers: { Authorization: `Bearer ${token}`} ,
-              data: {
+              body: {
                 appName: name,
                 appInfo: {
                     description: description,
