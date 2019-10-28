@@ -107,9 +107,9 @@ class Profile extends Component {
     );
     const { user } = this.state;
     let identities = user.attributes.identities;
-    let isFacebook;
+    let isFederatedUser;
     if (identities) {
-      isFacebook = identities['providerName'] == 'Facebook';
+      isFederatedUser = identities['providerName'];
     }
 
     return (
@@ -126,7 +126,7 @@ class Profile extends Component {
             </div>
           </div>
         </form>
-    { isFacebook && <SetupTotp /> }
+    { isFederatedUser && <SetupTotp /> }
       </React.Fragment>
     )
   }
