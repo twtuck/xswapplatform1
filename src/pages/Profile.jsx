@@ -67,7 +67,7 @@ class Profile extends Component {
             var token = session.getAccessToken().getJwtToken();
             userProfile.firstName = firstName;
             userProfile.lastName = lastName;
-            userProfile.email = emaill;
+            userProfile.email = email;
             UserService.updateUserProfile(userProfile, token)
                 .then(userProfile => {
                   console.log('userProfile: ' + userProfile);           
@@ -78,6 +78,14 @@ class Profile extends Component {
                 });
           }
       }
+  }
+
+  onSavePassword(event) {
+    event.preventDefault();
+    const confirmation = window.confirm('Are you sure you wish to change password?');
+    if (confirmation) {
+        window.prompt('Successfully change password!');
+    }
   }
 
   validateFirstName(text) {
@@ -150,6 +158,7 @@ class Profile extends Component {
       <React.Fragment>
       <div className="alignLeft">
         {validationErrorSummary}
+        <label>Update User Profile</label>
         <form onSubmit={this.onSave} className="mt-2">
           <div className="form-group row">
             <div className="col-6">
@@ -179,6 +188,31 @@ class Profile extends Component {
             </div>
           </div>
         </form>
+
+
+        <label>Update Password</label>
+        <form onSubmit={this.onSavePassword} className="mt-2">
+          <div className="form-group row">
+            <div className="col-4">
+              <label htmlFor="password">Current Password</label>
+              <input type="text" className="form-control" name="password"/>
+            </div>
+            <div className="col-4">
+              <label htmlFor="newPassword">New Password</label>
+              <input type="text" className="form-control" name="newPassword"/>
+            </div>
+            <div className="col-4">
+              <label htmlFor="confirmPassword">Confirm New Password</label>
+              <input type="text" className="form-control" name="confirmPassword"/>
+            </div>
+          </div>
+          <div className="form-group row">
+            <div className="col-sm-4 col-md-3 col-xl-2 ml-auto">
+              <Button type="submit" variant="primary" block>Change Password</Button>
+            </div>
+          </div>
+        </form>
+
         { !isFederatedUser && <SetupTotp/> }
       </div>
       </React.Fragment>
