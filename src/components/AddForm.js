@@ -151,10 +151,10 @@ class AddForm extends Component {
                     </div>
                     <div className="form-group row">
                         <div className="col-sm-4 col-md-3 col-xl-2 ml-auto">
-                            <Button type="submit" variant="primary">Save</Button>
+                            <Button type="submit" variant="primary" block>Save</Button>
                         </div>
                         <div className="col-sm-4 col-md-3 col-xl-2">
-                            <Button type="button" variant="primary" onClick={this.props.onCloseModal}>Cancel</Button>
+                            <Button type="button" variant="primary" onClick={this.props.onCloseModal} block>Cancel</Button>
                         </div>
                     </div>
                 </form>

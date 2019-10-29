@@ -19,7 +19,8 @@ class Profile extends Component {
       user: user
     };
 
-    this.onNameChange = this.onNameChange.bind(this);
+    this.onFirstNameChange = this.onFirstNameChange.bind(this);
+    this.onLastNameChange = this.onLastNameChange.bind(this);
     this.onSave = this.onSave.bind(this);
   }
 
@@ -31,7 +32,12 @@ class Profile extends Component {
     const { session } = this.props;
 
     UserService.getUserProfile(session.getAccessToken().getJwtToken()).then(response => {
-        this.setState({ userProfile: response, name: response.userName });
+        this.setState(
+          { userProfile: response,
+            name: response.userName,
+            firstName: response.firstName,
+            lastName: response.lastName
+          });
     })
     .catch(error => {
         console.log(error);
@@ -39,10 +45,16 @@ class Profile extends Component {
     });
   }
 
-  onNameChange(event) {
-      const name = event.target.value.trim();
-      this.validateName(name);
-      this.setState({ name: name });
+  onFirstNameChange(event) {
+      const firstName = event.target.value.trim();
+      this.validateFirstName(firstName);
+      this.setState({ firstName: firstName });
+  }
+
+  onLastNameChange(event) {
+      const lastName = event.target.value.trim();
+      this.validateLastName(lastName);
+      this.setState({ lastName: lastName });
   }
 
   onSave(event) {
@@ -50,7 +62,7 @@ class Profile extends Component {
       if (this.state.validationErrors && this.state.validationErrors.length === 0) {
           const { userProfile, name } = this.state;
           
-          if (this.validateName(name)) {
+          if (this.validateFirstName(name) && this.validateLastName(name)) {
             const { session } = this.props;
             var token = session.getAccessToken().getJwtToken();
             UserService.updateUserProfile(userProfile, token)
@@ -65,8 +77,19 @@ class Profile extends Component {
       }
   }
 
-  validateName(text) {
-      const message = 'Username is required';
+  validateFirstName(text) {
+      const message = 'First Name is required';
+      if (text === '') {
+          this.addValidationError(message);
+          return false;
+      } else {
+          this.removeValidationError(message);
+          return true;
+      }
+  }
+
+  validateLastName(text) {
+      const message = 'Last Name is required';
       if (text === '') {
           this.addValidationError(message);
           return false;
@@ -126,12 +149,30 @@ class Profile extends Component {
         {validationErrorSummary}
         <form onSubmit={this.onSave} className="mt-2">
           <div className="form-group row">
-            <label htmlFor="name">Username</label>
-            <input type="text" className="form-control" name="name" autoFocus onChange={this.onNameChange} value={this.state.name}/>
+            <div className="col-6">
+              <label htmlFor="name">Username</label>
+              <input type="text" className="form-control" name="name" disabled value={this.state.name}/>
+            </div>
+            <div className="col-6">
+              <label htmlFor="email">Email</label>
+              <input type="text" className="form-control" name="email" disabled value={this.state.email}/>
+            </div>
+          </div>
+          <div className="form-group row">
+            <div className="col-6">
+              <label htmlFor="firstName">First Name</label>
+              <input type="text" className="form-control" name="firstName" value={this.state.firstName}
+                onChange={this.onFirstNameChange} autoFocus/>
+            </div>
+            <div className="col-6">
+              <label htmlFor="lastName">Last Name</label>
+              <input type="text" className="form-control" name="lastName" value={this.state.lastName}
+                onChange={this.onLastNameChange}/>
+            </div>
           </div>
           <div className="form-group row">
             <div className="col-sm-4 col-md-3 col-xl-2 ml-auto">
-              <Button type="submit" variant="primary">Save</Button>
+              <Button type="submit" variant="primary" block>Save</Button>
             </div>
           </div>
         </form>
