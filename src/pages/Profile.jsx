@@ -60,11 +60,14 @@ class Profile extends Component {
   onSave(event) {
       event.preventDefault();
       if (this.state.validationErrors && this.state.validationErrors.length === 0) {
-          const { userProfile, name } = this.state;
+          const { userProfile, name, email, firstName, lastName } = this.state;
           
-          if (this.validateFirstName(name) && this.validateLastName(name)) {
+          if (this.validateFirstName(firstName) && this.validateLastName(lastName)) {
             const { session } = this.props;
             var token = session.getAccessToken().getJwtToken();
+            userProfile.firstName = firstName;
+            userProfile.lastName = lastName;
+            userProfile.email = emaill;
             UserService.updateUserProfile(userProfile, token)
                 .then(userProfile => {
                   console.log('userProfile: ' + userProfile);           
@@ -122,7 +125,6 @@ class Profile extends Component {
   }
 
   render() {
-
     const validationErrorSummary = this.state.validationErrors.map(error => 
         <div key={uuidv1()} className="alert alert-danger alert-dismissible fade show">
             {error.message}
@@ -146,6 +148,7 @@ class Profile extends Component {
 
     return (
       <React.Fragment>
+      <div className="alignLeft">
         {validationErrorSummary}
         <form onSubmit={this.onSave} className="mt-2">
           <div className="form-group row">
@@ -176,7 +179,8 @@ class Profile extends Component {
             </div>
           </div>
         </form>
-    { !isFederatedUser && <SetupTotp /> }
+        { !isFederatedUser && <SetupTotp/> }
+      </div>
       </React.Fragment>
     )
   }

@@ -67,13 +67,13 @@ export default class SetupTotp extends Component {
         }
         
         return ( 
-        <div className="totp">
-          <div className="form-group row">
+        <div>
+          <div className="form-group">
             <Button variant="primary" onClick={this.addTTOP}>Add TOTP</Button>
           </div>
           {
             (qrCode && qrCode !== '') && (
-              <div className="form-group row">
+              <div className="form-group">
                 <div className="col-auto">
                   <QRCode value={qrCode} size={300} />
                 </div>
