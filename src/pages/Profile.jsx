@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withOAuth } from 'aws-amplify-react';
 import uuidv1 from 'uuid/v1';
 import SetupTotp from "../components/SetupTotp";
-import { Button, Tabs, Tab, Sonnet } from 'react-bootstrap';
+import { Button, Tabs, Tab } from 'react-bootstrap';
 const UserService = require('../services/user-service');
 
 class Profile extends Component {
@@ -65,7 +65,6 @@ class Profile extends Component {
           if (this.validateFirstName(firstName) && this.validateLastName(lastName)) {
             const { session } = this.props;
             var token = session.getAccessToken().getJwtToken();
-            const user
             userProfile.userProfile.firstName = firstName;
             userProfile.userProfile.lastName = lastName;
             UserService.updateUserProfile(userProfile, token)
@@ -159,7 +158,6 @@ class Profile extends Component {
       <div className="alignLeft">
       <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
         <Tab eventKey="profile" title="Update User Profile">
-          <Sonnet />
         {validationErrorSummary}
         <form onSubmit={this.onSave} className="mt-2">
           <div className="form-group row">
@@ -193,7 +191,6 @@ class Profile extends Component {
         </Tab>
 
         <Tab eventKey="password" title="Update Password">
-          <Sonnet />
         <form onSubmit={this.onSavePassword} className="mt-2">
           <div className="form-group row">
             <div className="col-4">
@@ -219,7 +216,6 @@ class Profile extends Component {
 
         { !isFederatedUser && 
         <Tab eventKey="totp" title="Add TOTP">
-          <Sonnet />
         <SetupTotp/>
         </Tab> }
       </Tabs>
