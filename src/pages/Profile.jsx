@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withOAuth } from 'aws-amplify-react';
 import uuidv1 from 'uuid/v1';
 import SetupTotp from "../components/SetupTotp";
-import { Button } from 'react-bootstrap';
+import { Button, Tabs, Tab, Sonnet } from 'react-bootstrap';
 const UserService = require('../services/user-service');
 
 class Profile extends Component {
@@ -65,9 +65,9 @@ class Profile extends Component {
           if (this.validateFirstName(firstName) && this.validateLastName(lastName)) {
             const { session } = this.props;
             var token = session.getAccessToken().getJwtToken();
-            userProfile.firstName = firstName;
-            userProfile.lastName = lastName;
-            userProfile.email = email;
+            const user
+            userProfile.userProfile.firstName = firstName;
+            userProfile.userProfile.lastName = lastName;
             UserService.updateUserProfile(userProfile, token)
                 .then(userProfile => {
                   console.log('userProfile: ' + userProfile);           
@@ -157,8 +157,10 @@ class Profile extends Component {
     return (
       <React.Fragment>
       <div className="alignLeft">
+      <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
+        <Tab eventKey="profile" title="Update User Profile">
+          <Sonnet />
         {validationErrorSummary}
-        <label>Update User Profile</label>
         <form onSubmit={this.onSave} className="mt-2">
           <div className="form-group row">
             <div className="col-6">
@@ -188,9 +190,10 @@ class Profile extends Component {
             </div>
           </div>
         </form>
+        </Tab>
 
-
-        <label>Update Password</label>
+        <Tab eventKey="password" title="Update Password">
+          <Sonnet />
         <form onSubmit={this.onSavePassword} className="mt-2">
           <div className="form-group row">
             <div className="col-4">
@@ -212,8 +215,14 @@ class Profile extends Component {
             </div>
           </div>
         </form>
+        </Tab>
 
-        { !isFederatedUser && <SetupTotp/> }
+        { !isFederatedUser && 
+        <Tab eventKey="totp" title="Add TOTP">
+          <Sonnet />
+        <SetupTotp/>
+        </Tab> }
+      </Tabs>
       </div>
       </React.Fragment>
     )
