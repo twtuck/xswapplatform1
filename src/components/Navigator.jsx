@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import { Hub, Auth } from 'aws-amplify';
-import { SignOut, withOAuth } from 'aws-amplify-react';
+import { withOAuth } from 'aws-amplify-react';
 
 const HomeItems = props => (
   <React.Fragment>
@@ -33,6 +33,12 @@ class Navigator extends Component {
 
   componentDidMount() {
     this.loadUser(); // The first check
+  }
+
+  signOut = () => {
+    Auth.signOut()
+      .then(data => console.log(data))
+      .catch(err => console.log(err));
   }
 
   loadUser() {
@@ -74,10 +80,13 @@ class Navigator extends Component {
               { !user &&
                 <Button variant="dark" onClick={this.props.OAuthSignIn}>Login</Button> }
               { user &&
-                <Nav.Link href="#/profile">
-                  {user.username}
-                </Nav.Link> }
-              <SignOut/>
+                <React.Fragment>
+                  Hi
+                  <Nav.Link href="#/profile">
+                    {user.username}
+                  </Nav.Link> 
+                  <Button variant="dark" onClick={this.props.OAuthSignIn}>Login</Button> 
+                </React.Fragment> }
             </Nav>
           </Navbar.Collapse>
         </Navbar>

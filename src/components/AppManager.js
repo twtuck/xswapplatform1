@@ -57,11 +57,10 @@ class AppManager extends Component {
     handleOnDeleteApp(appName) {
         console.log('handleOnDeleteApp ' + appName);
         if (appName < 1) {
-            throw Error('Cannot remove app. Invalid app id specified');
+            throw Error('Cannot remove app. Invalid app name specified');
         }
         
         const confirmation = window.confirm('Are you sure you wish to remove app?');
-
         if (confirmation) {
             const { session } = this.props;
             let token = session.getAccessToken().getJwtToken();
