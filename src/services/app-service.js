@@ -103,7 +103,7 @@ export const removeApp = (name, token) => {
 
     return new Promise((resolve, reject) => {
         API
-            .delete(`${APIName}`, `${baseApiUrl}/${name}`, {
+            .del(`${APIName}`, `${baseApiUrl}${name}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
