@@ -81,7 +81,7 @@ class Navigator extends Component {
                 <Button variant="dark" onClick={this.props.OAuthSignIn}>Login</Button> }
               { user &&
                 <React.Fragment>
-                  Hi
+                  <label>Hi</label>
                   <Nav.Link href="#/profile">
                     {user.username}
                   </Nav.Link> 

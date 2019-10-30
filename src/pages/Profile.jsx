@@ -216,9 +216,10 @@ class Profile extends Component {
 
         { !isFederatedUser && 
         <Tab eventKey="totp" title="Add TOTP">
-        <SetupTotp/>
+        
         </Tab> }
       </Tabs>
+      <SetupTotp/>
       </div>
       </React.Fragment>
     )
