@@ -60,14 +60,16 @@ class Profile extends Component {
   onSave(event) {
       event.preventDefault();
       if (this.state.validationErrors && this.state.validationErrors.length === 0) {
-          const { userProfile, name, email, firstName, lastName } = this.state;
+          const { firstName, lastName } = this.state;
           
           if (this.validateFirstName(firstName) && this.validateLastName(lastName)) {
             const { session } = this.props;
             var token = session.getAccessToken().getJwtToken();
-            userProfile.userProfile.firstName = firstName;
-            userProfile.userProfile.lastName = lastName;
-            UserService.updateUserProfile(userProfile, token)
+            var newProfile = { 
+              firstName: firstName, 
+              lastName: lastName 
+            }
+            UserService.updateUserProfile(newProfile, token)
                 .then(userProfile => {
                   console.log('userProfile: ' + userProfile);           
                   //this.setState({userProfile});

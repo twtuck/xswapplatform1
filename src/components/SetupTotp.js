@@ -73,7 +73,7 @@ export default class SetupTotp extends Component {
           </div>
           {
             (qrCode && qrCode !== '') && (
-              <div className="form-group">
+              <div className="form-group row">
                 <div className="col-auto">
                   <QRCode value={qrCode} size={300} />
                 </div>
