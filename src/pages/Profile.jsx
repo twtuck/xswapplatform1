@@ -35,8 +35,8 @@ class Profile extends Component {
         this.setState(
           { userProfile: response,
             name: response.userName,
-            firstName: response.firstName,
-            lastName: response.lastName
+            firstName: response.userProfile.firstName,
+            lastName: response.userProfile.lastName
           });
     })
     .catch(error => {
@@ -64,12 +64,11 @@ class Profile extends Component {
           
           if (this.validateFirstName(firstName) && this.validateLastName(lastName)) {
             const { session } = this.props;
-            var token = session.getAccessToken().getJwtToken();
-            var newProfile = { 
+            const newProfile = { 
               firstName: firstName, 
               lastName: lastName 
             }
-            UserService.updateUserProfile(newProfile, token)
+            UserService.updateUserProfile(newProfile, session.getAccessToken().getJwtToken())
                 .then(userProfile => {
                   console.log('userProfile: ' + userProfile);           
                   //this.setState({userProfile});
