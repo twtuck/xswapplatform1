@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Container } from 'bootstrap-4-react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import Home from '../pages/Home';
-import Login  from '../pages/Login';
 import Profile  from '../pages/Profile';
+import User from '../pages/User';
 import Doc from './Doc';
 import Contact from './Contact';
 import AppManager from './AppManager';
@@ -24,8 +24,8 @@ class Main extends Component {
 
   componentDidMount() {
     this.loadUser(); // The first check
-    const serverPublicKey = `-----BEGIN PUBLIC KEY-----\r\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCi/H8+Oize7Y6Y4Fx4Rp9phOSu\r\nY5IcRV+axAFnzPZM6JxA7b7Ufi5urBbezjOVTqwtBCmzkngUyKDjmv35MHSRiv4j\r\nuR5bnwrqE9OhECySdpbE8ZNT9bZUx2u5Y29VuDBQRdkDk4LDcnAInxRYC+Muf6TV\r\nLHGlP/PMeS/m1n1vAQIDAQAB\r\n-----END PUBLIC KEY-----\r\n`;
-    ls.set('serverPublicKey', serverPublicKey) 
+    // const serverPublicKey = `-----BEGIN PUBLIC KEY-----\r\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCi/H8+Oize7Y6Y4Fx4Rp9phOSu\r\nY5IcRV+axAFnzPZM6JxA7b7Ufi5urBbezjOVTqwtBCmzkngUyKDjmv35MHSRiv4j\r\nuR5bnwrqE9OhECySdpbE8ZNT9bZUx2u5Y29VuDBQRdkDk4LDcnAInxRYC+Muf6TV\r\nLHGlP/PMeS/m1n1vAQIDAQAB\r\n-----END PUBLIC KEY-----\r\n`;
+    // ls.set('serverPublicKey', serverPublicKey)
     console.log('serverPublicKey');
   }
 
@@ -53,7 +53,7 @@ class Main extends Component {
                 <Route exact path="/contact" component={Contact} />
                 <Route exact path="/apps" render={(props) => <AppManager signIn={this.props.OAuthSignIn} session={session}/>} />
                 <Route exact path="/profile" component={() => <Profile signIn={this.props.OAuthSignIn} user={user} session={session}/>} />
-                <Route exact path="/login" render={(props) => <Login/>} />
+                <Route exact path="/users" render={(props) => <User signIn={this.props.OAuthSignIn} user={user} session={session}/>} />} />
                 <Route path="/" render={(props) => <Home user={user} />} />
             </Switch>
           </HashRouter>

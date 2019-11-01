@@ -1,5 +1,6 @@
 import { API } from 'aws-amplify';
 import ls from 'local-storage'
+const PlatformService = require('../services/platform-service');
 
 const joseHelper = require('../helpers/joseHelper');
 
@@ -35,7 +36,13 @@ export const addApp = (app, token) => {
                 client_secret: facebookClientSecret //"a475c57454a898495a0187b11a3096fd"
             }
         };
-        const serverPublicKey = ls.get('serverPublicKey');
+        let serverPublicKey = ls.get('serverPublicKey');
+        if (!serverPublicKey) {
+            PlatformService.getUserProfile(token).then(response => {
+                console.log(response);
+                serverPublicKey = response.serverKey;
+            });
+        }
         joseHelper.encrypt(serverPublicKey, JSON.stringify(payload))
             .then(jwe => {
                 console.log(jwe);

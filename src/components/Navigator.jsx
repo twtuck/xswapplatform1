@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch, Link } from 'react-router-dom';
 import { Hub, Auth } from 'aws-amplify';
 import { withOAuth } from 'aws-amplify-react';
 
@@ -14,6 +14,9 @@ const HomeItems = props => (
     </Nav.Link>
     {props.user && <Nav.Link href="#/apps">
       Application
+    </Nav.Link>}
+    {props.user && <Nav.Link href="#/users">
+      View Users
     </Nav.Link>}
   </React.Fragment>
 )
@@ -71,21 +74,20 @@ class Navigator extends Component {
                   <Route exact path="/contact" component={() => <HomeItems user={user} />} />
                   <Route exact path="/apps" component={() => <HomeItems user={user} />} />
                   <Route exact path="/profile" component={() => <HomeItems user={user} />} />
-                  <Route exact path="/login" component={() => <HomeItems user={user}/>} />
                   <Route path="/" component={() => <HomeItems user={user} />} />
                 </Switch>
               </HashRouter>
             </Nav>
             <Nav>
               { !user &&
-                <Button variant="dark" onClick={this.props.OAuthSignIn}>Login</Button> }
+                <Button variant="dark" onClick={this.props.OAuthSignIn}>Sign In</Button> }
               { user &&
                 <React.Fragment>
                   <Navbar.Text>Hi</Navbar.Text>
-                  <Nav.Link href="#/profile">
+                  <a href="#/profile" class='nav-link'>
                     {user.username}
-                  </Nav.Link> 
-                  <Button variant="dark" onClick={this.signOut}>Logout</Button> 
+                  </a> 
+                  <Button variant="dark" onClick={this.signOut}>Sign Out</Button> 
                 </React.Fragment> }
             </Nav>
           </Navbar.Collapse>

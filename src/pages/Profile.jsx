@@ -3,7 +3,7 @@ import { withOAuth } from 'aws-amplify-react';
 import uuidv1 from 'uuid/v1';
 import SetupTotp from "../components/SetupTotp";
 import { Button, Tabs, Tab, Alert } from 'react-bootstrap';
-const UserService = require('../services/user-service');
+const PlatformService = require('../services/platform-service');
 
 class Profile extends Component {
   constructor(props) {
@@ -31,10 +31,11 @@ class Profile extends Component {
   getUserProfile() {
     const { session } = this.props;
 
-    UserService.getUserProfile(session.getAccessToken().getJwtToken()).then(response => {
+    PlatformService.getUserProfile(session.getAccessToken().getJwtToken()).then(response => {
         this.setState(
           { userProfile: response,
             name: response.userName,
+            email: response.email,
             firstName: response.userProfile.firstName,
             lastName: response.userProfile.lastName
           });
@@ -68,7 +69,7 @@ class Profile extends Component {
               firstName: firstName, 
               lastName: lastName 
             }
-            UserService.updateUserProfile(newProfile, session.getAccessToken().getJwtToken())
+            PlatformService.updateUserProfile(newProfile, session.getAccessToken().getJwtToken())
                 .then(userProfile => {
                   console.log('userProfile: ' + userProfile);
                   this.setState({updateResult: 'success'});
