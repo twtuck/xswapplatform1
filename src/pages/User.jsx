@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Table } from 'react-bootstrap';
+import LoadingIndicator from "../components/LoadingIndicator";
 import { trackPromise } from 'react-promise-tracker';
+
 const PlatformService = require('../services/platform-service');
 
 class User extends Component {

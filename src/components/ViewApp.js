@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import uuidv1 from 'uuid/v1';
+import { Button } from 'react-bootstrap';
 
 
 class ViewApp extends Component {
@@ -14,6 +14,7 @@ class ViewApp extends Component {
     }
 
     render() {
+        const { app } = this.state;
 
         return (
             <div className="card card-body">
