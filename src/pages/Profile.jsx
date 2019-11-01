@@ -52,6 +52,24 @@ class Profile extends Component {
     });
   }
 
+  onPasswordChange(event) {
+      const password = event.target.value.trim();
+      this.validatePassword(password);
+      this.setState({ password: password });
+  }
+
+  onNewPasswordChange(event) {
+      const password = event.target.value.trim();
+      this.validateNewPassword(password);
+      this.setState({ newPassword: password });
+  }
+
+  onConfirmPasswordChange(event) {
+      const password = event.target.value.trim();
+      this.validateConfirmPassword(password);
+      this.setState({ confirmPassword: password });
+  }
+
   onFirstNameChange(event) {
       const firstName = event.target.value.trim();
       this.validateFirstName(firstName);
@@ -91,7 +109,46 @@ class Profile extends Component {
     event.preventDefault();
     const confirmation = window.confirm('Are you sure you wish to change password?');
     if (confirmation) {
-        window.prompt('Successfully change password!');
+      const { password, newPassword, confirmPassword } = this.state;
+      Auth.currentAuthenticatedUser()
+      .then(user => {
+          return Auth.changePassword(user, password, confirmPassword);
+      })
+      .then(data => console.log(data))
+      .catch(err => console.log(err));
+    }
+  }
+
+  validatePassword(text) {
+    const message = 'Password is required';
+    if (text === '') {
+        this.addValidationError(message);
+        return false;
+    } else {
+        this.removeValidationError(message);
+        return true;
+    }
+  }
+
+  validateNewPassword(text) {
+    const message = 'New Password is required';
+    if (text === '') {
+        this.addValidationError(message);
+        return false;
+    } else {
+        this.removeValidationError(message);
+        return true;
+    }
+  }
+
+  validateConfirmPassword(text) {
+    const message = 'Confirm New Password is required';
+    if (text === '') {
+        this.addValidationError(message);
+        return false;
+    } else {
+        this.removeValidationError(message);
+        return true;
     }
   }
 
