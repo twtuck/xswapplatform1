@@ -28,31 +28,31 @@ class AddForm extends Component {
 
     onNameChange(event) {
         const name = event.target.value.trim();
-        this.validateText(name, 'Name');
+        this.validateText(name, 'Name', true);
         this.setState({ name: name });
     }
 
     onDescriptionChange(event) {
         const description = event.target.value.trim();
-        this.validateText(description, 'Description');
+        this.validateText(description, 'Description', false);
         this.setState({ description: description });
     }
 
     onCompanyChange(event) {
         const company = event.target.value.trim();
-        this.validateText(company, 'Company');
+        this.validateText(company, 'Company', false);
         this.setState({ company: company });
     }
 
     onFBIdChange(event) {
         const facebookClientId = event.target.value.trim();
-        this.validateText(facebookClientId, 'Facebook Client Id');
+        this.validateText(facebookClientId, 'Facebook Client Id', true);
         this.setState({ facebookClientId: facebookClientId });
     }
 
     onFBSecretChange(event) {
         const facebookClientSecret = event.target.value.trim();
-        this.validateText(facebookClientSecret, 'Facebook Client Secret');
+        this.validateText(facebookClientSecret, 'Facebook Client Secret', true);
         this.setState({ facebookClientSecret: facebookClientSecret });
     }
 
@@ -70,13 +70,22 @@ class AddForm extends Component {
         }
     }
 
-    validateText(text, type) {
-        const message = type + ' is required';
+    validateText(text, type, checkCharacter) {
         if (text === '') {
+            const message = type + ' is required';
             this.addValidationError(message);
             return false;
         } else {
-            this.removeValidationError(message);
+            if (checkCharacter) {
+                var re = /\w/;
+                var OK = re.exec(text); 
+                if (!OK) {
+                    const message = type + ' only allow alphabet and number character';
+                    this.addValidationError(message);
+                    return false;
+                }
+            }
+            this.removeValidationError(type);
             return true;
         }
     }
@@ -91,11 +100,11 @@ class AddForm extends Component {
         });      
     }
 
-    removeValidationError(message) {
+    removeValidationError(type) {
         this.setState((previousState) => {
             const validationErrors = previousState
                 .validationErrors
-                .filter(error => error.message !== message);
+                .filter(error => !error.message.startsWith(type));
             
             return {
                 validationErrors: validationErrors
@@ -151,10 +160,10 @@ class AddForm extends Component {
                     </div>
                     <div className="form-group row">
                         <div className="col-sm-4 col-md-3 col-xl-2 ml-auto">
-                            <Button type="submit" variant="primary">Save</Button>
+                            <Button type="submit" variant="primary" block>Save</Button>
                         </div>
                         <div className="col-sm-4 col-md-3 col-xl-2">
-                            <Button type="button" variant="primary" onClick={this.props.onCloseModal}>Cancel</Button>
+                            <Button type="button" variant="primary" onClick={this.props.onCloseModal} block>Cancel</Button>
                         </div>
                     </div>
                 </form>

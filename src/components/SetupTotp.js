@@ -37,8 +37,16 @@ export default class SetupTotp extends Component {
         Auth.verifyTotpToken(user, challengeAnswer)
         .then(() => {
             Auth.setPreferredMFA(user, authType)
-            .then(data => console.log('MFA update success: ', data))
-            .catch(err => console.log('MFA update error: ', err))
+            .then(data => {
+              let message = 'MFA update success';
+              console.log(message + ':' + data);
+              this.setState({ success: message })
+            })
+            .catch(err => {
+              let message = 'Cannot update MFA, try again later';
+              console.log(message + ':' + err);
+              this.setState({ success: message })
+            })
         })
     }
 
@@ -48,19 +56,28 @@ export default class SetupTotp extends Component {
     }
 
     render() {
-        const { qrCode } = this.state;
+        const { qrCode, success } = this.state;
+        let successMessage
+        if (success) {
+          successMessage = (
+            <div className="form-group">
+              {success}
+            </div>
+          );
+        }
+        
         return ( 
-        <div className="totp">
-          <div className="form-group row">
-            <Button variant="primary" onClick={this.addTTOP}>Add TOTP</Button>
+        <div>
+          <div className="form-group">
+            <Button variant="primary" onClick={this.addTTOP}>Generate QRCode</Button>
           </div>
           {
             (qrCode && qrCode !== '') && (
               <div className="form-group row">
-                <div className="col-6">
+                <div className="col-auto">
                   <QRCode value={qrCode} size={300} />
                 </div>
-                <div className="col-6">
+                <div className="col-auto">
                   <div>
                     <label htmlFor="name">TOTP Code</label>
                   </div>
@@ -70,6 +87,7 @@ export default class SetupTotp extends Component {
                   <div className="form-group">
                     <Button variant="primary" onClick={() => this.setPreferredMFA('TOTP')}>Confirm TOTP</Button>
                   </div>
+                  {successMessage}
                 </div>
               </div>
             )

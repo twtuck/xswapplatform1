@@ -26,10 +26,6 @@
   color: #09d3ac;
 }
 
-.navbar-text {
-  padding: 0.5em;
-}
-
 .mt-6 {
   margin-top: 4rem !important;
 }
@@ -39,7 +35,11 @@
   border-color: #f90;
 }
 
-.totp {
+.alignLeft {
   text-align: left;
+}
+
+.tab-content>.tab-pane {
+  padding: 1.5rem 0;
 }
 

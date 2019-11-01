@@ -21,15 +21,15 @@ export const getUserProfile = (token) => {
 };
 
 export const updateUserProfile = (userProfile, token) => {
-    const { name, userUid } = userProfile;
+    const { firstName, lastName } = userProfile;
 
     return new Promise((resolve, reject) => {
         API
             .put(`${APIName}`, `${baseApiUrl}/userprofile`, 
             {   headers: { Authorization: `Bearer ${token}`},
                 body: {
-                    userName: name,
-                    userUid: userUid
+                    firstName: firstName,
+                    lastName: lastName
                 }
             })
             .then((result) => {
