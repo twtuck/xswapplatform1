@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
-import AddForm from './AddForm';
-import EditForm from './EditForm';
+import AddApp from './AddApp';
+import ViewApp from './ViewApp';
 import AppTable from './AppTable';
 import ControlPanel from './ControlPanel';
 //import axios from 'axios';
@@ -39,7 +39,7 @@ class AppManager extends Component {
     componentWillMount() {
         this.listApps();
     }
-    
+
     listApps() {
         const { session } = this.props;
         AppService.listApps(session.getAccessToken().getJwtToken()).then(response => {
@@ -206,10 +206,10 @@ class AppManager extends Component {
         return (
             <div>                                
                 <Modal isOpen={this.state.isAddAppModalOpen} onRequestClose={this.handleOnCloseAddAppModal} style={customStyles}>
-                    <AddForm onSaveApp={this.handleOnAddApp} onCloseModal={this.handleOnCloseAddAppModal} />
+                    <AddApp onSaveApp={this.handleOnAddApp} onCloseModal={this.handleOnCloseAddAppModal} />
                 </Modal>
                 <Modal isOpen={this.state.isEditAppModalOpen} onRequestClose={this.handleOnCloseEditAppModal}>
-                    <EditForm onSaveApp={this.handleOnEditApp} onCloseModal={this.handleOnCloseEditAppModal} app={this.state.selectedApp} />
+                    <ViewApp onCloseModal={this.handleOnCloseEditAppModal} app={this.state.selectedApp} />
                 </Modal>
                 <div className="mb-3">
                     <ControlPanel openAddAppModal={this.handleOpenAddAppModal} onFindApps={this.handleOnFindApps} />

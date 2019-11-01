@@ -1,6 +1,5 @@
 .starter-template {
   padding: 3rem 1.5rem;
-  text-align: center;
 }
 
 .App {
@@ -33,10 +32,6 @@
 .btn_primary {
   background-color: #f90;
   border-color: #f90;
-}
-
-.alignLeft {
-  text-align: left;
 }
 
 .tab-content>.tab-pane {

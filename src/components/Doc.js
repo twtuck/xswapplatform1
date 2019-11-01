@@ -5,11 +5,11 @@ class Doc extends Component {
  
   render() {
     return (
-      <div className='alignLeft'>
+      <div>
         <h2><strong>Overview</strong></h2>
         <p>The xSwap platform comprises a number of services that work collaboratively to help developers build applications that facilitate the exchange of things/stuffs of interest among the users of the applications.</p>
         <p>We have chosen to build on top of this platform an application (namely GameCreditSwap) that allows a user to exchange his/her game credits with credits of another game held by other users. Similarly, other developers may use the same platform to develop for instance an application for the users to exchange reward points.</p>
-        <p>&nbsp;</p>
+        <br/>
         <h2><strong>General Architecture</strong></h2>
         <p>The xSwap platform provides support for tasks that are common across most stuff-exchanging applications.</p>
         <Table striped bordered size="sm">

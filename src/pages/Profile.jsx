@@ -78,7 +78,6 @@ class Profile extends Component {
             }
             PlatformService.updateUserProfile(newProfile, session.getAccessToken().getJwtToken())
                 .then(userProfile => {
-                  console.log('userProfile: ' + userProfile);
                   this.setState({updateResult: 'success'});
                 })
                 .catch(error => {
@@ -163,19 +162,16 @@ class Profile extends Component {
     const { user, updateResult } = this.state;
     let identities = user.attributes.identities;
     let isFederatedUser;
-    console.log('identities: ', identities);
     if (identities) {
-      console.log('identities[providerName]: ', identities['providerName']);
       isFederatedUser = identities['providerName'];
       if (!isFederatedUser) {
-        console.log('identities contains providerName: ', identities.includes('providerName'));
         isFederatedUser = identities.includes('providerName');
       }
     }
 
     return (
       <React.Fragment>
-      <div className="alignLeft">
+      <div>
       <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
         <Tab eventKey="profile" title="Update User Profile">
         {validationErrorSummary}

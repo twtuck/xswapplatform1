@@ -30,7 +30,7 @@ export default class Home extends Component {
 const content = [
 	{
 		title: 'Introduce xSwap',
-		description: 'A Platform for developers to build Swap Application.',
+		description: 'A Platform to enable easy exchange',
 		button: 'Read More',
 		image: 'https://i.imgur.com/ZXBtVw7.jpg',
 		user: 'Luan Gjokaj',

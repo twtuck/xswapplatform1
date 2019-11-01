@@ -35,13 +35,20 @@ class User extends Component {
     const { users } = this.state;
     let i = 1;
     const userRows = users.map(user => {
+      let userProfile = user.userProfile;
+      if (userProfile) {
+        userProfile = {
+          firstName: '',
+          lastName: ''
+        }
+      }
       return (
         <tr>
-          <td className="first-column">{i++}</td>
-          <td>{user.userName}</td>
-          <td>{user.email}</td>
-          <td>{user.userProfile.firstName}</td>
-          <td>{user.userProfile.lastName}</td>
+          <td className="align-middle first-column">{i++}</td>
+          <td className="align-middle">{user.userName}</td>
+          <td className="align-middle">{user.email}</td>
+          <td className="align-middle">{userProfile.firstName}</td>
+          <td className="align-middle">{userProfile.lastName}</td>
         </tr>
       )
     });
@@ -50,11 +57,11 @@ class User extends Component {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th className="first-column">#</th>
-              <th>Username</th>
-              <th>Email</th>
-              <th>First Name</th>
-              <th>Last Name</th>
+              <th className="align-middle first-column">#</th>
+              <th className="align-middle">Username</th>
+              <th className="align-middle">Email</th>
+              <th className="align-middle">First Name</th>
+              <th className="align-middle">Last Name</th>
             </tr>
           </thead>
           <tbody>
