@@ -15,7 +15,7 @@ const AppTable = (props) => {
         
         return (
             <tr key={app.appId.toString()} className={classes} onClick={() => props.onOpenAppModal(app.appName)}>
-                <td className="align-middle" style={{width: '80px'}}>
+                <td className="align-middle first-column">
                     <div className="d-flex flex-row">
                         <a data-toggle="tooltip" data-placement="top" title="Delete App" className="p-2" onClick={() => props.onDeleteApp(app.appName)}>
                             <i className="fa fa-trash fa-lg text-danger"></i>
@@ -39,7 +39,7 @@ const AppTable = (props) => {
             <table className="table table-bordered table-striped table-hover">
                 <thead>
                     <tr>
-                        <th></th>
+                        <th className="first-column"></th>
                         <th className="align-middle text-center">Application Name</th>
                         <th className="align-middle text-center">Company</th>
                         <th className="align-middle text-center">Application Description</th>

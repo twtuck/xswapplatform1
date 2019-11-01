@@ -22,10 +22,10 @@ class Profile extends Component {
     this.onFirstNameChange = this.onFirstNameChange.bind(this);
     this.onLastNameChange = this.onLastNameChange.bind(this);
     this.onSave = this.onSave.bind(this);
+    this.getUserProfile();
   }
 
   componentWillMount() {
-    this.getUserProfile();
   }
 
   getUserProfile() {

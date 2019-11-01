@@ -33,10 +33,11 @@ class User extends Component {
 
   render() {
     const { users } = this.state;
+    let i = 0;
     const userRows = users.map(user => {
       return (
         <tr>
-          <td></td>
+          <td className="first-column">{i++}</td>
           <td>{user.userName}</td>
           <td>{user.email}</td>
           <td>{user.userProfile.firstName}</td>
@@ -49,7 +50,7 @@ class User extends Component {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>#</th>
+              <th className="first-column">#</th>
               <th>Username</th>
               <th>Email</th>
               <th>First Name</th>

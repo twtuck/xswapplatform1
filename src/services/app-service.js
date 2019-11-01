@@ -43,11 +43,11 @@ export const addApp = (app, token) => {
                 serverPublicKey = response.serverKey;
             });
         }
-        joseHelper.encrypt(serverPublicKey, JSON.stringify(payload))
-            .then(jwe => {
-                console.log(jwe);
-                API
-                    .post(`${APIName}`, `${baseApiUrl}`, {
+        getServerPublicKey(token, () => {
+            joseHelper.encrypt(serverPublicKey, JSON.stringify(payload))
+                .then(jwe => {
+                    console.log(jwe);
+                    API.post(`${APIName}`, `${baseApiUrl}`, {
                         headers: {
                             Authorization: `Bearer ${token}`
                         },
@@ -55,53 +55,65 @@ export const addApp = (app, token) => {
                             jwe
                         }
                     })
-                    .then((result) => {
-                        resolve(result);
-                    })
-                    .catch(error => {
-                        console.log(error);
-                        reject(error.message);
-                    });
+                .then((result) => {
+                    resolve(result);
+                })
+                .catch(error => {
+                    console.log(error);
+                    reject(error.message);
+                });
             });
+        });
     });
 };
+
+const getServerPublicKey = (token, callback) => {
+    let serverPublicKey = ls.get('serverPublicKey');
+    if (!serverPublicKey) {
+        PlatformService.getUserProfile(token).then(response => {
+            console.log(response);
+            serverPublicKey = response.serverKey;
+            callback();
+        });
+    } else {
+        callback();
+    }
+}
 
 // find apps
 export const findApp = (name, token) => {
 
     return new Promise((resolve, reject) => {
-        API
-            .get(`${APIName}`, `${baseApiUrl}/${name}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            .then((result) => {
-                resolve(result);
-            })
-            .catch(error => {
-                console.log(error);
-                reject(error.message);
-            });
+        API.get(`${APIName}`, `${baseApiUrl}/${name}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then((result) => {
+            resolve(result);
+        })
+        .catch(error => {
+            console.log(error);
+            reject(error.message);
+        });
     });
 };
 
 export const listApps = (token) => {
 
     return new Promise((resolve, reject) => {
-        API
-            .get(`${APIName}`, `${baseApiUrl}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            .then((result) => {
-                resolve(result.Items);
-            })
-            .catch(error => {
-                console.log(error);
-                reject(error.message);
-            });
+        API.get(`${APIName}`, `${baseApiUrl}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then((result) => {
+            resolve(result.Items);
+        })
+        .catch(error => {
+            console.log(error);
+            reject(error.message);
+        });
     });
 };
 
@@ -109,19 +121,18 @@ export const listApps = (token) => {
 export const removeApp = (name, token) => {
 
     return new Promise((resolve, reject) => {
-        API
-            .del(`${APIName}`, `${baseApiUrl}${name}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            .then((result) => {
-                resolve(result);
-            })
-            .catch(error => {
-                console.log(error);
-                reject(error.message);
-            });
+        API.del(`${APIName}`, `${baseApiUrl}${name}`, {
+            headers: {
+            Authorization: `Bearer ${token}`
+            }
+        })
+        .then((result) => {
+            resolve(result);
+        })
+        .catch(error => {
+            console.log(error);
+            reject(error.message);
+        });
     });
 };
 
@@ -129,18 +140,17 @@ export const removeApp = (name, token) => {
 export const updateApp = (name, token) => {
 
     return new Promise((resolve, reject) => {
-        API
-            .get(`${APIName}`, `${baseApiUrl}/${name}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            .then((result) => {
-                resolve(result);
-            })
-            .catch(error => {
-                console.log(error);
-                reject(error.message);
-            });
+        API.get(`${APIName}`, `${baseApiUrl}/${name}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then((result) => {
+            resolve(result);
+        })
+        .catch(error => {
+            console.log(error);
+            reject(error.message);
+        });
     });
 };

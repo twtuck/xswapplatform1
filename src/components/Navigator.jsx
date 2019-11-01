@@ -84,11 +84,11 @@ class Navigator extends Component {
               { user &&
                 <React.Fragment>
                   <Navbar.Text>
-                    Hi<a href="#/profile" class='nav-link'>
-                      {user.username}
-                    </a>
+                    Hi
                   </Navbar.Text>
-                  
+                  <a href="#/profile" class='nav-link'>
+                    {user.username}
+                  </a>
                   <Button variant="dark" onClick={this.signOut}>Sign Out</Button> 
                 </React.Fragment> }
             </Nav>
