@@ -9,7 +9,6 @@ import Analytics from '@aws-amplify/analytics';
 
 // Get the aws resources configuration parameters
 import awsconfig from './aws-exports';
-import { BrowserRouter as Router, Route } from "react-router-dom";
 
 // Amplify.configure({
 //   Auth: {

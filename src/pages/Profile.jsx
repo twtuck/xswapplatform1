@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import uuidv1 from 'uuid/v1';
 import SetupTotp from "../components/SetupTotp";
 import { Button, Tabs, Tab, Alert } from 'react-bootstrap';
+import { Auth } from 'aws-amplify';
 const PlatformService = require('../services/platform-service');
 
 class Profile extends Component {
@@ -231,8 +232,8 @@ class Profile extends Component {
       <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
         <Tab eventKey="profile" title="Update User Profile">
         {validationErrorSummary}
-        {updateResult && updateResult == 'success' && success}
-        {updateResult && updateResult == 'fail' && fail}
+        {updateResult && updateResult === 'success' && success}
+        {updateResult && updateResult === 'fail' && fail}
         <form onSubmit={this.onSave} className="mt-2">
           <div className="form-group row">
             <div className="col-6">

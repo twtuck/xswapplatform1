@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
-import Pagination from 'react-bootstrap/Pagination';
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const AppTable = (props) => {
     const apps = props.apps;

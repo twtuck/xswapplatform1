@@ -151,8 +151,8 @@ class AddApp extends Component {
                     </a>
                 </div>
                 {validationErrorSummary}
-                {addResult && addResult == 'success' && success}
-                {addResult && addResult == 'fail' && fail}
+                {addResult && addResult === 'success' && success}
+                {addResult && addResult === 'fail' && fail}
                 <form onSubmit={this.onSave} className="mt-2">
                     <div className="form-group row">
                         <div className="col-6">
