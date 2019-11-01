@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Lead, BSpan } from 'bootstrap-4-react';
 import Slider from 'react-animated-slider';
 import 'react-animated-slider/build/horizontal.css';
 import 'normalize.css/normalize.css';

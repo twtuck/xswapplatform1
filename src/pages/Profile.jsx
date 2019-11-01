@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withOAuth } from 'aws-amplify-react';
 import uuidv1 from 'uuid/v1';
 import SetupTotp from "../components/SetupTotp";
 import { Button, Tabs, Tab, Alert } from 'react-bootstrap';
