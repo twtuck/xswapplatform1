@@ -99,11 +99,11 @@ export const listApps = (token) => {
 };
 
 // remove app
-export const removeApp = (name, token) => {
+export const removeApp = (appId, token) => {
 
     return new Promise((resolve, reject) => {
         API
-            .del(`${APIName}`, `${baseApiUrl}${name}`, {
+            .del(`${APIName}`, `${baseApiUrl}id/${appId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

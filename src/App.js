@@ -1,15 +1,15 @@
-import React from 'react';
+import "./App.css";
 
-import Navigator from './components/Navigator';
-import Main  from './components/Main';
-import './App.css';
+import Amplify, { Auth } from "aws-amplify";
+import { Route, BrowserRouter as Router } from "react-router-dom";
 
-import Amplify, { Auth } from 'aws-amplify';
-import Analytics from '@aws-amplify/analytics';
+import Analytics from "@aws-amplify/analytics";
+import Main from "./components/Main";
+import Navigator from "./components/Navigator";
+import React from "react";
+import awsconfig from "./aws-exports";
 
 // Get the aws resources configuration parameters
-import awsconfig from './aws-exports';
-import { BrowserRouter as Router, Route } from "react-router-dom";
 
 // Amplify.configure({
 //   Auth: {
@@ -44,10 +44,10 @@ Amplify.configure({
     region: "ap-southeast-1",
 
     // OPTIONAL - Amazon Cognito User Pool ID
-    userPoolId: "ap-southeast-1_BBBh145d7",
+    userPoolId: "ap-southeast-1_eZucXx9XP",
 
     // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
-    userPoolWebClientId: "19e8c683jvtiaupe6hveb5fqhe",
+    userPoolWebClientId: "gbpi4l6kq96qjco6esqde2vn9"
 
     //authenticationFlowType: "CUSTOM_AUTH"
 
@@ -59,26 +59,17 @@ Amplify.configure({
       {
         name: "MyAPIGatewayAPI",
         endpoint:
-          "https://6sevm9m5t1.execute-api.ap-southeast-1.amazonaws.com/dev/"
+          "https://lhd2tq12q3.execute-api.ap-southeast-1.amazonaws.com/dev3/"
       }
     ]
   }
 });
 
 const oauth = {
-  domain: "xswap-dev-368593173631.auth.ap-southeast-1.amazoncognito.com",
-  scope: [
-    "email",
-    "profile",
-    "openid",
-    "xswap/profile",
-    "xswap/users",
-    "xswap/apps",
-    "aws.cognito.signin.user.admin"
-  ],
-  redirectSignIn: "https://master.d2zqadgdd5qoem.amplifyapp.com/",
+  domain: "xswap-dev3-311616970002.auth.ap-southeast-1.amazoncognito.com",
+  redirectSignIn: "https://d3eqwd8iu02h16.cloudfront.net/",
   // "https://master.d2zqadgdd5qoem.amplifyapp.com/",
-  redirectSignOut: "https://master.d2zqadgdd5qoem.amplifyapp.com/",
+  redirectSignOut: "https://d3eqwd8iu02h16.cloudfront.net/",
   // "https://master.d2zqadgdd5qoem.amplifyapp.com/", // xwaplatform-20190930160053-hostingbucket
   responseType: "code" // or 'token', note that REFRESH token will only be generated when the responseType is code
 };
@@ -91,25 +82,23 @@ Auth.configure({
 // Analytics.configure(awsconfig);
 
 function App() {
- 
   // keep it simple we define that the web session is active when the page is not hidden and inactive when the page is hidden
-  Analytics.autoTrack('session', {
+  Analytics.autoTrack("session", {
     // REQUIRED, turn on/off the auto tracking
     enable: true,
-    // OPTIONAL, the attributes of the event, you can either pass an object or a function 
+    // OPTIONAL, the attributes of the event, you can either pass an object or a function
     // which allows you to define dynamic attributes
     attributes: {
-        attr: 'attr'
-    },
-});
-  
-return (
-      <React.Fragment>
-        <Navigator />
-        <Main />
-      </React.Fragment>
-);
-  
+      attr: "attr"
+    }
+  });
+
+  return (
+    <React.Fragment>
+      <Navigator />
+      <Main />
+    </React.Fragment>
+  );
 }
 
 //<Router>
@@ -126,7 +115,7 @@ return (
 
 //Wrap the default App component using withAuthenticator at the bottom of the file as follows:
 //he simplest way to add authentication flows into your app is to use the withAuthenticator Higher Order Component.
-//withAuthenticator automatically detects the authentication state and updates the UI. If the user is signed in, 
+//withAuthenticator automatically detects the authentication state and updates the UI. If the user is signed in,
 // the underlying component (typically your app’s main component) is displayed otherwise signin/signup controls are displayed.
 export default App;
 /*
