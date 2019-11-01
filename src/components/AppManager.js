@@ -36,11 +36,12 @@ class AppManager extends Component {
         this.handleOnCloseEditAppModal = this.handleOnCloseEditAppModal.bind(this);
     }
 
-
-    componentDidMount() {
+    componentWillMount() {
         this.listApps();
     }
 
+    componentDidMount() {
+    }
 
     listApps() {
         const { session } = this.props;
@@ -52,7 +53,6 @@ class AppManager extends Component {
             return;
         });
     }
-
 
     handleOnDeleteApp(appName) {
         console.log('handleOnDeleteApp ' + appName);
@@ -85,7 +85,6 @@ class AppManager extends Component {
         }
     }
 
-
     handleOnFindApps(name) {
         
         if (!name || name === '') {
@@ -107,7 +106,6 @@ class AppManager extends Component {
         //         return;
         //     });
     }
-
 
     handleOnAddApp(app) {
 
@@ -141,21 +139,17 @@ class AppManager extends Component {
             });
     }
 
-
     handleOnCloseAddAppModal() {
         this.setState({isAddAppModalOpen: false});
     }
-
 
     handleOpenAddAppModal() {
         this.setState({isAddAppModalOpen: true});
     }
 
-
     handleOnCloseEditAppModal() {
         this.setState({isEditAppModalOpen: false});
     }
-
 
     handleOpenEditAppModal(appName) {
 
@@ -176,7 +170,6 @@ class AppManager extends Component {
         //         return;
         //     });
     }
-
 
     handleOnEditApp(app) {
         this.setState({ isEditAppModalOpen: false });
@@ -210,7 +203,6 @@ class AppManager extends Component {
         //         console.log(error);
         //     });
     }
-
 
     render() {
         return (

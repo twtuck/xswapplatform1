@@ -32,7 +32,7 @@ class User extends Component {
   }
 
   render() {
-    const { users } = this.props;
+    const { users } = this.state;
     const userRows = users.map(user => {
       return (
         <tr>
