@@ -33,7 +33,7 @@ class User extends Component {
 
   render() {
     const { users } = this.state;
-    let i = 0;
+    let i = 1;
     const userRows = users.map(user => {
       return (
         <tr>

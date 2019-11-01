@@ -32,13 +32,20 @@ class Profile extends Component {
     const { session } = this.props;
 
     PlatformService.getUserProfile(session.getAccessToken().getJwtToken()).then(response => {
-        this.setState(
-          { userProfile: response,
-            name: response.userName,
-            email: response.email,
-            firstName: response.userProfile.firstName,
-            lastName: response.userProfile.lastName
-          });
+      let userProfile = response.userProfile;
+      if (userProfile) {
+        userProfile = {
+          firstName: '',
+          lastName: ''
+        }
+      }
+      this.setState(
+        { userProfile: response,
+          name: response.userName,
+          email: response.email,
+          firstName: userProfile.firstName,
+          lastName: userProfile.lastName
+        });
     })
     .catch(error => {
         console.log(error);
