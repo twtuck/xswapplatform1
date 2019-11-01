@@ -14,7 +14,7 @@ const AppTable = (props) => {
         let classes = `small ${!!app.isNew ? 'table-success' : ''}`;
         
         return (
-            <tr key={app.appId.toString()} className={classes} onClick={() => props.onOpenAppModal(app.appName)}>
+            <tr key={app.appId.toString()} className={classes} onClick={() => props.onOpenAppModal(app)}>
                 <td className="align-middle first-column">
                     <div className="d-flex flex-row">
                         <a data-toggle="tooltip" data-placement="top" title="Delete App" className="p-2" onClick={() => props.onDeleteApp(app.appName)}>

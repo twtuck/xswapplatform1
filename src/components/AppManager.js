@@ -146,13 +146,14 @@ class AppManager extends Component {
         this.setState({isEditAppModalOpen: false});
     }
 
-    handleOpenAppModal(appName) {
+    handleOpenAppModal(app) {
 
-        console.log('handleOpenAppModal ' + appName);
-        window.prompt('You click on app: ' + appName);
-        if (!appName || appName < 1) {
+        console.log('handleOpenAppModal ' + app.appName);
+        if (!app.appName || app.appName < 1) {
             throw Error('Cannot edit app. Invalid app id specified.');
         }
+        this.setState({selectedApp: app});
+        this.setState({isEditAppModalOpen: true});
 
         // AppService
         //     .findApp(appName)

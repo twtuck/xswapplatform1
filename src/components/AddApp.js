@@ -183,7 +183,7 @@ class AddApp extends Component {
                             <Button type="submit" variant="primary" block>Save</Button>
                         </div>
                         <div className="col-sm-4 col-md-3 col-xl-2">
-                            <Button type="button" variant="primary" onClick={this.props.onCloseModal} block>Cancel</Button>
+                            <Button type="button" variant="danger" onClick={this.props.onCloseModal} block>Cancel</Button>
                         </div>
                     </div>
                 </form>

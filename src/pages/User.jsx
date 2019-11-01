@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Table } from 'react-bootstrap';
+import { trackPromise } from 'react-promise-tracker';
 const PlatformService = require('../services/platform-service');
 
 class User extends Component {
@@ -21,14 +22,14 @@ class User extends Component {
 
   getUserList() {
     const { session } = this.props;
-
-    PlatformService.getUsers(session.getAccessToken().getJwtToken()).then(response => {
-        this.setState({ users: response });
-    })
-    .catch(error => {
-        console.log(error);
-        return;
-    });
+    trackPromise(
+      PlatformService.getUsers(session.getAccessToken().getJwtToken()).then(response => {
+          this.setState({ users: response });
+      })
+      .catch(error => {
+          console.log(error);
+          return;
+    }));
   }
 
   render() {
@@ -68,6 +69,7 @@ class User extends Component {
             {userRows}
           </tbody>
         </Table>
+        <LoadingIndicator/>
       </React.Fragment>
     )
   }
