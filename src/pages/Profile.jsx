@@ -3,6 +3,7 @@ import uuidv1 from 'uuid/v1';
 import SetupTotp from "../components/SetupTotp";
 import { Button, Tabs, Tab, Alert } from 'react-bootstrap';
 import { Auth } from 'aws-amplify';
+import { trackPromise } from 'react-promise-tracker';
 const PlatformService = require('../services/platform-service');
 
 class Profile extends Component {
@@ -94,6 +95,7 @@ class Profile extends Component {
               firstName: firstName, 
               lastName: lastName 
             }
+            trackPromise(
             PlatformService.updateUserProfile(newProfile, session.getAccessToken().getJwtToken())
                 .then(userProfile => {
                   this.setState({updateResult: 'success'});
@@ -101,23 +103,21 @@ class Profile extends Component {
                 .catch(error => {
                     console.log(error);
                     this.setState({updateResult: 'fail'});
-                });
+                }));
           }
       }
   }
 
   onSavePassword(event) {
     event.preventDefault();
-    const confirmation = window.confirm('Are you sure you wish to change password?');
-    if (confirmation) {
-      const { password, newPassword, confirmPassword } = this.state;
-      Auth.currentAuthenticatedUser()
-      .then(user => {
-          return Auth.changePassword(user, password, confirmPassword);
-      })
-      .then(data => console.log(data))
-      .catch(err => console.log(err));
-    }
+    const { password, newPassword, confirmPassword } = this.state;
+    Auth.currentAuthenticatedUser()
+    .then(user => {
+        return Auth.changePassword(user, password, confirmPassword);
+    })
+    .then(data => console.log(data))
+    .catch(err => console.log(err));
+    
   }
 
   validatePassword(text) {

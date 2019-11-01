@@ -9,6 +9,7 @@ import Contact from './Contact';
 import AppManager from './AppManager';
 import { Hub, Auth } from 'aws-amplify';
 import { withOAuth } from 'aws-amplify-react';
+import LoadingIndicator from "../components/LoadingIndicator";
 import ls from 'local-storage'
 
 class Main extends Component {
@@ -57,6 +58,7 @@ class Main extends Component {
                 <Route path="/" render={(props) => <Home user={user} />} />
             </Switch>
           </HashRouter>
+          <LoadingIndicator/>
         </div>
       </Container>
     )

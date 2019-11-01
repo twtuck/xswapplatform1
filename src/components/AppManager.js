@@ -4,7 +4,7 @@ import AddApp from './AddApp';
 import ViewApp from './ViewApp';
 import AppTable from './AppTable';
 import ControlPanel from './ControlPanel';
-//import axios from 'axios';
+import { trackPromise } from 'react-promise-tracker';
 import { withOAuth } from 'aws-amplify-react';
 const AppService = require('../services/app-service');
 
@@ -42,13 +42,14 @@ class AppManager extends Component {
 
     listApps() {
         const { session } = this.props;
+        trackPromise(
         AppService.listApps(session.getAccessToken().getJwtToken()).then(response => {
             this.setState({ apps: response })
         })
         .catch(error => {
             console.log(error);
             return;
-        });
+        }));
     }
 
     handleOnDeleteApp(appName) {
@@ -61,6 +62,7 @@ class AppManager extends Component {
         if (confirmation) {
             const { session } = this.props;
             let token = session.getAccessToken().getJwtToken();
+            trackPromise(
             AppService
                 .removeApp(appName, token)
                 .then(() => {
@@ -78,7 +80,7 @@ class AppManager extends Component {
                 .catch(error => {
                     console.log(error);
                     return;
-                });
+                }));
         }
     }
 
@@ -119,6 +121,7 @@ class AppManager extends Component {
         // }
 
         var token = session.getAccessToken().getJwtToken();
+        trackPromise(
         AppService
             .addApp(app, token)
             .then(newApp => {             
@@ -131,7 +134,7 @@ class AppManager extends Component {
                     })
                     .catch(error => console.log(error));
                 return newApp;
-            })
+            }));
     }
 
     handleOnCloseAddAppModal() {
