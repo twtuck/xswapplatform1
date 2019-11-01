@@ -15,7 +15,7 @@ class User extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.getUserList();
   }
 
@@ -37,10 +37,10 @@ class User extends Component {
       return (
         <tr>
           <td></td>
-          <td>user.userName</td>
-          <td>user.email</td>
-          <td>user.userProfile.firstName</td>
-          <td>user.userProfile.lastName</td>
+          <td>{user.userName}</td>
+          <td>{user.email}</td>
+          <td>{user.userProfile.firstName}</td>
+          <td>{user.userProfile.lastName}</td>
         </tr>
       )
     });

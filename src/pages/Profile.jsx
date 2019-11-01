@@ -24,7 +24,7 @@ class Profile extends Component {
     this.onSave = this.onSave.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.getUserProfile();
   }
 

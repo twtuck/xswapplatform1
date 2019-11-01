@@ -32,17 +32,14 @@ class AppManager extends Component {
         this.handleOpenAddAppModal = this.handleOpenAddAppModal.bind(this);
         this.handleOnCloseAddAppModal = this.handleOnCloseAddAppModal.bind(this);
 
-        this.handleOpenEditAppModal = this.handleOpenEditAppModal.bind(this);
+        this.handleOpenAppModal = this.handleOpenAppModal.bind(this);
         this.handleOnCloseEditAppModal = this.handleOnCloseEditAppModal.bind(this);
     }
 
     componentWillMount() {
         this.listApps();
     }
-
-    componentDidMount() {
-    }
-
+    
     listApps() {
         const { session } = this.props;
         AppService.listApps(session.getAccessToken().getJwtToken()).then(response => {
@@ -151,9 +148,10 @@ class AppManager extends Component {
         this.setState({isEditAppModalOpen: false});
     }
 
-    handleOpenEditAppModal(appName) {
+    handleOpenAppModal(appName) {
 
-        console.log('handleOpenEditAppModal ' + appName);
+        console.log('handleOpenAppModal ' + appName);
+        window.prompt('You click on app: ' + appName);
         if (!appName || appName < 1) {
             throw Error('Cannot edit app. Invalid app id specified.');
         }
@@ -216,7 +214,7 @@ class AppManager extends Component {
                 <div className="mb-3">
                     <ControlPanel openAddAppModal={this.handleOpenAddAppModal} onFindApps={this.handleOnFindApps} />
                 </div>
-                <AppTable apps={this.state.apps} onDeleteApp={this.handleOnDeleteApp} onOpenEditAppModal={this.handleOpenEditAppModal} />
+                <AppTable apps={this.state.apps} onDeleteApp={this.handleOnDeleteApp} onOpenAppModal={this.handleOpenAppModal} />
             </div>
         );
     }

@@ -14,13 +14,9 @@ const AppTable = (props) => {
         let classes = `small ${!!app.isNew ? 'table-success' : ''}`;
         
         return (
-            <tr key={app.appId.toString()} className={classes}>
+            <tr key={app.appId.toString()} className={classes} onClick={() => props.onOpenAppModal(app.appName)}>
                 <td className="align-middle" style={{width: '80px'}}>
                     <div className="d-flex flex-row">
-                        <a data-toggle="tooltip" data-placement="top" title="Edit App" className="p-2" onClick={() => props.onOpenEditAppModal(app.appName)}>
-                            <i className="fa fa-pencil fa-lg text-primary"></i>
-                            <FontAwesomeIcon icon={faPencilAlt} />
-                        </a>
                         <a data-toggle="tooltip" data-placement="top" title="Delete App" className="p-2" onClick={() => props.onDeleteApp(app.appName)}>
                             <i className="fa fa-trash fa-lg text-danger"></i>
                             <FontAwesomeIcon icon={faTrash} />
@@ -61,7 +57,7 @@ const AppTable = (props) => {
 AppTable.propTypes = {
     apps: PropTypes.array,
     onDeleteApp: PropTypes.func,
-    onOpenEditAppModal: PropTypes.func
+    onOpenAppModal: PropTypes.func
 };
 
 export default AppTable;
