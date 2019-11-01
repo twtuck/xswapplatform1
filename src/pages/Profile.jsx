@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withOAuth } from 'aws-amplify-react';
 import uuidv1 from 'uuid/v1';
 import SetupTotp from "../components/SetupTotp";
-import { Button, Tabs, Tab } from 'react-bootstrap';
+import { Button, Tabs, Tab, Alert } from 'react-bootstrap';
 const UserService = require('../services/user-service');
 
 class Profile extends Component {
@@ -142,7 +142,7 @@ class Profile extends Component {
             </button>
         </div>
     );
-    const succcess = (
+    const success = (
       <Alert variant='success'>
         Updated successfully.
       </Alert>
@@ -171,7 +171,7 @@ class Profile extends Component {
       <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
         <Tab eventKey="profile" title="Update User Profile">
         {validationErrorSummary}
-        {updateResult && updateResult == 'succcess' && success}
+        {updateResult && updateResult == 'success' && success}
         {updateResult && updateResult == 'fail' && fail}
         <form onSubmit={this.onSave} className="mt-2">
           <div className="form-group row">

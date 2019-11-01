@@ -9,6 +9,7 @@ import Contact from './Contact';
 import AppManager from './AppManager';
 import { Hub, Auth } from 'aws-amplify';
 import { withOAuth } from 'aws-amplify-react';
+import ls from 'local-storage'
 
 class Main extends Component {
   constructor(props) {
@@ -23,6 +24,9 @@ class Main extends Component {
 
   componentDidMount() {
     this.loadUser(); // The first check
+    const serverPublicKey = `-----BEGIN PUBLIC KEY-----\r\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCi/H8+Oize7Y6Y4Fx4Rp9phOSu\r\nY5IcRV+axAFnzPZM6JxA7b7Ufi5urBbezjOVTqwtBCmzkngUyKDjmv35MHSRiv4j\r\nuR5bnwrqE9OhECySdpbE8ZNT9bZUx2u5Y29VuDBQRdkDk4LDcnAInxRYC+Muf6TV\r\nLHGlP/PMeS/m1n1vAQIDAQAB\r\n-----END PUBLIC KEY-----\r\n`;
+    ls.set('serverPublicKey', serverPublicKey) 
+    console.log('serverPublicKey');
   }
 
   loadUser() {

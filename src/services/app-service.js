@@ -1,6 +1,5 @@
-import {
-    API
-} from 'aws-amplify';
+import { API } from 'aws-amplify';
+import ls from 'local-storage'
 
 const joseHelper = require('../helpers/joseHelper');
 
@@ -9,7 +8,7 @@ const APIName = 'MyAPIGatewayAPI';
 
 // you can dynamically get the server public key by making a GET request from the URL
 //      https:/xxxxxxxx.execute-api.ap-southeast-1.amazonaws.com/dev/platform/serverKey
-const serverPublicKey = `-----BEGIN PUBLIC KEY-----\r\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCi/H8+Oize7Y6Y4Fx4Rp9phOSu\r\nY5IcRV+axAFnzPZM6JxA7b7Ufi5urBbezjOVTqwtBCmzkngUyKDjmv35MHSRiv4j\r\nuR5bnwrqE9OhECySdpbE8ZNT9bZUx2u5Y29VuDBQRdkDk4LDcnAInxRYC+Muf6TV\r\nLHGlP/PMeS/m1n1vAQIDAQAB\r\n-----END PUBLIC KEY-----\r\n`;
+// const serverPublicKey = `-----BEGIN PUBLIC KEY-----\r\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCi/H8+Oize7Y6Y4Fx4Rp9phOSu\r\nY5IcRV+axAFnzPZM6JxA7b7Ufi5urBbezjOVTqwtBCmzkngUyKDjmv35MHSRiv4j\r\nuR5bnwrqE9OhECySdpbE8ZNT9bZUx2u5Y29VuDBQRdkDk4LDcnAInxRYC+Muf6TV\r\nLHGlP/PMeS/m1n1vAQIDAQAB\r\n-----END PUBLIC KEY-----\r\n`;
 
 // add app
 export const addApp = (app, token) => {
@@ -36,7 +35,7 @@ export const addApp = (app, token) => {
                 client_secret: facebookClientSecret //"a475c57454a898495a0187b11a3096fd"
             }
         };
-
+        const serverPublicKey = ls.get('serverPublicKey');
         joseHelper.encrypt(serverPublicKey, JSON.stringify(payload))
             .then(jwe => {
                 console.log(jwe);
