@@ -70,11 +70,12 @@ class Profile extends Component {
             }
             UserService.updateUserProfile(newProfile, session.getAccessToken().getJwtToken())
                 .then(userProfile => {
-                  console.log('userProfile: ' + userProfile);           
-                  //this.setState({userProfile});
+                  console.log('userProfile: ' + userProfile);
+                  this.setState({updateResult: 'success'});
                 })
                 .catch(error => {
                     console.log(error);
+                    this.setState({updateResult: 'fail'});
                 });
           }
       }
@@ -141,7 +142,17 @@ class Profile extends Component {
             </button>
         </div>
     );
-    const { user } = this.state;
+    const succcess = (
+      <Alert variant='success'>
+        Updated successfully.
+      </Alert>
+    );
+    const fail = (
+      <Alert variant='danger'>
+        Error when updating, please try again.
+      </Alert>
+    );
+    const { user, updateResult } = this.state;
     let identities = user.attributes.identities;
     let isFederatedUser;
     console.log('identities: ', identities);
@@ -160,6 +171,8 @@ class Profile extends Component {
       <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
         <Tab eventKey="profile" title="Update User Profile">
         {validationErrorSummary}
+        {updateResult && updateResult == 'succcess' && success}
+        {updateResult && updateResult == 'fail' && fail}
         <form onSubmit={this.onSave} className="mt-2">
           <div className="form-group row">
             <div className="col-6">
@@ -217,10 +230,9 @@ class Profile extends Component {
 
         { !isFederatedUser && 
         <Tab eventKey="totp" title="Add TOTP">
-        
+          <SetupTotp/>
         </Tab> }
       </Tabs>
-      <SetupTotp/>
       </div>
       </React.Fragment>
     )

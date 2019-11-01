@@ -39,6 +39,7 @@ export const addApp = (app, token) => {
 
         joseHelper.encrypt(serverPublicKey, JSON.stringify(payload))
             .then(jwe => {
+                console.log(jwe);
                 API
                     .post(`${APIName}`, `${baseApiUrl}`, {
                         headers: {

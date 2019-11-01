@@ -85,7 +85,7 @@ class Navigator extends Component {
                   <Nav.Link href="#/profile">
                     {user.username}
                   </Nav.Link> 
-                  <Button variant="dark" onClick={this.props.signOut}>Logout</Button> 
+                  <Button variant="dark" onClick={this.signOut}>Logout</Button> 
                 </React.Fragment> }
             </Nav>
           </Navbar.Collapse>
