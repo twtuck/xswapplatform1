@@ -36,7 +36,7 @@ class User extends Component {
     let i = 1;
     const userRows = users.map(user => {
       let userProfile = user.userProfile;
-      if (userProfile) {
+      if (!userProfile) {
         userProfile = {
           firstName: '',
           lastName: ''
@@ -57,7 +57,7 @@ class User extends Component {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th className="align-middle first-column">#</th>
+              <th className="align-middle first-column"></th>
               <th className="align-middle">Username</th>
               <th className="align-middle">Email</th>
               <th className="align-middle">First Name</th>

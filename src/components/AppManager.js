@@ -130,10 +130,8 @@ class AppManager extends Component {
                         this.setState({apps});
                     })
                     .catch(error => console.log(error));
+                return newApp;
             })
-            .catch(error => {
-                console.log(error);
-            });
     }
 
     handleOnCloseAddAppModal() {
@@ -205,7 +203,7 @@ class AppManager extends Component {
     render() {
         return (
             <div>                                
-                <Modal isOpen={this.state.isAddAppModalOpen} onRequestClose={this.handleOnCloseAddAppModal} style={customStyles}>
+                <Modal isOpen={this.state.isAddAppModalOpen} style={customStyles}>
                     <AddApp onSaveApp={this.handleOnAddApp} onCloseModal={this.handleOnCloseAddAppModal} />
                 </Modal>
                 <Modal isOpen={this.state.isEditAppModalOpen} onRequestClose={this.handleOnCloseEditAppModal}>

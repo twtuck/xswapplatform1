@@ -33,7 +33,7 @@ class Profile extends Component {
 
     PlatformService.getUserProfile(session.getAccessToken().getJwtToken()).then(response => {
       let userProfile = response.userProfile;
-      if (userProfile) {
+      if (!userProfile) {
         userProfile = {
           firstName: '',
           lastName: ''

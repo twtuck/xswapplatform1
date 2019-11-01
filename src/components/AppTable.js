@@ -40,9 +40,9 @@ const AppTable = (props) => {
                 <thead>
                     <tr>
                         <th className="first-column"></th>
-                        <th className="align-middle text-center">Application Name</th>
-                        <th className="align-middle text-center">Company</th>
-                        <th className="align-middle text-center">Application Description</th>
+                        <th className="align-middle">Application Name</th>
+                        <th className="align-middle">Company</th>
+                        <th className="align-middle">Application Description</th>
                     </tr>
                 </thead>
                 <tbody>
