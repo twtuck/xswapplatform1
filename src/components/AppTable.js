@@ -12,7 +12,10 @@ const AppTable = (props) => {
 
         console.log(app);
         let classes = `small ${!!app.isNew ? 'table-success' : ''}`;
-        let isShow = app.appName.includes(filter);
+        let isShow = true;
+        if (filter && filter != '') {
+            isShow = app.appName.toLowerCase().includes(filter.toLowerCase());
+        }
         if (isShow) {
             return (
                 <tr key={app.appId.toString()} className={classes} onClick={() => props.onOpenAppModal(app)}>
