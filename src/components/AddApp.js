@@ -161,7 +161,7 @@ class AddApp extends Component {
                     </div>
                     <div className="form-group">
                         <label htmlFor="description">Application Description</label>
-                        <textarea className="form-control" name="description" rows="3" onChange={this.onDescriptionChange}></textarea>
+                        <textarea className="form-control" name="description" maxLength="500" rows="3" onChange={this.onDescriptionChange}></textarea>
                     </div>
                     <div className="form-group row">
                         <div className="col-sm-4 col-md-3 col-xl-2 ml-auto">

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faGifts, faMoneyCheck } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faGifts, faMoneyCheck, faFileAlt } from "@fortawesome/free-solid-svg-icons";
 
 const AppTable = (props) => {
     const apps = props.apps;
@@ -14,14 +14,23 @@ const AppTable = (props) => {
                 isShow = app.appName.toLowerCase().includes(filter.toLowerCase());
             }
             console.log(app + ":" + isShow);
+            let i = 1;
             if (isShow) {
                 return (
                     <tr key={app.appId.toString()} className={classes} onClick={(event) => props.onOpenAppModal(event, app)}>
-                        <td className="align-middle first-column" onclick="event.stopImmediatePropagation();">
+                        <td className="align-middle first-column">{i++}</td>
+                        <td className="align-middle">{app.appName}</td>
+                        <td className="align-middle">{app.appInfo.company}</td>
+                        <td className="align-middle">
+                            <span className="d-inline-block text-truncate" style={{maxWidth: '400px'}}>
+                                {app.appInfo.description}
+                            </span>                
+                        </td>
+                        <td className="align-middle last-column exclude">
                             <div className="d-flex flex-row">
-                                <a data-toggle="tooltip" data-placement="top" title="Delete App" className="p-2" 
-                                        onClick={() => props.onDeleteApp(app.appName)}>
-                                    <FontAwesomeIcon icon={faTrash} />
+                                <a data-toggle="tooltip" data-placement="top" title="View Application" className="p-2" 
+                                        onClick={(event) => props.onOpenAppModal(event, app)}>
+                                    <FontAwesomeIcon icon={faFileAlt} />
                                 </a>
                                 <a data-toggle="tooltip" data-placement="top" title="Add Product" className="p-2" 
                                         onClick={() => props.onOpenAddProductModal(app.appName)}>
@@ -31,14 +40,11 @@ const AppTable = (props) => {
                                         onClick={() => props.onOpenAddTemplateModal(app.appName)}>
                                     <FontAwesomeIcon icon={faMoneyCheck} />
                                 </a>
+                                <a data-toggle="tooltip" data-placement="top" title="Delete Application" className="p-2" 
+                                        onClick={() => props.onDeleteApp(app.appName)}>
+                                    <FontAwesomeIcon icon={faTrash} />
+                                </a>
                             </div>                
-                        </td>
-                        <td className="align-middle">{app.appName}</td>
-                        <td className="align-middle">{app.appInfo.company}</td>
-                        <td className="align-middle">
-                            <span className="d-inline-block text-truncate" style={{maxWidth: '200px'}}>
-                                {app.appInfo.description}
-                            </span>                
                         </td>
                     </tr>
                 );
