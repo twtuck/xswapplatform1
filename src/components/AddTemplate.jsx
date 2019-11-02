@@ -29,8 +29,8 @@ class AddTemplate extends Component {
     }
 
     validateText(text) {
+        const message = 'Template List is required';
         if (text === '') {
-            const message = 'Template List is required';
             this.addValidationError(message);
             return false;
         } else {

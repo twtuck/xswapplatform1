@@ -29,8 +29,8 @@ class AddProduct extends Component {
     }
 
     validateText(text) {
+        const message = 'Product List is required';
         if (text === '') {
-            const message = 'Product List is required';
             this.addValidationError(message);
             return false;
         } else {

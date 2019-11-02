@@ -60,7 +60,7 @@ class AddApp extends Component {
         event.preventDefault();
 
         if (this.state.validationErrors && this.state.validationErrors.length === 0) {
-            const { name, company, facebookClientId, facebookClientSecret } = this.state;
+            const { name, company, facebookClientId, facebookClientSecret, description } = this.state;
             
             if (this.validateText(name, 'Name') && this.validateText(company, 'Company')
                     && this.validateText(facebookClientId, 'Facebook Client Id')
