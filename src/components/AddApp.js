@@ -65,7 +65,14 @@ class AddApp extends Component {
             if (this.validateText(name, 'Name') && this.validateText(company, 'Company')
                     && this.validateText(facebookClientId, 'Facebook Client Id')
                     && this.validateText(facebookClientSecret, 'Facebook Client Secret')) {
-                this.props.onSaveApp(this.state);
+                const app = {
+                    name: name,
+                    company: company,
+                    facebookClientId: facebookClientId,
+                    facebookClientSecret: facebookClientSecret,
+                    description: description
+                }
+                this.props.onSaveApp(app);
             }
         }
     }

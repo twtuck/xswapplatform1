@@ -6,6 +6,8 @@ import AppTable from './AppTable';
 import ControlPanel from './ControlPanel';
 import { trackPromise } from 'react-promise-tracker';
 import { withOAuth } from 'aws-amplify-react';
+import AddProduct from './AddProduct';
+import AddTemplate from './AddTemplate';
 const AppService = require('../services/app-service');
 
 class AppManager extends Component {
@@ -25,18 +27,18 @@ class AppManager extends Component {
 
         
         this.handleOnAddApp = this.handleOnAddApp.bind(this);
-        this.handleOnEditApp = this.handleOnEditApp.bind(this);
         this.handleOnDeleteApp = this.handleOnDeleteApp.bind(this);
         this.handleOnFindApps = this.handleOnFindApps.bind(this);
         
         this.handleOpenAddAppModal = this.handleOpenAddAppModal.bind(this);
         this.handleOnCloseAddAppModal = this.handleOnCloseAddAppModal.bind(this);
 
-        this.handleOpenAppModal = this.handleOpenAppModal.bind(this);
-        this.handleOnCloseEditAppModal = this.handleOnCloseEditAppModal.bind(this);
+        this.handleOpenViewAppModal = this.handleOpenViewAppModal.bind(this);
+        this.handleOnCloseViewAppModal = this.handleOnCloseViewAppModal.bind(this);
 
         this.handleOpenAddProductModal = this.handleOpenAddProductModal.bind(this);
-        this.handleOnCloseEditAddProductModal = this.handleOnCloseEditAddProductModal.bind(this);
+        this.handleOnCloseAddProductModal = this.handleOnCloseAddProductModal.bind(this);
+
         this.handleOpenAddTemplateModal = this.handleOpenAddTemplateModal.bind(this);
         this.handleOnCloseAddTemplateModal = this.handleOnCloseAddTemplateModal.bind(this);
     }
@@ -98,11 +100,6 @@ class AppManager extends Component {
     }
 
     handleOnAddApp(app) {
-
-        this.setState({ isAddAppModalOpen: false });
-
-        const { session } = this.props;
-
         // if (!name || name.length === 0) {
         //     throw Error('Name is required');
         // }
@@ -111,7 +108,9 @@ class AppManager extends Component {
         //     throw Error('Description is required');
         // }
 
+        const { session } = this.props;
         var token = session.getAccessToken().getJwtToken();
+
         trackPromise(
         AppService
             .addApp(app, token)
@@ -126,26 +125,33 @@ class AppManager extends Component {
                     .catch(error => console.log(error));
                 return newApp;
             }));
+
+        this.setState({ isAddAppModalOpen: false });
     }
 
-    handleOnCloseAddAppModal() {
-        this.setState({isAddAppModalOpen: false});
+    handleOnAddProduct(product) {
+        this.setState({ isAddProductModalOpen: false });
+    }
+
+    handleOnAddTemplate(template) {
+        this.setState({ isAddTemplateModalOpen: false });
     }
 
     handleOpenAddAppModal() {
         this.setState({isAddAppModalOpen: true});
     }
 
-    handleOnCloseEditAppModal() {
+    handleOnCloseAddAppModal() {
+        this.setState({isAddAppModalOpen: false});
+    }
+
+    handleOpenViewAppModal(app) {
+        this.setState({selectedApp: app});
+        this.setState({isEditAppModalOpen: true});
+    }
+
+    handleOnCloseViewAppModal() {
         this.setState({isEditAppModalOpen: false});
-    }
-
-    handleOpenAddTemplateModal() {
-        this.setState({isAddTemplateModalOpen: true});
-    }
-
-    handleOnCloseAddTemplateModal() {
-        this.setState({isAddTemplateModalOpen: false});
     }
 
     handleOpenAddProductModal() {
@@ -156,57 +162,33 @@ class AppManager extends Component {
         this.setState({isAddProductModalOpen: false});
     }
 
-    handleOpenAppModal(app) {
-        this.setState({selectedApp: app});
-        this.setState({isEditAppModalOpen: true});
+    handleOpenAddTemplateModal() {
+        this.setState({isAddTemplateModalOpen: true});
     }
 
-    handleOnEditApp(app) {
-        this.setState({ isEditAppModalOpen: false });
-        
-        const { name, description, tags } = app;
-        
-        if (!name || name.length === 0) {
-            throw Error('Name is required');
-        }
-        
-        if (!description || description.length === 0) {
-            throw Error('Description is required');
-        }
-        
-        if (!Array.isArray(tags)) {
-            throw Error('Tags must be an array');
-        }
-
-        // AppService
-        //     .updateApp(app)
-        //     .then(() => {                
-        //         AppService
-        //             .listApps()
-        //             .then(apps => {
-        //                 apps.forEach(n => n.id === app.id ? n.isNew = 'true' : n.isNew = undefined);                
-        //                 this.setState({apps});
-        //             })
-        //             .catch(error => console.log(error));
-        //     })
-        //     .catch(error => {
-        //         console.log(error);
-        //     });
+    handleOnCloseAddTemplateModal() {
+        this.setState({isAddTemplateModalOpen: false});
     }
 
     render() {
         return (
             <div>                                
-                <Modal isOpen={this.state.isAddAppModalOpen} style={customStyles}>
+                <Modal isOpen={this.state.isAddAppModalOpen} onRequestClose={this.handleOnCloseViewAppModal} style={customStyles}>
                     <AddApp onSaveApp={this.handleOnAddApp} onCloseModal={this.handleOnCloseAddAppModal} />
                 </Modal>
-                <Modal isOpen={this.state.isEditAppModalOpen} onRequestClose={this.handleOnCloseEditAppModal}>
-                    <ViewApp onCloseModal={this.handleOnCloseEditAppModal} app={this.state.selectedApp} />
+                <Modal isOpen={this.state.isEditAppModalOpen} onRequestClose={this.handleOnCloseAddAppModal} style={customStyles}>
+                    <ViewApp onCloseModal={this.handleOnCloseAddAppModal} app={this.state.selectedApp} />
+                </Modal>                  
+                <Modal isOpen={this.state.isAddProductModalOpen} onRequestClose={this.handleOnCloseAddProductModal} style={customStyles}>
+                    <AddProduct onSaveProduct={this.handleOnAddApp} onCloseModal={this.handleOnCloseAddProductModal} />
+                </Modal>                       
+                <Modal isOpen={this.state.isAddTemplateModalOpen} onRequestClose={this.handleOnCloseAddTemplateModal} style={customStyles}>
+                    <AddTemplate onSaveTemplate={this.handleOnAddApp} onCloseModal={this.handleOnCloseAddTemplateModal} />
                 </Modal>
                 <div className="mb-3">
                     <ControlPanel openAddAppModal={this.handleOpenAddAppModal} onFindApps={this.handleOnFindApps} />
-                </div>
-                <AppTable apps={this.state.apps} filter={this.state.filter} onOpenAppModal={this.handleOpenAppModal}
+                </div>     
+                <AppTable apps={this.state.apps} filter={this.state.filter} onOpenAppModal={this.handleOpenViewAppModal}
                         onDeleteApp={this.handleOnDeleteApp} onOpenAddProductModal={this.handleOpenAddProductModal} 
                         onOpenAddTemplateModal={this.handleOpenAddTemplateModal}/>
             </div>
