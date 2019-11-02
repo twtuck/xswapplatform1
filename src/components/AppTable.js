@@ -17,7 +17,7 @@ const AppTable = (props) => {
             console.log(app + ":" + isShow);
             if (isShow) {
                 return (
-                    <tr key={app.appId.toString()} className={classes} onClick={(event) => props.onOpenAppModal(event, app)}>
+                    <tr key={app.appId.toString()} className={classes}>
                         <td className="align-middle first-column">{i++}</td>
                         <td className="align-middle">{app.appName}</td>
                         <td className="align-middle">{app.appInfo.company}</td>
@@ -29,7 +29,7 @@ const AppTable = (props) => {
                         <td className="align-middle last-column exclude">
                             <div className="d-flex flex-row">
                                 <a data-toggle="tooltip" data-placement="top" title="View Application" className="p-2" 
-                                        onClick={(event) => props.onOpenAppModal(event, app)}>
+                                        onClick={() => props.onOpenAppModal(app)}>
                                     <FontAwesomeIcon icon={faFileAlt} />
                                 </a>
                                 <a data-toggle="tooltip" data-placement="top" title="Add Product" className="p-2" 
@@ -60,7 +60,7 @@ const AppTable = (props) => {
                             <th className="align-middle">Application Name</th>
                             <th className="align-middle">Company</th>
                             <th className="align-middle">Application Description</th>
-                            <th className="last-column"></th>
+                            <th className="last-column">Action</th>
                         </tr>
                     </thead>
                     <tbody>

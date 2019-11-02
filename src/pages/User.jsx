@@ -59,7 +59,7 @@ class User extends Component {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th className="align-middle first-column"></th>
+              <th className="align-middle first-column">#</th>
               <th className="align-middle">Username</th>
               <th className="align-middle">Email</th>
               <th className="align-middle">First Name</th>
