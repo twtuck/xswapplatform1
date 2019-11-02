@@ -71,6 +71,7 @@ export default class SetupTotp extends Component {
           <div className="form-group">
             <Button variant="primary" onClick={this.addTTOP}>Generate QRCode</Button>
           </div>
+          <br/>
           {
             (qrCode && qrCode !== '') && (
               <div className="form-group row">

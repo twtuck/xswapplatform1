@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { withOAuth } from 'aws-amplify-react';
 import uuidv1 from 'uuid/v1';
 import SetupTotp from "../components/SetupTotp";
-import { Button, Tabs, Tab } from 'react-bootstrap';
-const UserService = require('../services/user-service');
+import { Button, Tabs, Tab, Alert } from 'react-bootstrap';
+import { Auth } from 'aws-amplify';
+import { trackPromise } from 'react-promise-tracker';
+import Password from "./Password";
+const PlatformService = require('../services/platform-service');
 
 class Profile extends Component {
   constructor(props) {
@@ -24,20 +26,28 @@ class Profile extends Component {
     this.onSave = this.onSave.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.getUserProfile();
   }
 
   getUserProfile() {
     const { session } = this.props;
 
-    UserService.getUserProfile(session.getAccessToken().getJwtToken()).then(response => {
-        this.setState(
-          { userProfile: response,
-            name: response.userName,
-            firstName: response.userProfile.firstName,
-            lastName: response.userProfile.lastName
-          });
+    PlatformService.getUserProfile(session.getAccessToken().getJwtToken()).then(response => {
+      let userProfile = response.userProfile;
+      if (!userProfile) {
+        userProfile = {
+          firstName: '',
+          lastName: ''
+        }
+      }
+      this.setState(
+        { userProfile: response,
+          name: response.userName,
+          email: response.email,
+          firstName: userProfile.firstName,
+          lastName: userProfile.lastName
+        });
     })
     .catch(error => {
         console.log(error);
@@ -68,24 +78,18 @@ class Profile extends Component {
               firstName: firstName, 
               lastName: lastName 
             }
-            UserService.updateUserProfile(newProfile, session.getAccessToken().getJwtToken())
+            trackPromise(
+            PlatformService.updateUserProfile(newProfile, session.getAccessToken().getJwtToken())
                 .then(userProfile => {
-                  console.log('userProfile: ' + userProfile);           
-                  //this.setState({userProfile});
+                  console.log(userProfile);
+                  this.setState({updateResult: 'success'});
                 })
                 .catch(error => {
                     console.log(error);
-                });
+                    this.setState({updateResult: 'fail'});
+                }));
           }
       }
-  }
-
-  onSavePassword(event) {
-    event.preventDefault();
-    const confirmation = window.confirm('Are you sure you wish to change password?');
-    if (confirmation) {
-        window.prompt('Successfully change password!');
-    }
   }
 
   validateFirstName(text) {
@@ -141,25 +145,34 @@ class Profile extends Component {
             </button>
         </div>
     );
-    const { user } = this.state;
+    const success = (
+      <Alert variant='success'>
+        Updated successfully.
+      </Alert>
+    );
+    const fail = (
+      <Alert variant='danger'>
+        Error when updating, please try again.
+      </Alert>
+    );
+    const { user, updateResult } = this.state;
     let identities = user.attributes.identities;
     let isFederatedUser;
-    console.log('identities: ', identities);
     if (identities) {
-      console.log('identities[providerName]: ', identities['providerName']);
       isFederatedUser = identities['providerName'];
       if (!isFederatedUser) {
-        console.log('identities contains providerName: ', identities.includes('providerName'));
         isFederatedUser = identities.includes('providerName');
       }
     }
 
     return (
       <React.Fragment>
-      <div className="alignLeft">
+      <div>
       <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
         <Tab eventKey="profile" title="Update User Profile">
         {validationErrorSummary}
+        {updateResult && updateResult === 'success' && success}
+        {updateResult && updateResult === 'fail' && fail}
         <form onSubmit={this.onSave} className="mt-2">
           <div className="form-group row">
             <div className="col-6">
@@ -191,36 +204,16 @@ class Profile extends Component {
         </form>
         </Tab>
 
+        { !isFederatedUser && 
         <Tab eventKey="password" title="Update Password">
-        <form onSubmit={this.onSavePassword} className="mt-2">
-          <div className="form-group row">
-            <div className="col-4">
-              <label htmlFor="password">Current Password</label>
-              <input type="text" className="form-control" name="password"/>
-            </div>
-            <div className="col-4">
-              <label htmlFor="newPassword">New Password</label>
-              <input type="text" className="form-control" name="newPassword"/>
-            </div>
-            <div className="col-4">
-              <label htmlFor="confirmPassword">Confirm New Password</label>
-              <input type="text" className="form-control" name="confirmPassword"/>
-            </div>
-          </div>
-          <div className="form-group row">
-            <div className="col-sm-4 col-md-3 col-xl-2 ml-auto">
-              <Button type="submit" variant="primary" block>Change Password</Button>
-            </div>
-          </div>
-        </form>
-        </Tab>
+        <Password/>
+        </Tab> }
 
         { !isFederatedUser && 
         <Tab eventKey="totp" title="Add TOTP">
-        
+          <SetupTotp/>
         </Tab> }
       </Tabs>
-      <SetupTotp/>
       </div>
       </React.Fragment>
     )

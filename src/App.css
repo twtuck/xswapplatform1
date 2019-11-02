@@ -1,6 +1,5 @@
 .starter-template {
   padding: 3rem 1.5rem;
-  text-align: center;
 }
 
 .App {
@@ -35,11 +34,16 @@
   border-color: #f90;
 }
 
-.alignLeft {
-  text-align: left;
-}
-
 .tab-content>.tab-pane {
   padding: 1.5rem 0;
 }
 
+.first-column {
+  width: 55px;
+}
+
+.loading-indicator {
+  width: "100%";
+  height: "100";
+  display: "flex";
+}

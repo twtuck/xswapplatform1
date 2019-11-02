@@ -1,6 +1,6 @@
-import {
-    API
-} from 'aws-amplify';
+import { API } from 'aws-amplify';
+import ls from 'local-storage'
+const PlatformService = require('../services/platform-service');
 
 const joseHelper = require('../helpers/joseHelper');
 
@@ -9,7 +9,7 @@ const APIName = 'MyAPIGatewayAPI';
 
 // you can dynamically get the server public key by making a GET request from the URL
 //      https:/xxxxxxxx.execute-api.ap-southeast-1.amazonaws.com/dev/platform/serverKey
-const serverPublicKey = `-----BEGIN PUBLIC KEY-----\r\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCi/H8+Oize7Y6Y4Fx4Rp9phOSu\r\nY5IcRV+axAFnzPZM6JxA7b7Ufi5urBbezjOVTqwtBCmzkngUyKDjmv35MHSRiv4j\r\nuR5bnwrqE9OhECySdpbE8ZNT9bZUx2u5Y29VuDBQRdkDk4LDcnAInxRYC+Muf6TV\r\nLHGlP/PMeS/m1n1vAQIDAQAB\r\n-----END PUBLIC KEY-----\r\n`;
+// const serverPublicKey = `-----BEGIN PUBLIC KEY-----\r\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCi/H8+Oize7Y6Y4Fx4Rp9phOSu\r\nY5IcRV+axAFnzPZM6JxA7b7Ufi5urBbezjOVTqwtBCmzkngUyKDjmv35MHSRiv4j\r\nuR5bnwrqE9OhECySdpbE8ZNT9bZUx2u5Y29VuDBQRdkDk4LDcnAInxRYC+Muf6TV\r\nLHGlP/PMeS/m1n1vAQIDAQAB\r\n-----END PUBLIC KEY-----\r\n`;
 
 // add app
 export const addApp = (app, token) => {
@@ -36,11 +36,11 @@ export const addApp = (app, token) => {
                 client_secret: facebookClientSecret //"a475c57454a898495a0187b11a3096fd"
             }
         };
-
-        joseHelper.encrypt(serverPublicKey, JSON.stringify(payload))
-            .then(jwe => {
-                API
-                    .post(`${APIName}`, `${baseApiUrl}`, {
+        getServerPublicKey(token, (serverPublicKey) => {
+            joseHelper.encrypt(serverPublicKey, JSON.stringify(payload))
+                .then(jwe => {
+                    console.log(jwe);
+                    API.post(`${APIName}`, `${baseApiUrl}`, {
                         headers: {
                             Authorization: `Bearer ${token}`
                         },
@@ -48,53 +48,67 @@ export const addApp = (app, token) => {
                             jwe
                         }
                     })
-                    .then((result) => {
-                        resolve(result);
-                    })
-                    .catch(error => {
-                        console.log(error);
-                        reject(error.message);
-                    });
+                .then((result) => {
+                    resolve(result);
+                })
+                .catch(error => {
+                    console.log(error);
+                    reject(error.message);
+                });
             });
+        });
     });
 };
+
+const getServerPublicKey = (token, callback) => {
+    let serverPublicKey = ls.get('serverPublicKey');
+    if (!serverPublicKey) {
+        // PlatformService.getServerKey(token).then(response => {
+        //     console.log(response);
+        //     serverPublicKey = response.serverKey;
+        //     callback(serverPublicKey);
+        // });
+        serverPublicKey = '-----BEGIN PUBLIC KEY-----\r\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCi/H8+Oize7Y6Y4Fx4Rp9phOSu\r\nY5IcRV+axAFnzPZM6JxA7b7Ufi5urBbezjOVTqwtBCmzkngUyKDjmv35MHSRiv4j\r\nuR5bnwrqE9OhECySdpbE8ZNT9bZUx2u5Y29VuDBQRdkDk4LDcnAInxRYC+Muf6TV\r\nLHGlP/PMeS/m1n1vAQIDAQAB\r\n-----END PUBLIC KEY-----\r\n';
+        callback(serverPublicKey);
+    } else {
+        callback(serverPublicKey);
+    }
+}
 
 // find apps
 export const findApp = (name, token) => {
 
     return new Promise((resolve, reject) => {
-        API
-            .get(`${APIName}`, `${baseApiUrl}/${name}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            .then((result) => {
-                resolve(result);
-            })
-            .catch(error => {
-                console.log(error);
-                reject(error.message);
-            });
+        API.get(`${APIName}`, `${baseApiUrl}/${name}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then((result) => {
+            resolve(result);
+        })
+        .catch(error => {
+            console.log(error);
+            reject(error.message);
+        });
     });
 };
 
 export const listApps = (token) => {
 
     return new Promise((resolve, reject) => {
-        API
-            .get(`${APIName}`, `${baseApiUrl}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            .then((result) => {
-                resolve(result.Items);
-            })
-            .catch(error => {
-                console.log(error);
-                reject(error.message);
-            });
+        API.get(`${APIName}`, `${baseApiUrl}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then((result) => {
+            resolve(result.Items);
+        })
+        .catch(error => {
+            console.log(error);
+            reject(error.message);
+        });
     });
 };
 
@@ -102,19 +116,18 @@ export const listApps = (token) => {
 export const removeApp = (name, token) => {
 
     return new Promise((resolve, reject) => {
-        API
-            .del(`${APIName}`, `${baseApiUrl}${name}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            .then((result) => {
-                resolve(result);
-            })
-            .catch(error => {
-                console.log(error);
-                reject(error.message);
-            });
+        API.del(`${APIName}`, `${baseApiUrl}${name}`, {
+            headers: {
+            Authorization: `Bearer ${token}`
+            }
+        })
+        .then((result) => {
+            resolve(result);
+        })
+        .catch(error => {
+            console.log(error);
+            reject(error.message);
+        });
     });
 };
 
@@ -122,18 +135,17 @@ export const removeApp = (name, token) => {
 export const updateApp = (name, token) => {
 
     return new Promise((resolve, reject) => {
-        API
-            .get(`${APIName}`, `${baseApiUrl}/${name}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            .then((result) => {
-                resolve(result);
-            })
-            .catch(error => {
-                console.log(error);
-                reject(error.message);
-            });
+        API.get(`${APIName}`, `${baseApiUrl}/${name}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then((result) => {
+            resolve(result);
+        })
+        .catch(error => {
+            console.log(error);
+            reject(error.message);
+        });
     });
 };

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uuidv1 from 'uuid/v1';
-import { Button } from 'react-bootstrap';
+import { Button, Alert } from 'react-bootstrap';
 
 
-class AddForm extends Component {
+class AddApp extends Component {
 
     constructor(props) {
         super(props);
@@ -65,7 +65,14 @@ class AddForm extends Component {
             if (this.validateText(name, 'Name') && this.validateText(company, 'Company')
                     && this.validateText(facebookClientId, 'Facebook Client Id')
                     && this.validateText(facebookClientSecret, 'Facebook Client Secret')) {
-                this.props.onSaveApp(this.state);
+                this.props.onSaveApp(this.state)
+                    .then(() => {
+                        this.setState({addResult: 'success'});
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        this.setState({addResult: 'fail'});
+                    });
             }
         }
     }
@@ -123,16 +130,29 @@ class AddForm extends Component {
                 </button>
             </div>
         );
+        const success = (
+          <Alert variant='success'>
+            Added successfully.
+          </Alert>
+        );
+        const fail = (
+          <Alert variant='danger'>
+            Error when adding new Application, please try again.
+          </Alert>
+        );
+        const { addResult } = this.state;
 
         return (
             <div className="card card-body">
                 <div className="mb-2">        
-                    <span className="h4 my-auto"><i className="fa fa-file-text-o fa-lg"></i> New App</span>
+                    <span className="h4 my-auto"><i className="fa fa-file-text-o fa-lg"></i>New Application</span>
                     <a className="float-right ml-auto" onClick={this.props.onCloseModal}>
                         <i className="fa fa-remove fa-2x mr-2 text-danger"></i>
                     </a>
                 </div>
                 {validationErrorSummary}
+                {addResult && addResult === 'success' && success}
+                {addResult && addResult === 'fail' && fail}
                 <form onSubmit={this.onSave} className="mt-2">
                     <div className="form-group row">
                         <div className="col-6">
@@ -163,7 +183,7 @@ class AddForm extends Component {
                             <Button type="submit" variant="primary" block>Save</Button>
                         </div>
                         <div className="col-sm-4 col-md-3 col-xl-2">
-                            <Button type="button" variant="primary" onClick={this.props.onCloseModal} block>Cancel</Button>
+                            <Button type="button" variant="danger" onClick={this.props.onCloseModal} block>Cancel</Button>
                         </div>
                     </div>
                 </form>
@@ -172,9 +192,9 @@ class AddForm extends Component {
     }
 }
 
-AddForm.propTypes = {
+AddApp.propTypes = {
     onCloseModal: PropTypes.func,
     onSaveApp: PropTypes.func
 };
 
-export default AddForm;
+export default AddApp;

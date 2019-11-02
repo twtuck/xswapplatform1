@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
-import AddForm from './AddForm';
-import EditForm from './EditForm';
+import AddApp from './AddApp';
+import ViewApp from './ViewApp';
 import AppTable from './AppTable';
 import ControlPanel from './ControlPanel';
-//import axios from 'axios';
+import { trackPromise } from 'react-promise-tracker';
 import { withOAuth } from 'aws-amplify-react';
 const AppService = require('../services/app-service');
 
@@ -32,27 +32,25 @@ class AppManager extends Component {
         this.handleOpenAddAppModal = this.handleOpenAddAppModal.bind(this);
         this.handleOnCloseAddAppModal = this.handleOnCloseAddAppModal.bind(this);
 
-        this.handleOpenEditAppModal = this.handleOpenEditAppModal.bind(this);
+        this.handleOpenAppModal = this.handleOpenAppModal.bind(this);
         this.handleOnCloseEditAppModal = this.handleOnCloseEditAppModal.bind(this);
     }
 
-
-    componentDidMount() {
+    componentWillMount() {
         this.listApps();
     }
 
-
     listApps() {
         const { session } = this.props;
+        trackPromise(
         AppService.listApps(session.getAccessToken().getJwtToken()).then(response => {
             this.setState({ apps: response })
         })
         .catch(error => {
             console.log(error);
             return;
-        });
+        }));
     }
-
 
     handleOnDeleteApp(appName) {
         console.log('handleOnDeleteApp ' + appName);
@@ -64,6 +62,7 @@ class AppManager extends Component {
         if (confirmation) {
             const { session } = this.props;
             let token = session.getAccessToken().getJwtToken();
+            trackPromise(
             AppService
                 .removeApp(appName, token)
                 .then(() => {
@@ -81,33 +80,17 @@ class AppManager extends Component {
                 .catch(error => {
                     console.log(error);
                     return;
-                });
+                }));
         }
     }
-
 
     handleOnFindApps(name) {
-        
         if (!name || name === '') {
-            this.listApps();
+            this.setState({filter: ''});
             return;
         }
-        
-        // AppService
-        //     .findAppsByName(name)
-        //     .then(apps => {
-        //         if (!apps) {
-        //             apps = [];
-        //         }
-        //         this.setState({apps});
-        //         return;
-        //     })
-        //     .catch(error => {
-        //         console.log(error);
-        //         return;
-        //     });
+        this.setState({filter: name});
     }
-
 
     handleOnAddApp(app) {
 
@@ -124,6 +107,7 @@ class AppManager extends Component {
         // }
 
         var token = session.getAccessToken().getJwtToken();
+        trackPromise(
         AppService
             .addApp(app, token)
             .then(newApp => {             
@@ -135,34 +119,30 @@ class AppManager extends Component {
                         this.setState({apps});
                     })
                     .catch(error => console.log(error));
-            })
-            .catch(error => {
-                console.log(error);
-            });
+                return newApp;
+            }));
     }
-
 
     handleOnCloseAddAppModal() {
         this.setState({isAddAppModalOpen: false});
     }
 
-
     handleOpenAddAppModal() {
         this.setState({isAddAppModalOpen: true});
     }
-
 
     handleOnCloseEditAppModal() {
         this.setState({isEditAppModalOpen: false});
     }
 
+    handleOpenAppModal(app) {
 
-    handleOpenEditAppModal(appName) {
-
-        console.log('handleOpenEditAppModal ' + appName);
-        if (!appName || appName < 1) {
+        console.log('handleOpenAppModal ' + app.appName);
+        if (!app.appName || app.appName < 1) {
             throw Error('Cannot edit app. Invalid app id specified.');
         }
+        this.setState({selectedApp: app});
+        this.setState({isEditAppModalOpen: true});
 
         // AppService
         //     .findApp(appName)
@@ -176,7 +156,6 @@ class AppManager extends Component {
         //         return;
         //     });
     }
-
 
     handleOnEditApp(app) {
         this.setState({ isEditAppModalOpen: false });
@@ -211,20 +190,19 @@ class AppManager extends Component {
         //     });
     }
 
-
     render() {
         return (
             <div>                                
-                <Modal isOpen={this.state.isAddAppModalOpen} onRequestClose={this.handleOnCloseAddAppModal} style={customStyles}>
-                    <AddForm onSaveApp={this.handleOnAddApp} onCloseModal={this.handleOnCloseAddAppModal} />
+                <Modal isOpen={this.state.isAddAppModalOpen} style={customStyles}>
+                    <AddApp onSaveApp={this.handleOnAddApp} onCloseModal={this.handleOnCloseAddAppModal} />
                 </Modal>
                 <Modal isOpen={this.state.isEditAppModalOpen} onRequestClose={this.handleOnCloseEditAppModal}>
-                    <EditForm onSaveApp={this.handleOnEditApp} onCloseModal={this.handleOnCloseEditAppModal} app={this.state.selectedApp} />
+                    <ViewApp onCloseModal={this.handleOnCloseEditAppModal} app={this.state.selectedApp} />
                 </Modal>
                 <div className="mb-3">
                     <ControlPanel openAddAppModal={this.handleOpenAddAppModal} onFindApps={this.handleOnFindApps} />
                 </div>
-                <AppTable apps={this.state.apps} onDeleteApp={this.handleOnDeleteApp} onOpenEditAppModal={this.handleOpenEditAppModal} />
+                <AppTable apps={this.state.apps} filter={this.state.filter} onDeleteApp={this.handleOnDeleteApp} onOpenAppModal={this.handleOpenAppModal} />
             </div>
         );
     }
