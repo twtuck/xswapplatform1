@@ -45,10 +45,10 @@ class Main extends Component {
 
   render() {
     const { user, session } = this.state;
-    let payload = session.getAccessToken().decodePayload();
     let isAdmin = false;
-    if (payload) {
-      group = payload['cognito:groups'];
+    if (session) {
+      let payload = session.getAccessToken().decodePayload();
+      let group = payload['cognito:groups'];
       if (group.includes('Administrators')) {
         isAdmin = true;
       }

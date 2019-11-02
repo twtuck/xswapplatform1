@@ -4,23 +4,6 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 import { Hub, Auth } from 'aws-amplify';
 import { withOAuth } from 'aws-amplify-react';
 
-const HomeItems = props => (
-  <React.Fragment>
-    <Nav.Link href="#/doc">
-      API Documentation
-    </Nav.Link>
-    <Nav.Link href="#/contact">
-      Contact Us
-    </Nav.Link>
-    {props.user && <Nav.Link href="#/apps">
-      Application
-    </Nav.Link>}
-    {props.user && isAdmin && <Nav.Link href="#/users">
-      View Users
-    </Nav.Link>}
-  </React.Fragment>
-)
-
 class Navigator extends Component {
   constructor(props) {
     super(props);
