@@ -58,7 +58,7 @@ Amplify.configure({
       {
         name: "MyAPIGatewayAPI",
         endpoint:
-          "https://6sevm9m5t1.execute-api.ap-southeast-1.amazonaws.com/dev/"
+          "https://uneetbqwai.execute-api.ap-southeast-1.amazonaws.com/dev"
       }
     ]
   }
