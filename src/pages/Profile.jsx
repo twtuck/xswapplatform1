@@ -275,15 +275,18 @@ class Profile extends Component {
           <div className="form-group row">
             <div className="col-4">
               <label htmlFor="password">Current Password</label>
-              <input type="text" className="form-control" name="password"/>
+              <input type="password" className="form-control" name="password" value={this.state.password}
+                onChange={this.onPasswordChange}/>
             </div>
             <div className="col-4">
               <label htmlFor="newPassword">New Password</label>
-              <input type="text" className="form-control" name="newPassword"/>
+              <input type="password" className="form-control" name="newPassword" value={this.state.newPassword}
+                onChange={this.onNewPasswordChange}/>
             </div>
             <div className="col-4">
               <label htmlFor="confirmPassword">Confirm New Password</label>
-              <input type="text" className="form-control" name="confirmPassword"/>
+              <input type="password" className="form-control" name="confirmPassword" value={this.state.confirmPassword}
+                onChange={this.onConfirmPasswordChange}/>
             </div>
           </div>
           <div className="form-group row">

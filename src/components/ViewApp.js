@@ -19,7 +19,7 @@ class ViewApp extends Component {
         return (
             <div className="card card-body">
                 <div className="mb-2">        
-                    <span className="h4 my-auto"><i className="fa fa-file-text-o fa-lg"></i> Edit App</span>
+                    <span className="h4 my-auto"><i className="fa fa-file-text-o fa-lg"></i>View Application</span>
                     <a className="float-right ml-auto" onClick={this.props.onCloseModal}>
                         <i className="fa fa-remove mr-2 fa-2x text-danger"></i>
                     </a>
@@ -28,29 +28,29 @@ class ViewApp extends Component {
                     <div className="form-group row">
                         <div className="col-6">
                             <label>Application Name</label>
-                            <label>{app.appName}</label>
+                            <input type="text" className="form-control" name="name" value={app.appName}></input>
                         </div>
                         <div className="col-6">
-                            <label>Facebook Client Id</label>
-                            <label>{app.appId}</label>
+                            <label>Application Id</label>
+                            <input type="text" className="form-control" name="name" value={app.appId}></input>
                         </div>
                     </div>
                     <div className="form-group row">
                         <div className="col-6">
                             <label>Company</label>
-                            <label>{app.appInfo.company}</label>
+                            <input type="text" className="form-control" name="name" value={app.appInfo.company}></input>
                         </div>
                         <div className="col-6">
-                            <label>Facebook Client Secret</label>
-                            <label>{app.appSetup.appClientId}</label>
+                            <label>Application Client Id</label>
+                            <input type="text" className="form-control" name="name" value={app.appSetup.appClientId}></input>
                         </div>
                     </div>
                     <div className="form-group">
                         <label htmlFor="description">Application Description</label>
-                            <label>{app.appInfo.description}</label>
+                        <textarea className="form-control" name="description" rows="3" value={app.appInfo.description}></textarea>
                     </div>
                     <div className="form-group row">
-                        <div className="col-sm-4 col-md-3 col-xl-2">
+                        <div className="col-sm-4 col-md-3 col-xl-2 mt-auto">
                             <Button type="button" variant="danger" onClick={this.props.onCloseModal} block>Close</Button>
                         </div>
                     </div>

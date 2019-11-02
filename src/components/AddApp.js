@@ -145,7 +145,7 @@ class AddApp extends Component {
         return (
             <div className="card card-body">
                 <div className="mb-2">        
-                    <span className="h4 my-auto"><i className="fa fa-file-text-o fa-lg"></i> New App</span>
+                    <span className="h4 my-auto"><i className="fa fa-file-text-o fa-lg"></i>New Application</span>
                     <a className="float-right ml-auto" onClick={this.props.onCloseModal}>
                         <i className="fa fa-remove fa-2x mr-2 text-danger"></i>
                     </a>
