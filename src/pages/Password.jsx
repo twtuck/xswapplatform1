@@ -6,11 +6,7 @@ import { trackPromise } from 'react-promise-tracker';
 class Password extends Component {
   constructor(props) {
     super(props);
-    const { user, session, signIn } = this.props;
-
-    if (!session) {
-        signIn();
-    }
+    
     this.state = {
       validationErrorMessage: null,
       password: '',
