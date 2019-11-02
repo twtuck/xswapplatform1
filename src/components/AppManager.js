@@ -149,7 +149,7 @@ class AppManager extends Component {
 
     handleOpenViewAppModal(event, app) {
         console.log('event:' + event);
-        if (event.target.hasClass('exclude')) {
+        if (event.target.classList.includes('exclude')) {
             return;
         }
         this.setState({selectedApp: app});

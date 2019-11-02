@@ -7,6 +7,7 @@ const AppTable = (props) => {
     const apps = props.apps;
     const filter = props.filter;
     if (apps) {
+        let i = 1;
         const appRows = apps.map(app => {
             let classes = `small ${!!app.isNew ? 'table-success' : ''}`;
             let isShow = true;
@@ -14,7 +15,6 @@ const AppTable = (props) => {
                 isShow = app.appName.toLowerCase().includes(filter.toLowerCase());
             }
             console.log(app + ":" + isShow);
-            let i = 1;
             if (isShow) {
                 return (
                     <tr key={app.appId.toString()} className={classes} onClick={(event) => props.onOpenAppModal(event, app)}>
@@ -56,10 +56,11 @@ const AppTable = (props) => {
                 <table className="table table-bordered table-striped table-hover">
                     <thead>
                         <tr>
-                            <th className="first-column"></th>
+                            <th className="first-column">#</th>
                             <th className="align-middle">Application Name</th>
                             <th className="align-middle">Company</th>
                             <th className="align-middle">Application Description</th>
+                            <th className="last-column"></th>
                         </tr>
                     </thead>
                     <tbody>

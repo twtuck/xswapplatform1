@@ -39,7 +39,12 @@
 }
 
 .first-column {
-  width: 120px;
+  width: 50px;
+  text-align: center;
+}
+
+.last-column {
+  width: 160px;
   text-align: center;
 }
 
