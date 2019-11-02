@@ -114,7 +114,6 @@ class AddApp extends Component {
 
     
     render() {
-
         const validationErrorSummary = this.state.validationErrors.map(error => 
             <div key={uuidv1()} className="alert alert-danger alert-dismissible fade show">
                 {error.message}

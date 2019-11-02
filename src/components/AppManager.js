@@ -35,10 +35,10 @@ class AppManager extends Component {
         this.handleOpenAppModal = this.handleOpenAppModal.bind(this);
         this.handleOnCloseEditAppModal = this.handleOnCloseEditAppModal.bind(this);
 
-        this.handleOpenAddProduct = this.handleOpenAddProduct.bind(this);
-        this.handleOnCloseEditAddProduct = this.handleOnCloseEditAddProduct.bind(this);
-        this.handleOpenAddTemplate = this.handleOpenAddTemplate.bind(this);
-        this.handleOnCloseAddTemplate = this.handleOnCloseAddTemplate.bind(this);
+        this.handleOpenAddProductModal = this.handleOpenAddProductModal.bind(this);
+        this.handleOnCloseEditAddProductModal = this.handleOnCloseEditAddProductModal.bind(this);
+        this.handleOpenAddTemplateModal = this.handleOpenAddTemplateModal.bind(this);
+        this.handleOnCloseAddTemplateModal = this.handleOnCloseAddTemplateModal.bind(this);
     }
 
     componentWillMount() {
@@ -140,34 +140,25 @@ class AppManager extends Component {
         this.setState({isEditAppModalOpen: false});
     }
 
-    handleOpenAddTemplate() {
-        
+    handleOpenAddTemplateModal() {
+        this.setState({isAddTemplateModalOpen: true});
     }
 
-    handleOpenAddProduct() {
-        
+    handleOnCloseAddTemplateModal() {
+        this.setState({isAddTemplateModalOpen: false});
+    }
+
+    handleOpenAddProductModal() {
+        this.setState({isAddProductModalOpen: true});
+    }
+
+    handleOnCloseAddProductModal() {
+        this.setState({isAddProductModalOpen: false});
     }
 
     handleOpenAppModal(app) {
-
-        console.log('handleOpenAppModal ' + app.appName);
-        if (!app.appName || app.appName < 1) {
-            throw Error('Cannot edit app. Invalid app id specified.');
-        }
         this.setState({selectedApp: app});
         this.setState({isEditAppModalOpen: true});
-
-        // AppService
-        //     .findApp(appName)
-        //     .then(app => {
-        //         this.setState({selectedApp: app});
-        //         this.setState({isEditAppModalOpen: true});
-        //         return;
-        //     })
-        //     .catch(error => {
-        //         console.log(error);
-        //         return;
-        //     });
     }
 
     handleOnEditApp(app) {
@@ -215,9 +206,9 @@ class AppManager extends Component {
                 <div className="mb-3">
                     <ControlPanel openAddAppModal={this.handleOpenAddAppModal} onFindApps={this.handleOnFindApps} />
                 </div>
-                <AppTable onDeleteApp={this.handleOnDeleteApp} onOpenAppModal={this.handleOpenAppModal}
-                        onAddOpenProduct={this.handleOpenAddProduct} onAddOpenTemplate={this.handleOpenAddTemplate} 
-                        apps={this.state.apps} filter={this.state.filter}/>
+                <AppTable apps={this.state.apps} filter={this.state.filter} onOpenAppModal={this.handleOpenAppModal}
+                        onDeleteApp={this.handleOnDeleteApp} onOpenAddProductModal={this.handleOpenAddProductModal} 
+                        onOpenAddTemplateModal={this.handleOpenAddTemplateModal}/>
             </div>
         );
     }
