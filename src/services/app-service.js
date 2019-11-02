@@ -37,6 +37,7 @@ export const addApp = (app, token) => {
             }
         };
         getServerPublicKey((serverPublicKey) => {
+            console.log(serverPublicKey);
             joseHelper.encrypt(serverPublicKey, JSON.stringify(payload))
                 .then(jwe => {
                     console.log(jwe);
@@ -48,14 +49,18 @@ export const addApp = (app, token) => {
                             jwe
                         }
                     })
-                .then((result) => {
-                    resolve(result);
+                    .then((result) => {
+                        resolve(result);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        reject(error.message);
+                    });
                 })
                 .catch(error => {
                     console.log(error);
                     reject(error.message);
                 });
-            });
         });
     });
 };
@@ -64,7 +69,6 @@ const getServerPublicKey = (callback) => {
     let serverPublicKey = ls.get('serverPublicKey');
     if (!serverPublicKey) {
         PlatformService.getServerKey().then(response => {
-            console.log(response);
             serverPublicKey = response.serverKey;
             callback(serverPublicKey);
         });
