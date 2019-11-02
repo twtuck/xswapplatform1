@@ -23,9 +23,9 @@ export const getUserProfile = (token) => {
 export const getServerKey = (token) => {
 
     return new Promise((resolve, reject) => {
-        API.get(`${APIName}`, `${baseApiUrl}/serverKey`, { headers: { Authorization: `Bearer ${token}`} })
+        API.get(`${APIName}`, `${baseApiUrl}/serverKey`, null)
         .then((result) => {
-            resolve(result.Item);
+            resolve(result.serverPublicKey);
             console.log(result);
         })
         .catch(error => {
