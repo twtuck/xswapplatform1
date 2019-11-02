@@ -204,9 +204,10 @@ class Profile extends Component {
         </form>
         </Tab>
 
+        { !isFederatedUser && 
         <Tab eventKey="password" title="Update Password">
         <Password/>
-        </Tab>
+        </Tab> }
 
         { !isFederatedUser && 
         <Tab eventKey="totp" title="Add TOTP">
