@@ -63,11 +63,13 @@ export const addApp = (app, token) => {
 const getServerPublicKey = (token, callback) => {
     let serverPublicKey = ls.get('serverPublicKey');
     if (!serverPublicKey) {
-        PlatformService.getServerKey(token).then(response => {
-            console.log(response);
-            serverPublicKey = response.serverKey;
-            callback(serverPublicKey);
-        });
+        // PlatformService.getServerKey(token).then(response => {
+        //     console.log(response);
+        //     serverPublicKey = response.serverKey;
+        //     callback(serverPublicKey);
+        // });
+        serverPublicKey = '-----BEGIN PUBLIC KEY-----\r\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCi/H8+Oize7Y6Y4Fx4Rp9phOSu\r\nY5IcRV+axAFnzPZM6JxA7b7Ufi5urBbezjOVTqwtBCmzkngUyKDjmv35MHSRiv4j\r\nuR5bnwrqE9OhECySdpbE8ZNT9bZUx2u5Y29VuDBQRdkDk4LDcnAInxRYC+Muf6TV\r\nLHGlP/PMeS/m1n1vAQIDAQAB\r\n-----END PUBLIC KEY-----\r\n';
+        callback(serverPublicKey);
     } else {
         callback(serverPublicKey);
     }

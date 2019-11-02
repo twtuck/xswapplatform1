@@ -85,25 +85,11 @@ class AppManager extends Component {
     }
 
     handleOnFindApps(name) {
-        
         if (!name || name === '') {
-            this.listApps();
+            this.setState({filter: ''});
             return;
         }
-        
-        // AppService
-        //     .findAppsByName(name)
-        //     .then(apps => {
-        //         if (!apps) {
-        //             apps = [];
-        //         }
-        //         this.setState({apps});
-        //         return;
-        //     })
-        //     .catch(error => {
-        //         console.log(error);
-        //         return;
-        //     });
+        this.setState({filter: name});
     }
 
     handleOnAddApp(app) {
@@ -216,7 +202,7 @@ class AppManager extends Component {
                 <div className="mb-3">
                     <ControlPanel openAddAppModal={this.handleOpenAddAppModal} onFindApps={this.handleOnFindApps} />
                 </div>
-                <AppTable apps={this.state.apps} onDeleteApp={this.handleOnDeleteApp} onOpenAppModal={this.handleOpenAppModal} />
+                <AppTable apps={this.state.apps} filter={this.state.filter} onDeleteApp={this.handleOnDeleteApp} onOpenAppModal={this.handleOpenAppModal} />
             </div>
         );
     }
