@@ -147,7 +147,8 @@ class AppManager extends Component {
         this.setState({isAddAppModalOpen: false});
     }
 
-    handleOpenViewAppModal(app) {
+    handleOpenViewAppModal(event, app) {
+        console.log('event:' + event);
         this.setState({selectedApp: app});
         this.setState({isEditAppModalOpen: true});
     }

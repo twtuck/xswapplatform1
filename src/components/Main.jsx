@@ -11,7 +11,8 @@ import { Hub, Auth } from 'aws-amplify';
 import { withOAuth } from 'aws-amplify-react';
 import LoadingIndicator from "../components/LoadingIndicator";
 import ls from 'local-storage'
-import { InputGroupRadio } from 'react-bootstrap/InputGroup';
+
+const PlatformService = require('../services/platform-service');
 
 class Main extends Component {
   constructor(props) {
@@ -22,6 +23,12 @@ class Main extends Component {
     Hub.listen('auth', this, 'navigator'); // Add this component as listener of auth event.
 
     this.state = { user: null, session: null }
+
+    PlatformService.getServerKey().then(response => {
+      console.log(response);
+      let serverPublicKey = response.serverKey;
+      console.log('serverPublicKey:' + serverPublicKey);
+    });
   }
 
   componentDidMount() {

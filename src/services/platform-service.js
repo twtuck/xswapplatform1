@@ -20,7 +20,7 @@ export const getUserProfile = (token) => {
     });
 };
 
-export const getServerKey = (token) => {
+export const getServerKey = () => {
 
     return new Promise((resolve, reject) => {
         API.get(`${APIName}`, `${baseApiUrl}/serverKey`, null)

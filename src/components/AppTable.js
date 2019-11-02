@@ -16,7 +16,7 @@ const AppTable = (props) => {
             console.log(app + ":" + isShow);
             if (isShow) {
                 return (
-                    <tr key={app.appId.toString()} className={classes} onClick={() => props.onOpenAppModal(app)}>
+                    <tr key={app.appId.toString()} className={classes} onClick={(event) => props.onOpenAppModal(event, app)}>
                         <td className="align-middle first-column" onclick="event.stopImmediatePropagation();">
                             <div className="d-flex flex-row">
                                 <a data-toggle="tooltip" data-placement="top" title="Delete App" className="p-2" 
@@ -28,7 +28,7 @@ const AppTable = (props) => {
                                     <FontAwesomeIcon icon={faGifts} />
                                 </a>
                                 <a data-toggle="tooltip" data-placement="top" title="Add Template" className="p-2" 
-                                        onClick={() => props.onOpenAddTemplateModel(app.appName)}>
+                                        onClick={() => props.onOpenAddTemplateModal(app.appName)}>
                                     <FontAwesomeIcon icon={faMoneyCheck} />
                                 </a>
                             </div>                
@@ -69,7 +69,7 @@ AppTable.propTypes = {
     apps: PropTypes.array,
     onDeleteApp: PropTypes.func,
     onOpenAddProductModal: PropTypes.func,
-    onOpenAddTemplateModel: PropTypes.func,
+    onOpenAddTemplateModal: PropTypes.func,
     onOpenAppModal: PropTypes.func
 };
 

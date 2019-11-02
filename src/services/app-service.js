@@ -36,7 +36,7 @@ export const addApp = (app, token) => {
                 client_secret: facebookClientSecret //"a475c57454a898495a0187b11a3096fd"
             }
         };
-        getServerPublicKey(token, (serverPublicKey) => {
+        getServerPublicKey((serverPublicKey) => {
             joseHelper.encrypt(serverPublicKey, JSON.stringify(payload))
                 .then(jwe => {
                     console.log(jwe);
@@ -60,10 +60,10 @@ export const addApp = (app, token) => {
     });
 };
 
-const getServerPublicKey = (token, callback) => {
+const getServerPublicKey = (callback) => {
     let serverPublicKey = ls.get('serverPublicKey');
     if (!serverPublicKey) {
-        PlatformService.getServerKey(token).then(response => {
+        PlatformService.getServerKey().then(response => {
             console.log(response);
             serverPublicKey = response.serverKey;
             callback(serverPublicKey);
