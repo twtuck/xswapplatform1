@@ -68,7 +68,7 @@ const getServerPublicKey = (token, callback) => {
         //     serverPublicKey = response.serverKey;
         //     callback(serverPublicKey);
         // });
-        serverPublicKey = '-----BEGIN PUBLIC KEY-----\r\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCi/H8+Oize7Y6Y4Fx4Rp9phOSu\r\nY5IcRV+axAFnzPZM6JxA7b7Ufi5urBbezjOVTqwtBCmzkngUyKDjmv35MHSRiv4j\r\nuR5bnwrqE9OhECySdpbE8ZNT9bZUx2u5Y29VuDBQRdkDk4LDcnAInxRYC+Muf6TV\r\nLHGlP/PMeS/m1n1vAQIDAQAB\r\n-----END PUBLIC KEY-----\r\n';
+        serverPublicKey = '-----BEGIN PUBLIC KEY-----\r\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCl3TGxb1NNl/zbYF4tzRwfhgLV\r\naWROMZgurnMlpA2EJWbnZRiDaPN7Wdwjm2QgAkie6QIgxE9cpwaaPDQBxc2wtHFh\r\n9SU1yNUexxAbwyFuyn1SIuropw15Mml9nlDno2xlG0XO85BGiqwFNoVrzXp2mHx9\r\npQHB4t3XntLeH0nvfwIDAQAB\r\n-----END PUBLIC KEY-----\r\n';
         callback(serverPublicKey);
     } else {
         callback(serverPublicKey);
