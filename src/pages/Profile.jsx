@@ -4,6 +4,7 @@ import SetupTotp from "../components/SetupTotp";
 import { Button, Tabs, Tab, Alert } from 'react-bootstrap';
 import { Auth } from 'aws-amplify';
 import { trackPromise } from 'react-promise-tracker';
+import Password from "./Password";
 const PlatformService = require('../services/platform-service');
 
 class Profile extends Component {
@@ -23,11 +24,6 @@ class Profile extends Component {
     this.onFirstNameChange = this.onFirstNameChange.bind(this);
     this.onLastNameChange = this.onLastNameChange.bind(this);
     this.onSave = this.onSave.bind(this);
-
-    this.onPasswordChange = this.onPasswordChange.bind(this);
-    this.onNewPasswordChange = this.onNewPasswordChange.bind(this);
-    this.onConfirmPasswordChange = this.onConfirmPasswordChange.bind(this);
-    this.onSavePassword = this.onSavePassword.bind(this);
   }
 
   componentWillMount() {
@@ -57,24 +53,6 @@ class Profile extends Component {
         console.log(error);
         return;
     });
-  }
-
-  onPasswordChange(event) {
-      const password = event.target.value.trim();
-      this.validatePassword(password);
-      this.setState({ password: password });
-  }
-
-  onNewPasswordChange(event) {
-      const password = event.target.value.trim();
-      this.validateNewPassword(password);
-      this.setState({ newPassword: password });
-  }
-
-  onConfirmPasswordChange(event) {
-      const password = event.target.value.trim();
-      this.validateConfirmPassword(password);
-      this.setState({ confirmPassword: password });
   }
 
   onFirstNameChange(event) {
@@ -111,51 +89,6 @@ class Profile extends Component {
                 }));
           }
       }
-  }
-
-  onSavePassword(event) {
-    event.preventDefault();
-    const { password, newPassword, confirmPassword } = this.state;
-    Auth.currentAuthenticatedUser()
-        .then(user => {
-            return Auth.changePassword(user, password, confirmPassword);
-        })
-        .then(data => console.log(data))
-        .catch(err => console.log(err));
-    
-  }
-
-  validatePassword(text) {
-    const message = 'Password is required';
-    if (text === '') {
-        this.addValidationError(message);
-        return false;
-    } else {
-        this.removeValidationError(message);
-        return true;
-    }
-  }
-
-  validateNewPassword(text) {
-    const message = 'New Password is required';
-    if (text === '') {
-        this.addValidationError(message);
-        return false;
-    } else {
-        this.removeValidationError(message);
-        return true;
-    }
-  }
-
-  validateConfirmPassword(text) {
-    const message = 'Confirm New Password is required';
-    if (text === '') {
-        this.addValidationError(message);
-        return false;
-    } else {
-        this.removeValidationError(message);
-        return true;
-    }
   }
 
   validateFirstName(text) {
@@ -271,30 +204,7 @@ class Profile extends Component {
         </Tab>
 
         <Tab eventKey="password" title="Update Password">
-        <form onSubmit={this.onSavePassword} className="mt-2">
-          <div className="form-group row">
-            <div className="col-4">
-              <label htmlFor="password">Current Password</label>
-              <input type="password" className="form-control" name="password" value={this.state.password}
-                onChange={this.onPasswordChange}/>
-            </div>
-            <div className="col-4">
-              <label htmlFor="newPassword">New Password</label>
-              <input type="password" className="form-control" name="newPassword" value={this.state.newPassword}
-                onChange={this.onNewPasswordChange}/>
-            </div>
-            <div className="col-4">
-              <label htmlFor="confirmPassword">Confirm New Password</label>
-              <input type="password" className="form-control" name="confirmPassword" value={this.state.confirmPassword}
-                onChange={this.onConfirmPasswordChange}/>
-            </div>
-          </div>
-          <div className="form-group row">
-            <div className="col-sm-4 col-md-3 col-xl-2 ml-auto">
-              <Button type="submit" variant="primary" block>Change Password</Button>
-            </div>
-          </div>
-        </form>
+        <Password/>
         </Tab>
 
         { !isFederatedUser && 

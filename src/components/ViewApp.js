@@ -50,7 +50,7 @@ class ViewApp extends Component {
                         <textarea className="form-control" name="description" rows="3" value={app.appInfo.description}></textarea>
                     </div>
                     <div className="form-group row">
-                        <div className="col-sm-4 col-md-3 col-xl-2 mt-auto">
+                        <div className="col-sm-4 col-md-3 col-xl-2 ml-auto">
                             <Button type="button" variant="danger" onClick={this.props.onCloseModal} block>Close</Button>
                         </div>
                     </div>
