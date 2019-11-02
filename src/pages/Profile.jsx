@@ -32,7 +32,7 @@ class Profile extends Component {
 
   getUserProfile() {
     const { session } = this.props;
-
+    trackPromise(
     PlatformService.getUserProfile(session.getAccessToken().getJwtToken()).then(response => {
       let userProfile = response.userProfile;
       if (!userProfile) {
@@ -52,7 +52,7 @@ class Profile extends Component {
     .catch(error => {
         console.log(error);
         return;
-    });
+    }));
   }
 
   onFirstNameChange(event) {
