@@ -15,7 +15,7 @@ const HomeItems = props => (
     {props.user && <Nav.Link href="#/apps">
       Application
     </Nav.Link>}
-    {props.user && <Nav.Link href="#/users">
+    {props.user && isAdmin && <Nav.Link href="#/users">
       View Users
     </Nav.Link>}
   </React.Fragment>
@@ -31,7 +31,7 @@ class Navigator extends Component {
 
     this.tmp = null;
 
-    this.state = { user: null, session: null, attributes: [] }
+    this.state = { user: null, session: null }
   }
 
   componentDidMount() {
@@ -46,9 +46,7 @@ class Navigator extends Component {
 
   loadUser() {
     Auth.currentAuthenticatedUser()
-      .then(user => Auth.userAttributes(user)
-        .then(attributes => this.setState({ user: user, attributes: attributes }))
-        .catch(err => this.setState({ attributes: [] })))
+      .then(user => this.setState({ user: user }))
       .catch(err => this.setState({ user: null }));
     Auth.currentSession()
       .then(session => this.setState({ session: session }))
@@ -60,7 +58,15 @@ class Navigator extends Component {
   }
 
   render() {
-    const { user} = this.state;
+    const { user, session } = this.state;
+    let isAdmin = false;
+    if (session) {
+      let payload = session.getAccessToken().decodePayload();
+      let group = payload['cognito:groups'];
+      if (group.includes('Administrators')) {
+        isAdmin = true;
+      }
+    }
     return (
       <div>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -68,15 +74,27 @@ class Navigator extends Component {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
-              <HashRouter>
+              <Nav.Link href="#/doc">
+                API Documentation
+              </Nav.Link>
+              <Nav.Link href="#/contact">
+                Contact Us
+              </Nav.Link>
+              {user && <Nav.Link href="#/apps">
+                Application
+              </Nav.Link>}
+              {user && isAdmin && <Nav.Link href="#/users">
+                View Users
+              </Nav.Link>}
+              {/* <HashRouter>
                 <Switch>
-                  <Route exact path="/doc" component={() => <HomeItems user={user} />} />
-                  <Route exact path="/contact" component={() => <HomeItems user={user} />} />
-                  <Route exact path="/apps" component={() => <HomeItems user={user} />} />
-                  <Route exact path="/profile" component={() => <HomeItems user={user} />} />
-                  <Route path="/" component={() => <HomeItems user={user} />} />
+                  <Route exact path="/doc" component={() => <HomeItems user={user} isAdmin={isAdmin}/>} />
+                  <Route exact path="/contact" component={() => <HomeItems user={user} isAdmin={isAdmin}/>} />
+                  <Route exact path="/apps" component={() => <HomeItems user={user} isAdmin={isAdmin}/>} />
+                  {isAdmin && <Route exact path="/profile" component={() => <HomeItems user={user} isAdmin={isAdmin}/>} />}
+                  <Route path="/" component={() => <HomeItems user={user} isAdmin={isAdmin}/>} />
                 </Switch>
-              </HashRouter>
+              </HashRouter> */}
             </Nav>
             <Nav>
               { !user &&

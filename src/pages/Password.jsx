@@ -45,8 +45,14 @@ class Password extends Component {
       .then(user => {
         return Auth.changePassword(user, password, confirmPassword);
       })
-      .then(data => console.log(data))
-      .catch(err => console.log(err));
+      .then(data => {
+        this.setState({updateResult: 'success'});
+        console.log(data);
+      })
+      .catch(err => {
+        this.setState({updateResult: 'fail'});
+        console.log(err);
+      });
   }
 
   validatePassword(text) {

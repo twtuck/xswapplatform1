@@ -8,7 +8,7 @@ export default class Home extends Component {
   render() {
     return (
       <React.Fragment>
-        <Slider className="slider-wrapper" autoplay='5000'>
+        <Slider className="slider-wrapper" autoplay='2000'>
           {content.map((item, index) => (
             <div
               key={index}

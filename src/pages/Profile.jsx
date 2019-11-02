@@ -81,6 +81,7 @@ class Profile extends Component {
             trackPromise(
             PlatformService.updateUserProfile(newProfile, session.getAccessToken().getJwtToken())
                 .then(userProfile => {
+                  console.log(userProfile);
                   this.setState({updateResult: 'success'});
                 })
                 .catch(error => {

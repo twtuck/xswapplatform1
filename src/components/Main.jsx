@@ -11,6 +11,7 @@ import { Hub, Auth } from 'aws-amplify';
 import { withOAuth } from 'aws-amplify-react';
 import LoadingIndicator from "../components/LoadingIndicator";
 import ls from 'local-storage'
+import { InputGroupRadio } from 'react-bootstrap/InputGroup';
 
 class Main extends Component {
   constructor(props) {
@@ -44,6 +45,14 @@ class Main extends Component {
 
   render() {
     const { user, session } = this.state;
+    let payload = session.getAccessToken().decodePayload();
+    let isAdmin = false;
+    if (payload) {
+      group = payload['cognito:groups'];
+      if (group.includes('Administrators')) {
+        isAdmin = true;
+      }
+    }
     return (
       <Container as="main" role="main">
         <div className="starter-template">
@@ -53,7 +62,7 @@ class Main extends Component {
                 <Route exact path="/contact" component={Contact} />
                 <Route exact path="/apps" render={(props) => <AppManager signIn={this.props.OAuthSignIn} session={session}/>} />
                 <Route exact path="/profile" component={() => <Profile signIn={this.props.OAuthSignIn} user={user} session={session}/>} />
-                <Route exact path="/users" render={(props) => <User signIn={this.props.OAuthSignIn} user={user} session={session}/>} />} />
+                {isAdmin && <Route exact path="/users" render={(props) => <User signIn={this.props.OAuthSignIn} user={user} session={session}/>} />} />}
                 <Route path="/" render={(props) => <Home user={user} />} />
             </Switch>
           </HashRouter>
