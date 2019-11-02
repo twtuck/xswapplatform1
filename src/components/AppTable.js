@@ -17,7 +17,7 @@ const AppTable = (props) => {
             if (isShow) {
                 return (
                     <tr key={app.appId.toString()} className={classes} onClick={() => props.onOpenAppModal(app)}>
-                        <td className="align-middle first-column">
+                        <td className="align-middle first-column" onclick="event.stopImmediatePropagation();">
                             <div className="d-flex flex-row">
                                 <a data-toggle="tooltip" data-placement="top" title="Delete App" className="p-2" 
                                         onClick={() => props.onDeleteApp(app.appName)}>

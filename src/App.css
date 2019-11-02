@@ -39,7 +39,8 @@
 }
 
 .first-column {
-  width: 55px;
+  width: 120px;
+  text-align: center;
 }
 
 .loading-indicator {

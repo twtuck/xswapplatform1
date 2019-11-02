@@ -29,6 +29,8 @@ class AppManager extends Component {
         this.handleOnAddApp = this.handleOnAddApp.bind(this);
         this.handleOnDeleteApp = this.handleOnDeleteApp.bind(this);
         this.handleOnFindApps = this.handleOnFindApps.bind(this);
+        this.handleOnAddProduct = this.handleOnAddProduct.bind(this);
+        this.handleOnAddTemplate = this.handleOnAddTemplate.bind(this);
         
         this.handleOpenAddAppModal = this.handleOpenAddAppModal.bind(this);
         this.handleOnCloseAddAppModal = this.handleOnCloseAddAppModal.bind(this);
@@ -173,17 +175,17 @@ class AppManager extends Component {
     render() {
         return (
             <div>                                
-                <Modal isOpen={this.state.isAddAppModalOpen} onRequestClose={this.handleOnCloseViewAppModal} style={customStyles}>
+                <Modal isOpen={this.state.isAddAppModalOpen} onRequestClose={this.handleOnCloseAddAppModal} style={customStyles}>
                     <AddApp onSaveApp={this.handleOnAddApp} onCloseModal={this.handleOnCloseAddAppModal} />
                 </Modal>
-                <Modal isOpen={this.state.isEditAppModalOpen} onRequestClose={this.handleOnCloseAddAppModal} style={customStyles}>
-                    <ViewApp onCloseModal={this.handleOnCloseAddAppModal} app={this.state.selectedApp} />
+                <Modal isOpen={this.state.isEditAppModalOpen} onRequestClose={this.handleOnCloseViewAppModal} style={customStyles}>
+                    <ViewApp onCloseModal={this.handleOnCloseViewAppModal} app={this.state.selectedApp} />
                 </Modal>                  
                 <Modal isOpen={this.state.isAddProductModalOpen} onRequestClose={this.handleOnCloseAddProductModal} style={customStyles}>
-                    <AddProduct onSaveProduct={this.handleOnAddApp} onCloseModal={this.handleOnCloseAddProductModal} />
+                    <AddProduct onSaveProduct={this.handleOnAddProduct} onCloseModal={this.handleOnCloseAddProductModal} />
                 </Modal>                       
                 <Modal isOpen={this.state.isAddTemplateModalOpen} onRequestClose={this.handleOnCloseAddTemplateModal} style={customStyles}>
-                    <AddTemplate onSaveTemplate={this.handleOnAddApp} onCloseModal={this.handleOnCloseAddTemplateModal} />
+                    <AddTemplate onSaveTemplate={this.handleOnAddTemplate} onCloseModal={this.handleOnCloseAddTemplateModal} />
                 </Modal>
                 <div className="mb-3">
                     <ControlPanel openAddAppModal={this.handleOpenAddAppModal} onFindApps={this.handleOnFindApps} />
