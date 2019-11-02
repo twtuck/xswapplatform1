@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import uuidv1 from 'uuid/v1';
 import SetupTotp from "../components/SetupTotp";
 import { Button, Tabs, Tab, Alert } from 'react-bootstrap';
-import { Auth } from 'aws-amplify';
 import { trackPromise } from 'react-promise-tracker';
 import Password from "./Password";
 const PlatformService = require('../services/platform-service');

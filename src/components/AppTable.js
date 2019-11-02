@@ -25,6 +25,14 @@ const AppTable = (props) => {
                                 <i className="fa fa-trash fa-lg text-danger"></i>
                                 <FontAwesomeIcon icon={faTrash} />
                             </a>
+                            <a data-toggle="tooltip" data-placement="top" title="Add Product" className="p-2" onClick={() => props.onOpenAddProduct(app.appName)}>
+                                <i className="fa fa-trash fa-lg text-danger"></i>
+                                <FontAwesomeIcon icon={faTrash} />
+                            </a>
+                            <a data-toggle="tooltip" data-placement="top" title="Add Template" className="p-2" onClick={() => props.onOpenAddTemplate(app.appName)}>
+                                <i className="fa fa-trash fa-lg text-danger"></i>
+                                <FontAwesomeIcon icon={faTrash} />
+                            </a>
                         </div>                
                     </td>
                     <td className="align-middle">{app.appName}</td>
@@ -62,6 +70,8 @@ const AppTable = (props) => {
 AppTable.propTypes = {
     apps: PropTypes.array,
     onDeleteApp: PropTypes.func,
+    onAddOpenProduct: PropTypes.func,
+    onAddOpenTemplate: PropTypes.func,
     onOpenAppModal: PropTypes.func
 };
 

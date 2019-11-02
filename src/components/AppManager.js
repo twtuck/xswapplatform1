@@ -34,6 +34,11 @@ class AppManager extends Component {
 
         this.handleOpenAppModal = this.handleOpenAppModal.bind(this);
         this.handleOnCloseEditAppModal = this.handleOnCloseEditAppModal.bind(this);
+
+        this.handleOpenAddProduct = this.handleOpenAddProduct.bind(this);
+        this.handleOnCloseEditAddProduct = this.handleOnCloseEditAddProduct.bind(this);
+        this.handleOpenAddTemplate = this.handleOpenAddTemplate.bind(this);
+        this.handleOnCloseAddTemplate = this.handleOnCloseAddTemplate.bind(this);
     }
 
     componentWillMount() {
@@ -135,6 +140,14 @@ class AppManager extends Component {
         this.setState({isEditAppModalOpen: false});
     }
 
+    handleOpenAddTemplate() {
+        
+    }
+
+    handleOpenAddProduct() {
+        
+    }
+
     handleOpenAppModal(app) {
 
         console.log('handleOpenAppModal ' + app.appName);
@@ -202,7 +215,9 @@ class AppManager extends Component {
                 <div className="mb-3">
                     <ControlPanel openAddAppModal={this.handleOpenAddAppModal} onFindApps={this.handleOnFindApps} />
                 </div>
-                <AppTable apps={this.state.apps} filter={this.state.filter} onDeleteApp={this.handleOnDeleteApp} onOpenAppModal={this.handleOpenAppModal} />
+                <AppTable onDeleteApp={this.handleOnDeleteApp} onOpenAppModal={this.handleOpenAppModal}
+                        onAddOpenProduct={this.handleOpenAddProduct} onAddOpenTemplate={this.handleOpenAddTemplate} 
+                        apps={this.state.apps} filter={this.state.filter}/>
             </div>
         );
     }

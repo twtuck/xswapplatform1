@@ -41,6 +41,7 @@ class Password extends Component {
   onSavePassword(event) {
     event.preventDefault();
     const { password, newPassword, confirmPassword } = this.state;
+    trackPromise(
     Auth.currentAuthenticatedUser()
       .then(user => {
         return Auth.changePassword(user, password, confirmPassword);
@@ -52,7 +53,7 @@ class Password extends Component {
       .catch(err => {
         this.setState({updateResult: 'fail'});
         console.log(err);
-      });
+      }));
   }
 
   validatePassword(text) {
