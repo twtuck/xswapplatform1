@@ -66,10 +66,10 @@ const getServerPublicKey = (token, callback) => {
         PlatformService.getServerKey(token).then(response => {
             console.log(response);
             serverPublicKey = response.serverKey;
-            callback();
+            callback(serverPublicKey);
         });
     } else {
-        callback();
+        callback(serverPublicKey);
     }
 }
 

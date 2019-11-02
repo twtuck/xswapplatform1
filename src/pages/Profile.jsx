@@ -23,10 +23,15 @@ class Profile extends Component {
     this.onFirstNameChange = this.onFirstNameChange.bind(this);
     this.onLastNameChange = this.onLastNameChange.bind(this);
     this.onSave = this.onSave.bind(this);
-    this.getUserProfile();
+
+    this.onPasswordChange = this.onPasswordChange.bind(this);
+    this.onNewPasswordChange = this.onNewPasswordChange.bind(this);
+    this.onConfirmPasswordChange = this.onConfirmPasswordChange.bind(this);
+    this.onSavePassword = this.onSavePassword.bind(this);
   }
 
   componentWillMount() {
+    this.getUserProfile();
   }
 
   getUserProfile() {
@@ -112,11 +117,11 @@ class Profile extends Component {
     event.preventDefault();
     const { password, newPassword, confirmPassword } = this.state;
     Auth.currentAuthenticatedUser()
-    .then(user => {
-        return Auth.changePassword(user, password, confirmPassword);
-    })
-    .then(data => console.log(data))
-    .catch(err => console.log(err));
+        .then(user => {
+            return Auth.changePassword(user, password, confirmPassword);
+        })
+        .then(data => console.log(data))
+        .catch(err => console.log(err));
     
   }
 
