@@ -6,16 +6,17 @@ const APIName = 'MyAPIGatewayAPI';
 
 export const createTemplate = (appId, template, token) => {
 
+    const body = JSON.parse(template);
+    console.log(appId);
+
     return new Promise((resolve, reject) => {
         API
             .post(`${APIName}`, `${baseApiUrl}/create`, {
                 headers: { 
                     Authorization: `Bearer ${token}`,
-                    appId: {appId}
+                    appId
                 },
-                body: {
-                    template
-                }
+                body
             })
             .then((result) => {
                 resolve(result);

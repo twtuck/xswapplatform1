@@ -4,18 +4,19 @@ import { API } from 'aws-amplify';
 const baseApiUrl = 'products';
 const APIName = 'MyAPIGatewayAPI';
 
-export const createProducts = (product, appId, token) => {
+export const createProducts = (appId, product, token) => {
+
+    const body = JSON.parse(product);
+    console.log(appId);
 
     return new Promise((resolve, reject) => {
         API
             .post(`${APIName}`, `${baseApiUrl}/create`, {
                 headers: { 
                     Authorization: `Bearer ${token}`,
-                    appId: {appId}
+                    appId
                 },
-                body: {
-                    product
-                }
+                body
             })
             .then((result) => {
                 resolve(result);
