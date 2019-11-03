@@ -9,6 +9,8 @@ import { withOAuth } from 'aws-amplify-react';
 import AddProduct from './AddProduct';
 import AddTemplate from './AddTemplate';
 const AppService = require('../services/app-service');
+const ProductService = require('../services/product-service');
+const TemplateService = require('../services/template-service');
 
 class AppManager extends Component {
     constructor(props) {
@@ -102,14 +104,6 @@ class AppManager extends Component {
     }
 
     handleOnAddApp(app) {
-        // if (!name || name.length === 0) {
-        //     throw Error('Name is required');
-        // }
-
-        // if (!description || description.length === 0) {
-        //     throw Error('Description is required');
-        // }
-
         const { session } = this.props;
         var token = session.getAccessToken().getJwtToken();
 
@@ -132,11 +126,29 @@ class AppManager extends Component {
     }
 
     handleOnAddProduct(product) {
+        const { session } = this.props;
+        var token = session.getAccessToken().getJwtToken();
         this.setState({ isAddProductModalOpen: false });
+
+        trackPromise(
+            ProductService
+                .createProducts(product, token)
+                .then(() => window.alert('Added successfully!'))
+                .catch(() => window.alert('Error when adding, please try again.'))
+        );
     }
 
     handleOnAddTemplate(template) {
+        const { session } = this.props;
+        var token = session.getAccessToken().getJwtToken();
         this.setState({ isAddTemplateModalOpen: false });
+
+        trackPromise(
+            TemplateService
+                .createTemplate(template, token)
+                .then(() => window.alert('Added successfully!'))
+                .catch(() => window.alert('Error when adding, please try again.'))
+        );
     }
 
     handleOpenAddAppModal() {

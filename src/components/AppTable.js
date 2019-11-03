@@ -14,7 +14,6 @@ const AppTable = (props) => {
             if (filter && filter != '') {
                 isShow = app.appName.toLowerCase().includes(filter.toLowerCase());
             }
-            console.log(app + ":" + isShow);
             if (isShow) {
                 return (
                     <tr key={app.appId.toString()} className={classes}>
