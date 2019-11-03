@@ -126,27 +126,27 @@ class AppManager extends Component {
         this.setState({ isAddAppModalOpen: false });
     }
 
-    handleOnAddProduct(product) {
+    handleOnAddProduct(appId, product) {
         const { session } = this.props;
         var token = session.getAccessToken().getJwtToken();
         this.setState({ isAddProductModalOpen: false });
 
         trackPromise(
             ProductService
-                .createProducts(product, token)
+                .createProducts(appId, product, token)
                 .then(() => window.alert('Added successfully!'))
                 .catch(() => window.alert('Error when adding, please try again.'))
         );
     }
 
-    handleOnAddTemplate(template) {
+    handleOnAddTemplate(appId, template) {
         const { session } = this.props;
         var token = session.getAccessToken().getJwtToken();
         this.setState({ isAddTemplateModalOpen: false });
 
         trackPromise(
             TemplateService
-                .createTemplate(template, token)
+                .createTemplate(appId, template, token)
                 .then(() => window.alert('Added successfully!'))
                 .catch(() => window.alert('Error when adding, please try again.'))
         );

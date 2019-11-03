@@ -28,7 +28,7 @@ class AddProduct extends Component {
             const { list } = this.state;
             
             if (this.validateText(list)) {
-                this.props.onSaveTemplate(this.props.app.appId, list);
+                this.props.onSaveProduct(this.props.app.appId, list);
             }
         }
     }

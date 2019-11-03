@@ -32,11 +32,11 @@ const AppTable = (props) => {
                                     <FontAwesomeIcon icon={faFileAlt} />
                                 </a>
                                 <a data-toggle="tooltip" data-placement="top" title="Add Product" className="p-2" 
-                                        onClick={() => props.onOpenAddProductModal(app.appId)}>
+                                        onClick={() => props.onOpenAddProductModal(app)}>
                                     <FontAwesomeIcon icon={faGifts} />
                                 </a>
                                 <a data-toggle="tooltip" data-placement="top" title="Add Template" className="p-2" 
-                                        onClick={() => props.onOpenAddTemplateModal(app.appId)}>
+                                        onClick={() => props.onOpenAddTemplateModal(app)}>
                                     <FontAwesomeIcon icon={faMoneyCheck} />
                                 </a>
                                 <a data-toggle="tooltip" data-placement="top" title="Delete Application" className="p-2" 
