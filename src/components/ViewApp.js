@@ -89,9 +89,6 @@ class ViewApp extends Component {
         );
     }
 }
-appSetup:
-region: "ap-southeast-1"
-webDomain: "xswap-a5-dev-368593173631.auth.ap-southeast-1.amazoncognito.com"
 ViewApp.propTypes = {
     app: PropTypes.object,
     onCloseModal: PropTypes.func
