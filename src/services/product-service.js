@@ -8,7 +8,14 @@ export const createProducts = (product, token) => {
 
     return new Promise((resolve, reject) => {
         API
-            .post(`${APIName}`, `${baseApiUrl}/create`, { headers: { Authorization: `Bearer ${token}`} })
+            .post(`${APIName}`, `${baseApiUrl}/create`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                body: {
+                    product
+                }
+            })
             .then((result) => {
                 resolve(result);
             })

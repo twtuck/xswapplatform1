@@ -25,7 +25,13 @@ class AddProduct extends Component {
 
     onSave(event) {
         event.preventDefault();
-        this.props.onSaveProduct('');
+        if (this.state.validationErrors && this.state.validationErrors.length === 0) {
+            const { list } = this.state;
+            
+            if (this.validateText(list)) {
+                this.props.onSaveProduct('');
+            }
+        }
     }
 
     validateText(text) {

@@ -8,7 +8,14 @@ export const createTemplate = (template, token) => {
 
     return new Promise((resolve, reject) => {
         API
-            .post(`${APIName}`, `${baseApiUrl}/create`, { headers: { Authorization: `Bearer ${token}`} })
+            .post(`${APIName}`, `${baseApiUrl}/create`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                body: {
+                    template
+                }
+            })
             .then((result) => {
                 resolve(result);
             })

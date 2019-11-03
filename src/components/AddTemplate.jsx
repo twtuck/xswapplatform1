@@ -25,7 +25,13 @@ class AddTemplate extends Component {
 
     onSave(event) {
         event.preventDefault();
-        this.props.onSaveTemplate('');
+        if (this.state.validationErrors && this.state.validationErrors.length === 0) {
+            const { list } = this.state;
+            
+            if (this.validateText(list)) {
+                this.props.onSaveTemplate('');
+            }
+        }
     }
 
     validateText(text) {
