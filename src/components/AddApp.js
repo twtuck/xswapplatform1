@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uuidv1 from 'uuid/v1';
-import { Button, Alert } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 
 class AddApp extends Component {

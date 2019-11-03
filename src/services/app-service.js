@@ -70,6 +70,7 @@ const getServerPublicKey = (callback) => {
     if (!serverPublicKey) {
         PlatformService.getServerKey().then(response => {
             serverPublicKey = response;
+            ls.set('serverPublicKey', serverPublicKey);
             callback(response);
         });
         // serverPublicKey = '-----BEGIN PUBLIC KEY-----\r\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCl3TGxb1NNl/zbYF4tzRwfhgLV\r\naWROMZgurnMlpA2EJWbnZRiDaPN7Wdwjm2QgAkie6QIgxE9cpwaaPDQBxc2wtHFh\r\n9SU1yNUexxAbwyFuyn1SIuropw15Mml9nlDno2xlG0XO85BGiqwFNoVrzXp2mHx9\r\npQHB4t3XntLeH0nvfwIDAQAB\r\n-----END PUBLIC KEY-----\r\n';

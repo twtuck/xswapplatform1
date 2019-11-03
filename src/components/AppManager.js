@@ -54,13 +54,14 @@ class AppManager extends Component {
     listApps() {
         const { session } = this.props;
         trackPromise(
-        AppService.listApps(session.getAccessToken().getJwtToken()).then(response => {
-            this.setState({ apps: response })
-        })
-        .catch(error => {
-            console.log(error);
-            return;
-        }));
+            AppService.listApps(session.getAccessToken().getJwtToken()).then(response => {
+                this.setState({ apps: response })
+            })
+            .catch(error => {
+                console.log(error);
+                return;
+            })
+        );
     }
 
     handleOnDeleteApp(appName) {
@@ -74,7 +75,7 @@ class AppManager extends Component {
             const { session } = this.props;
             let token = session.getAccessToken().getJwtToken();
             trackPromise(
-            AppService
+                AppService
                 .removeApp(appName, token)
                 .then(() => {
                     AppService
@@ -108,7 +109,7 @@ class AppManager extends Component {
         var token = session.getAccessToken().getJwtToken();
 
         trackPromise(
-        AppService
+            AppService
             .addApp(app, token)
             .then(newApp => {             
                 AppService
@@ -168,7 +169,8 @@ class AppManager extends Component {
         this.setState({isEditAppModalOpen: false});
     }
 
-    handleOpenAddProductModal() {
+    handleOpenAddProductModal(app) {
+        this.setState({selectedApp: app});
         this.setState({isAddProductModalOpen: true});
     }
 
@@ -176,7 +178,8 @@ class AppManager extends Component {
         this.setState({isAddProductModalOpen: false});
     }
 
-    handleOpenAddTemplateModal() {
+    handleOpenAddTemplateModal(app) {
+        this.setState({selectedApp: app});
         this.setState({isAddTemplateModalOpen: true});
     }
 
@@ -194,10 +197,10 @@ class AppManager extends Component {
                     <ViewApp onCloseModal={this.handleOnCloseViewAppModal} app={this.state.selectedApp} />
                 </Modal>                  
                 <Modal isOpen={this.state.isAddProductModalOpen} onRequestClose={this.handleOnCloseAddProductModal} style={customStyles}>
-                    <AddProduct onSaveProduct={this.handleOnAddProduct} onCloseModal={this.handleOnCloseAddProductModal} />
+                    <AddProduct app={this.state.selectedApp} onSaveProduct={this.handleOnAddProduct} onCloseModal={this.handleOnCloseAddProductModal} />
                 </Modal>                       
                 <Modal isOpen={this.state.isAddTemplateModalOpen} onRequestClose={this.handleOnCloseAddTemplateModal} style={customStyles}>
-                    <AddTemplate onSaveTemplate={this.handleOnAddTemplate} onCloseModal={this.handleOnCloseAddTemplateModal} />
+                    <AddTemplate app={this.state.selectedApp} onSaveTemplate={this.handleOnAddTemplate} onCloseModal={this.handleOnCloseAddTemplateModal} />
                 </Modal>
                 <div className="mb-3">
                     <ControlPanel openAddAppModal={this.handleOpenAddAppModal} onFindApps={this.handleOnFindApps} />

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import uuidv1 from 'uuid/v1';
-import { Button } from 'react-bootstrap';
+import { Button, Alert } from 'react-bootstrap';
 
 class AddTemplate extends Component {
 
@@ -29,53 +28,28 @@ class AddTemplate extends Component {
             const { list } = this.state;
             
             if (this.validateText(list)) {
-                this.props.onSaveTemplate('');
+                this.props.onSaveTemplate(this.props.app.appId, list);
             }
         }
     }
 
     validateText(text) {
-        const message = 'Template List is required';
+        const message = 'Product List is required';
         if (text === '') {
-            this.addValidationError(message);
-            return false;
+          this.setState({validationErrorMessage: message})
+          return false;
         } else {
-            this.removeValidationError(message);
-            return true;
+          this.setState({validationErrorMessage: null})
+          return true;
         }
     }
     
-    addValidationError(message) {        
-        this.setState((previousState) => {
-            const validationErrors = [...previousState.validationErrors];
-            validationErrors.push({message});
-            return {
-                validationErrors: validationErrors
-            };
-        });      
-    }
-
-    removeValidationError(type) {
-        this.setState((previousState) => {
-            const validationErrors = previousState
-                .validationErrors
-                .filter(error => !error.message.startsWith(type));
-            
-            return {
-                validationErrors: validationErrors
-            };
-        });      
-    }
-
-    
     render() {
-        const validationErrorSummary = this.state.validationErrors.map(error => 
-            <div key={uuidv1()} className="alert alert-danger alert-dismissible fade show">
-                {error.message}
-                <button type="button" className="close" data-dismiss="alert">
-                    <span>&times;</span>
-                </button>
-            </div>
+        const { validationErrorMessage } = this.state;
+        const validationErrorSummary = ( validationErrorMessage &&
+          <Alert variant='danger'>
+            {validationErrorMessage}
+          </Alert>
         );
         return (
             <div className="card card-body">
@@ -106,6 +80,7 @@ class AddTemplate extends Component {
 }
 
 AddTemplate.propTypes = {
+    app: PropTypes.object,
     onCloseModal: PropTypes.func,
     onSaveTemplate: PropTypes.func
 };

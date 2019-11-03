@@ -10,7 +10,6 @@ import AppManager from './AppManager';
 import { Hub, Auth } from 'aws-amplify';
 import { withOAuth } from 'aws-amplify-react';
 import LoadingIndicator from "../components/LoadingIndicator";
-import ls from 'local-storage'
 
 const PlatformService = require('../services/platform-service');
 
