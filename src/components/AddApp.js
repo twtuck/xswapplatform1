@@ -85,6 +85,8 @@ class AddApp extends Component {
                     company: company,
                     facebookClientId: facebookClientId,
                     facebookClientSecret: facebookClientSecret,
+                    callbackUrl: callbackUrl,
+                    logoutUrl: logoutUrl,
                     description: description
                 }
                 this.props.onSaveApp(app);
