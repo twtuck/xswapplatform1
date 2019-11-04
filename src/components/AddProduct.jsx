@@ -65,7 +65,7 @@ class AddProduct extends Component {
                         <label htmlFor="list">Product List</label>
                         <textarea className="form-control" name="list" rows="15" onChange={this.onTextChange}></textarea>
                     </div>
-                    <div className="form-group row">
+                    <div className="row">
                         <div className="col-sm-4 col-md-3 col-xl-2 ml-auto">
                             <Button type="submit" variant="primary" block>Save</Button>
                         </div>
