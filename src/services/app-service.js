@@ -17,12 +17,12 @@ export const addApp = (app, token) => {
     return new Promise((resolve, reject) => {
         const {
             name,
-            description,
             company,
             facebookClientId,
             facebookClientSecret,
             callbackUrl,
-            logoutUrl
+            logoutUrl,
+            description
         } = app;
 
         const payload = {

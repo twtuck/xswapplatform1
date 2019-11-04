@@ -179,11 +179,11 @@ class AddApp extends Component {
                     <div className="form-group row">
                         <div className="col-6">
                             <label htmlFor="callbackUrl">Sign In Redirect URL</label>
-                            <input type="text" className="form-control" name="callbackUrl" onChange={this.onFBIdChange} />
+                            <input type="text" className="form-control" name="callbackUrl" onChange={this.onCallbackUrlChange} />
                         </div>
                         <div className="col-6">
                             <label htmlFor="logoutUrl">Sign Out Redirect URL</label>
-                            <input type="text" className="form-control" name="logoutUrl" onChange={this.onFBSecretChange} />
+                            <input type="text" className="form-control" name="logoutUrl" onChange={this.onLogoutUrlChange} />
                         </div>
                     </div>
                     <div className="form-group">

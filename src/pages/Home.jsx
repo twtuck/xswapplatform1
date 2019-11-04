@@ -28,27 +28,18 @@ export default class Home extends Component {
 }
 const content = [
 	{
-		title: 'Introduce xSwap',
+		title: 'Introducing xSwap',
 		description: 'A Platform to enable easy exchange',
-		button: 'Read More',
 		image: 'https://i.imgur.com/ZXBtVw7.jpg',
-		user: 'Luan Gjokaj',
-		userProfile: 'https://i.imgur.com/JSW6mEk.png'
 	},
 	{
 		title: 'Fast and Serverless',
 		description: 'Just one click and new application and server for you to use immediately',
-		button: 'Discover',
 		image: 'https://i.imgur.com/DCdBXcq.jpg',
-		user: 'Erich Behrens',
-		userProfile: 'https://i.imgur.com/0Clfnu7.png'
 	},
 	{
 		title: 'Easy and Convenience',
 		description: 'Create new account and an application, access from anywhere!',
-		button: 'Buy now',
 		image: 'https://i.imgur.com/DvmN8Hx.jpg',
-		user: 'Bruno Vizovskyy',
-		userProfile: 'https://i.imgur.com/4KeKvtH.png'
 	}
 ];
