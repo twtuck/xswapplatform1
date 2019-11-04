@@ -56,15 +56,30 @@ class AddApp extends Component {
         this.setState({ facebookClientSecret: facebookClientSecret });
     }
 
+    onCallbackUrlChange(event) {
+        const callbackUrl = event.target.value.trim();
+        this.validateText(callbackUrl, 'Sign In Redirect URL', true);
+        this.setState({ callbackUrl: callbackUrl });
+    }
+
+    onLogoutUrlChange(event) {
+        const logoutUrl = event.target.value.trim();
+        this.validateText(logoutUrl, 'Sign Out Redirect URL', true);
+        this.setState({ logoutUrl: logoutUrl });
+    }
+
     onSave(event) {
         event.preventDefault();
 
         if (this.state.validationErrors && this.state.validationErrors.length === 0) {
-            const { name, company, facebookClientId, facebookClientSecret, description } = this.state;
+            const { name, company, facebookClientId, facebookClientSecret, callbackUrl, logoutUrl, description } = this.state;
             
             if (this.validateText(name, 'Name') && this.validateText(company, 'Company')
                     && this.validateText(facebookClientId, 'Facebook Client Id')
-                    && this.validateText(facebookClientSecret, 'Facebook Client Secret')) {
+                    && this.validateText(facebookClientSecret, 'Facebook Client Secret')
+                    && this.validateText(callbackUrl, 'Sign In Redirect URL')
+                    && this.validateText(logoutUrl, 'Sign Out Redirect URL')
+                    && this.validateText(description, 'Description')) {
                 const app = {
                     name: name,
                     company: company,
@@ -145,18 +160,28 @@ class AddApp extends Component {
                             <input type="text" className="form-control" name="name" autoFocus onChange={this.onNameChange} />
                         </div>
                         <div className="col-6">
-                            <label htmlFor="facebookClientId">Facebook Client Id</label>
-                            <input type="text" className="form-control" name="facebookClientId" onChange={this.onFBIdChange} />
+                            <label htmlFor="company">Company</label>
+                            <input type="text" className="form-control" name="company" onChange={this.onCompanyChange} />
                         </div>
                     </div>
                     <div className="form-group row">
                         <div className="col-6">
-                            <label htmlFor="company">Company</label>
-                            <input type="text" className="form-control" name="company" onChange={this.onCompanyChange} />
+                            <label htmlFor="facebookClientId">Facebook Client Id</label>
+                            <input type="text" className="form-control" name="facebookClientId" onChange={this.onFBIdChange} />
                         </div>
                         <div className="col-6">
                             <label htmlFor="facebookClientSecret">Facebook Client Secret</label>
                             <input type="text" className="form-control" name="facebookClientSecret" onChange={this.onFBSecretChange} />
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <div className="col-6">
+                            <label htmlFor="callbackUrl">Sign In Redirect URL</label>
+                            <input type="text" className="form-control" name="callbackUrl" onChange={this.onFBIdChange} />
+                        </div>
+                        <div className="col-6">
+                            <label htmlFor="logoutUrl">Sign Out Redirect URL</label>
+                            <input type="text" className="form-control" name="logoutUrl" onChange={this.onFBSecretChange} />
                         </div>
                     </div>
                     <div className="form-group">

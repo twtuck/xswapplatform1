@@ -29,8 +29,8 @@ export const addApp = (app, token) => {
                 description: description,
                 company: company
             },
-            callbackUrl: "https://enjdkyfy0odvk.x.pipedream.net",
-            logoutUrl: "https://enjdkyfy0odvk.x.pipedream.net",
+            callbackUrl: callbackUrl,
+            logoutUrl: logoutUrl,
             facebookClient: {
                 client_id: facebookClientId, //"466080827334160",
                 client_secret: facebookClientSecret //"a475c57454a898495a0187b11a3096fd"
