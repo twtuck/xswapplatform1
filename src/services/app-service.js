@@ -20,7 +20,9 @@ export const addApp = (app, token) => {
             description,
             company,
             facebookClientId,
-            facebookClientSecret
+            facebookClientSecret,
+            callbackUrl,
+            logoutUrl
         } = app;
 
         const payload = {

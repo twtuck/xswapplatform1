@@ -75,6 +75,12 @@ class ViewApp extends Component {
                             <input type="text" className="form-control" name="webDomain" disable value={app.appSetup.webDomain}></input>
                         </div>
                     </div>
+                    <div className="form-group row">
+                        <div className="col-6">
+                            <label>OAuth Redirect URL</label>
+                            <input type="text" className="form-control" name="webDomain" disable value={'https://' + app.appSetup.webDomain + '/oauth2/idpresponse'}></input>
+                        </div>
+                    </div>
                     <div className="form-group">
                         <label htmlFor="description">Application Description</label>
                         <textarea className="form-control" name="description" rows="3" disable value={app.appInfo.description}></textarea>
