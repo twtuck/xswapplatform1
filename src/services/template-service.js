@@ -6,7 +6,7 @@ const APIName = 'MyAPIGatewayAPI';
 
 export const createTemplate = (appId, template, token) => {
 
-    const body = JSON.parse(template);
+    //const template = JSON.parse(template);
     console.log(appId);
 
     return new Promise((resolve, reject) => {
@@ -16,7 +16,9 @@ export const createTemplate = (appId, template, token) => {
                     Authorization: `Bearer ${token}`,
                     appId
                 },
-                body
+                body: {
+                    appId, template
+                }
             })
             .then((result) => {
                 resolve(result);
