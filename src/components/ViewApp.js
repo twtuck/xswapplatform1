@@ -85,7 +85,7 @@ class ViewApp extends Component {
                         <label htmlFor="description">Application Description</label>
                         <textarea className="form-control" name="description" rows="3" disable value={app.appInfo.description}></textarea>
                     </div>
-                    <div className="form-group row">
+                    <div className="row">
                         <div className="col-sm-4 col-md-3 col-xl-2 ml-auto">
                             <Button type="button" variant="danger" onClick={this.props.onCloseModal} block>Close</Button>
                         </div>

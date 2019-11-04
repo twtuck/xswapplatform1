@@ -214,7 +214,7 @@ class AppManager extends Component {
 }
 const customStyles = {
     overlay : {
-      top: '80px'
+      top: '55px'
     }
 };
 

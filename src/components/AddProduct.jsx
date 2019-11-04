@@ -63,7 +63,7 @@ class AddProduct extends Component {
                 <form onSubmit={this.onSave} className="mt-2">
                     <div className="form-group">
                         <label htmlFor="list">Product List</label>
-                        <textarea className="form-control" name="list" rows="15" onChange={this.onTextChange}></textarea>
+                        <textarea className="form-control" name="list" rows="14" onChange={this.onTextChange}></textarea>
                     </div>
                     <div className="row">
                         <div className="col-sm-4 col-md-3 col-xl-2 ml-auto">
