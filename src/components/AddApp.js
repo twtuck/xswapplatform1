@@ -23,6 +23,8 @@ class AddApp extends Component {
         this.onCompanyChange = this.onCompanyChange.bind(this);
         this.onFBIdChange = this.onFBIdChange.bind(this);
         this.onFBSecretChange = this.onFBSecretChange.bind(this);
+        this.onCallbackUrlChange = this.onCallbackUrlChange.bind(this);
+        this.onLogoutUrlChange = this.onLogoutUrlChange.bind(this);
         this.onSave = this.onSave.bind(this);
     }
 
