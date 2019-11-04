@@ -13,8 +13,7 @@ export const createTemplate = (appId, template, token) => {
         API
             .post(`${APIName}`, `${baseApiUrl}/create`, {
                 headers: { 
-                    Authorization: `Bearer ${token}`,
-                    appId
+                    Authorization: `Bearer ${token}`
                 },
                 body: {
                     appId, template
