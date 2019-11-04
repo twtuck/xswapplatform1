@@ -6,7 +6,7 @@ const APIName = 'MyAPIGatewayAPI';
 
 export const createProducts = (appId, product, token) => {
 
-    const body = [
+    const productList = [
         {
             "title" : "Clash of Clan",
             "avatarUrl" : "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/04/c3/90/04c3907c-6638-20cb-0116-88adf62d6d3f/AppIcon-0-1x_U007emarketing-0-85-220-6.png/246x0w.jpg",
@@ -27,9 +27,11 @@ export const createProducts = (appId, product, token) => {
             .post(`${APIName}`, `${baseApiUrl}/create`, {
                 headers: { 
                     Authorization: `Bearer ${token}`,
-                    appId
+                    //appId
                 },
-                body
+                body: {
+                    appId, productList
+                }
             })
             .then((result) => {
                 resolve(result);
