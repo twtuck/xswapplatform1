@@ -103,11 +103,8 @@ class AddApp extends Component {
             return false;
         } else {
             if (checkCharacter) {
-                var re = new RegExp("[\w]");
-                var re1 = new RegExp("[A-Za-z0-9 ]");
+                var re = new RegExp("^[A-Za-z0-9 ]*$");
                 var OK = re.test(text);
-                console.log("1: " + OK)
-                console.log("2: " + re1.test(text))
                 if (!OK) {
                     const message = type + ' only allow alphabet and number character';
                     this.setState({validationErrorMessage: message})
