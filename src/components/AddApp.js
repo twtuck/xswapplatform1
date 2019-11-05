@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uuidv1 from 'uuid/v1';
-import { Button } from 'react-bootstrap';
+import { Button, Alert } from 'react-bootstrap';
 
 
 class AddApp extends Component {
@@ -99,54 +99,29 @@ class AddApp extends Component {
     validateText(text, type, checkCharacter) {
         if (text === '') {
             const message = type + ' is required';
-            this.addValidationError(message);
+            this.setState({validationErrorMessage: message})
             return false;
         } else {
             if (checkCharacter) {
-                var re = /\w/;
-                var OK = re.exec(text); 
+                var re = new RegExp("/\w/");
+                var OK = re.test(text); 
                 if (!OK) {
                     const message = type + ' only allow alphabet and number character';
-                    this.addValidationError(message);
+                    this.setState({validationErrorMessage: message})
                     return false;
                 }
             }
-            this.removeValidationError(type);
+            this.setState({validationErrorMessage: null})
             return true;
         }
     }
     
-    addValidationError(message) {        
-        this.setState((previousState) => {
-            const validationErrors = [...previousState.validationErrors];
-            validationErrors.push({message});
-            return {
-                validationErrors: validationErrors
-            };
-        });      
-    }
-
-    removeValidationError(type) {
-        this.setState((previousState) => {
-            const validationErrors = previousState
-                .validationErrors
-                .filter(error => !error.message.startsWith(type));
-            
-            return {
-                validationErrors: validationErrors
-            };
-        });      
-    }
-
-    
     render() {
-        const validationErrorSummary = this.state.validationErrors.map(error => 
-            <div key={uuidv1()} className="alert alert-danger alert-dismissible fade show">
-                {error.message}
-                <button type="button" className="close" data-dismiss="alert">
-                    <span>&times;</span>
-                </button>
-            </div>
+        const { validationErrorMessage } = this.state;
+        const validationErrorSummary = ( validationErrorMessage &&
+          <Alert variant='danger'>
+            {validationErrorMessage}
+          </Alert>
         );
         return (
             <div className="card card-body">

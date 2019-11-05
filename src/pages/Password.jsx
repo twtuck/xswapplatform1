@@ -77,11 +77,17 @@ class Password extends Component {
   }
 
   validateNewPassword(text) {
-    const message = 'New Password is required';
     if (text === '') {
+      const message = 'New Password is required';
       this.setState({validationErrorMessage: message})
       return false;
     } else {
+      var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+      if (!strongRegex.test(text)) {
+        const message = 'Password failed to satisfy constraint';
+        this.setState({validationErrorMessage: message})
+        return false;
+      }
       this.setState({validationErrorMessage: null})
       return true;
     }
