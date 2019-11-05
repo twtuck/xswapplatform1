@@ -3,6 +3,7 @@ import { Navbar, Nav, Button } from 'react-bootstrap';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import { Hub, Auth } from 'aws-amplify';
 import { withOAuth } from 'aws-amplify-react';
+import ls from 'local-storage'
 
 class Navigator extends Component {
   constructor(props) {
@@ -23,7 +24,10 @@ class Navigator extends Component {
 
   signOut = () => {
     Auth.signOut()
-      .then(data => console.log(data))
+      .then(data => {
+        console.log(data);
+        ls.clear();
+      })
       .catch(err => console.log(err));
   }
 

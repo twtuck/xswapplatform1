@@ -11,7 +11,6 @@ export const getUserProfile = (token) => {
             .get(`${APIName}`, `${baseApiUrl}/userprofile`, { headers: { Authorization: `Bearer ${token}`} })
             .then((result) => {
                 resolve(result.Item);
-                console.log(result);
             })
             .catch(error => {
                 console.log(error);
@@ -20,13 +19,12 @@ export const getUserProfile = (token) => {
     });
 };
 
-export const getServerKey = (token) => {
+export const getServerKey = () => {
 
     return new Promise((resolve, reject) => {
         API.get(`${APIName}`, `${baseApiUrl}/serverKey`, null)
         .then((result) => {
             resolve(result.serverPublicKey);
-            console.log(result);
         })
         .catch(error => {
             console.log(error);
@@ -62,7 +60,6 @@ export const getUsers = (token) => {
         API.get(`${APIName}`, `${baseApiUrl}/users`, { headers: { Authorization: `Bearer ${token}`} })
         .then((result) => {
             resolve(result.Items);
-            console.log(result);
         })
         .catch(error => {
             console.log(error);

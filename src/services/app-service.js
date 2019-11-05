@@ -17,10 +17,12 @@ export const addApp = (app, token) => {
     return new Promise((resolve, reject) => {
         const {
             name,
-            description,
             company,
             facebookClientId,
-            facebookClientSecret
+            facebookClientSecret,
+            callbackUrl,
+            logoutUrl,
+            description
         } = app;
 
         const payload = {
@@ -29,14 +31,15 @@ export const addApp = (app, token) => {
                 description: description,
                 company: company
             },
-            callbackUrl: "https://enjdkyfy0odvk.x.pipedream.net",
-            logoutUrl: "https://enjdkyfy0odvk.x.pipedream.net",
+            callbackUrl: callbackUrl,
+            logoutUrl: logoutUrl,
             facebookClient: {
                 client_id: facebookClientId, //"466080827334160",
                 client_secret: facebookClientSecret //"a475c57454a898495a0187b11a3096fd"
             }
         };
-        getServerPublicKey(token, (serverPublicKey) => {
+        getServerPublicKey((serverPublicKey) => {
+            console.log(serverPublicKey);
             joseHelper.encrypt(serverPublicKey, JSON.stringify(payload))
                 .then(jwe => {
                     console.log(jwe);
@@ -48,28 +51,32 @@ export const addApp = (app, token) => {
                             jwe
                         }
                     })
-                .then((result) => {
-                    resolve(result);
+                    .then((result) => {
+                        resolve(result);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        reject(error.message);
+                    });
                 })
                 .catch(error => {
                     console.log(error);
                     reject(error.message);
                 });
-            });
         });
     });
 };
 
-const getServerPublicKey = (token, callback) => {
+const getServerPublicKey = (callback) => {
     let serverPublicKey = ls.get('serverPublicKey');
     if (!serverPublicKey) {
-        // PlatformService.getServerKey(token).then(response => {
-        //     console.log(response);
-        //     serverPublicKey = response.serverKey;
-        //     callback(serverPublicKey);
-        // });
-        serverPublicKey = '-----BEGIN PUBLIC KEY-----\r\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCi/H8+Oize7Y6Y4Fx4Rp9phOSu\r\nY5IcRV+axAFnzPZM6JxA7b7Ufi5urBbezjOVTqwtBCmzkngUyKDjmv35MHSRiv4j\r\nuR5bnwrqE9OhECySdpbE8ZNT9bZUx2u5Y29VuDBQRdkDk4LDcnAInxRYC+Muf6TV\r\nLHGlP/PMeS/m1n1vAQIDAQAB\r\n-----END PUBLIC KEY-----\r\n';
-        callback(serverPublicKey);
+        PlatformService.getServerKey().then(response => {
+            serverPublicKey = response;
+            ls.set('serverPublicKey', serverPublicKey);
+            callback(response);
+        });
+        // serverPublicKey = '-----BEGIN PUBLIC KEY-----\r\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCl3TGxb1NNl/zbYF4tzRwfhgLV\r\naWROMZgurnMlpA2EJWbnZRiDaPN7Wdwjm2QgAkie6QIgxE9cpwaaPDQBxc2wtHFh\r\n9SU1yNUexxAbwyFuyn1SIuropw15Mml9nlDno2xlG0XO85BGiqwFNoVrzXp2mHx9\r\npQHB4t3XntLeH0nvfwIDAQAB\r\n-----END PUBLIC KEY-----\r\n';
+        // callback(serverPublicKey);
     } else {
         callback(serverPublicKey);
     }

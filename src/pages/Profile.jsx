@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import uuidv1 from 'uuid/v1';
 import SetupTotp from "../components/SetupTotp";
 import { Button, Tabs, Tab, Alert } from 'react-bootstrap';
-import { Auth } from 'aws-amplify';
 import { trackPromise } from 'react-promise-tracker';
 import Password from "./Password";
 const PlatformService = require('../services/platform-service');
@@ -32,7 +31,7 @@ class Profile extends Component {
 
   getUserProfile() {
     const { session } = this.props;
-
+    trackPromise(
     PlatformService.getUserProfile(session.getAccessToken().getJwtToken()).then(response => {
       let userProfile = response.userProfile;
       if (!userProfile) {
@@ -52,7 +51,7 @@ class Profile extends Component {
     .catch(error => {
         console.log(error);
         return;
-    });
+    }));
   }
 
   onFirstNameChange(event) {

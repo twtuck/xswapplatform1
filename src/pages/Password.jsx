@@ -41,18 +41,28 @@ class Password extends Component {
   onSavePassword(event) {
     event.preventDefault();
     const { password, newPassword, confirmPassword } = this.state;
-    Auth.currentAuthenticatedUser()
-      .then(user => {
-        return Auth.changePassword(user, password, confirmPassword);
-      })
-      .then(data => {
-        this.setState({updateResult: 'success'});
-        console.log(data);
-      })
-      .catch(err => {
-        this.setState({updateResult: 'fail'});
-        console.log(err);
-      });
+    if (!this.validatePassword(password) || !this.validateNewPassword(newPassword)
+        || !this.validateConfirmPassword(confirmPassword)) {
+      return;
+    }
+    trackPromise(
+      Auth.currentAuthenticatedUser()
+        .then(user => {
+          return Auth.changePassword(user, password, confirmPassword);
+        })
+        .then(data => {
+          this.setState({
+            updateResult: 'success',
+            password: '',
+            newPassword: '',
+            confirmPassword: ''
+          });
+          console.log(data);
+        })
+        .catch(err => {
+          this.setState({updateResult: 'fail'});
+          console.log(err);
+        }));
   }
 
   validatePassword(text) {
@@ -67,46 +77,37 @@ class Password extends Component {
   }
 
   validateNewPassword(text) {
-    const message = 'New Password is required';
     if (text === '') {
+      const message = 'New Password is required';
       this.setState({validationErrorMessage: message})
       return false;
     } else {
+      var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+      if (!strongRegex.test(text)) {
+        const message = 'Password failed to satisfy constraint';
+        this.setState({validationErrorMessage: message})
+        return false;
+      }
       this.setState({validationErrorMessage: null})
       return true;
     }
   }
 
   validateConfirmPassword(text) {
-    const message = 'Confirm New Password is required';
     if (text === '') {
+      const message = 'Confirm New Password is required';
       this.setState({validationErrorMessage: message})
       return false;
     } else {
+      const { newPassword } = this.state;
+      if (text !== newPassword) {
+        const message = 'Password does not match!';
+        this.setState({validationErrorMessage: message})
+        return false;
+      }
       this.setState({validationErrorMessage: null})
       return true;
     }
-  }
-    
-  addValidationError(message) {        
-    this.setState((previousState) => {
-      const validationErrors = [...previousState.validationErrors];
-      validationErrors.push({message});
-      return {
-        validationErrors: validationErrors
-      };
-    });      
-  }
-
-  removeValidationError(message) {
-    this.setState((previousState) => {
-      const validationErrors = previousState
-        .validationErrors
-          .filter(error => error.message !== message);
-      return {
-        validationErrors: validationErrors
-      };
-    });
   }
 
   render() {

@@ -40,6 +40,12 @@
 
 .first-column {
   width: 55px;
+  text-align: center;
+}
+
+.last-column {
+  width: 150px;
+  text-align: center;
 }
 
 .loading-indicator {

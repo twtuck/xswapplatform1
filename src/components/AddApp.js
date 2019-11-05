@@ -23,6 +23,8 @@ class AddApp extends Component {
         this.onCompanyChange = this.onCompanyChange.bind(this);
         this.onFBIdChange = this.onFBIdChange.bind(this);
         this.onFBSecretChange = this.onFBSecretChange.bind(this);
+        this.onCallbackUrlChange = this.onCallbackUrlChange.bind(this);
+        this.onLogoutUrlChange = this.onLogoutUrlChange.bind(this);
         this.onSave = this.onSave.bind(this);
     }
 
@@ -56,23 +58,40 @@ class AddApp extends Component {
         this.setState({ facebookClientSecret: facebookClientSecret });
     }
 
+    onCallbackUrlChange(event) {
+        const callbackUrl = event.target.value.trim();
+        this.validateText(callbackUrl, 'Sign In Redirect URL', true);
+        this.setState({ callbackUrl: callbackUrl });
+    }
+
+    onLogoutUrlChange(event) {
+        const logoutUrl = event.target.value.trim();
+        this.validateText(logoutUrl, 'Sign Out Redirect URL', true);
+        this.setState({ logoutUrl: logoutUrl });
+    }
+
     onSave(event) {
         event.preventDefault();
 
         if (this.state.validationErrors && this.state.validationErrors.length === 0) {
-            const { name, company, facebookClientId, facebookClientSecret } = this.state;
+            const { name, company, facebookClientId, facebookClientSecret, callbackUrl, logoutUrl, description } = this.state;
             
             if (this.validateText(name, 'Name') && this.validateText(company, 'Company')
                     && this.validateText(facebookClientId, 'Facebook Client Id')
-                    && this.validateText(facebookClientSecret, 'Facebook Client Secret')) {
-                this.props.onSaveApp(this.state)
-                    .then(() => {
-                        this.setState({addResult: 'success'});
-                    })
-                    .catch(error => {
-                        console.log(error);
-                        this.setState({addResult: 'fail'});
-                    });
+                    && this.validateText(facebookClientSecret, 'Facebook Client Secret')
+                    && this.validateText(callbackUrl, 'Sign In Redirect URL')
+                    && this.validateText(logoutUrl, 'Sign Out Redirect URL')
+                    && this.validateText(description, 'Description')) {
+                const app = {
+                    name: name,
+                    company: company,
+                    facebookClientId: facebookClientId,
+                    facebookClientSecret: facebookClientSecret,
+                    callbackUrl: callbackUrl,
+                    logoutUrl: logoutUrl,
+                    description: description
+                }
+                this.props.onSaveApp(app);
             }
         }
     }
@@ -80,68 +99,30 @@ class AddApp extends Component {
     validateText(text, type, checkCharacter) {
         if (text === '') {
             const message = type + ' is required';
-            this.addValidationError(message);
+            this.setState({validationErrorMessage: message})
             return false;
         } else {
             if (checkCharacter) {
-                var re = /\w/;
-                var OK = re.exec(text); 
+                var re = new RegExp("^[A-Za-z0-9 ]*$");
+                var OK = re.test(text);
                 if (!OK) {
                     const message = type + ' only allow alphabet and number character';
-                    this.addValidationError(message);
+                    this.setState({validationErrorMessage: message})
                     return false;
                 }
             }
-            this.removeValidationError(type);
+            this.setState({validationErrorMessage: null})
             return true;
         }
     }
     
-    addValidationError(message) {        
-        this.setState((previousState) => {
-            const validationErrors = [...previousState.validationErrors];
-            validationErrors.push({message});
-            return {
-                validationErrors: validationErrors
-            };
-        });      
-    }
-
-    removeValidationError(type) {
-        this.setState((previousState) => {
-            const validationErrors = previousState
-                .validationErrors
-                .filter(error => !error.message.startsWith(type));
-            
-            return {
-                validationErrors: validationErrors
-            };
-        });      
-    }
-
-    
     render() {
-
-        const validationErrorSummary = this.state.validationErrors.map(error => 
-            <div key={uuidv1()} className="alert alert-danger alert-dismissible fade show">
-                {error.message}
-                <button type="button" className="close" data-dismiss="alert">
-                    <span>&times;</span>
-                </button>
-            </div>
-        );
-        const success = (
-          <Alert variant='success'>
-            Added successfully.
-          </Alert>
-        );
-        const fail = (
+        const { validationErrorMessage } = this.state;
+        const validationErrorSummary = ( validationErrorMessage &&
           <Alert variant='danger'>
-            Error when adding new Application, please try again.
+            {validationErrorMessage}
           </Alert>
         );
-        const { addResult } = this.state;
-
         return (
             <div className="card card-body">
                 <div className="mb-2">        
@@ -151,8 +132,6 @@ class AddApp extends Component {
                     </a>
                 </div>
                 {validationErrorSummary}
-                {addResult && addResult === 'success' && success}
-                {addResult && addResult === 'fail' && fail}
                 <form onSubmit={this.onSave} className="mt-2">
                     <div className="form-group row">
                         <div className="col-6">
@@ -160,25 +139,35 @@ class AddApp extends Component {
                             <input type="text" className="form-control" name="name" autoFocus onChange={this.onNameChange} />
                         </div>
                         <div className="col-6">
-                            <label htmlFor="facebookClientId">Facebook Client Id</label>
-                            <input type="text" className="form-control" name="facebookClientId" onChange={this.onFBIdChange} />
+                            <label htmlFor="company">Company</label>
+                            <input type="text" className="form-control" name="company" onChange={this.onCompanyChange} />
                         </div>
                     </div>
                     <div className="form-group row">
                         <div className="col-6">
-                            <label htmlFor="company">Company</label>
-                            <input type="text" className="form-control" name="company" onChange={this.onCompanyChange} />
+                            <label htmlFor="facebookClientId">Facebook Client Id</label>
+                            <input type="text" className="form-control" name="facebookClientId" onChange={this.onFBIdChange} />
                         </div>
                         <div className="col-6">
                             <label htmlFor="facebookClientSecret">Facebook Client Secret</label>
                             <input type="text" className="form-control" name="facebookClientSecret" onChange={this.onFBSecretChange} />
                         </div>
                     </div>
+                    <div className="form-group row">
+                        <div className="col-6">
+                            <label htmlFor="callbackUrl">Sign In Redirect URL</label>
+                            <input type="text" className="form-control" name="callbackUrl" onChange={this.onCallbackUrlChange} />
+                        </div>
+                        <div className="col-6">
+                            <label htmlFor="logoutUrl">Sign Out Redirect URL</label>
+                            <input type="text" className="form-control" name="logoutUrl" onChange={this.onLogoutUrlChange} />
+                        </div>
+                    </div>
                     <div className="form-group">
                         <label htmlFor="description">Application Description</label>
-                        <textarea className="form-control" name="description" rows="3" onChange={this.onDescriptionChange}></textarea>
+                        <textarea className="form-control" name="description" maxLength="500" rows="3" onChange={this.onDescriptionChange}></textarea>
                     </div>
-                    <div className="form-group row">
+                    <div className="row">
                         <div className="col-sm-4 col-md-3 col-xl-2 ml-auto">
                             <Button type="submit" variant="primary" block>Save</Button>
                         </div>
